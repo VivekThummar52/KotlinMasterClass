@@ -1,7 +1,6 @@
 package com.example.kotlinmasterclass.features.dashboard
 
 import android.util.Log
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
@@ -14,8 +13,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import com.example.kotlinmasterclass.features.dashboard.model.TutorialTopic
 
-// Define our custom soothing pastel palette
+// The 6 unique, non-repeating soothing pastel colors
 private val PastelBlue = Color(0xFFE3F2FD)
 private val PastelGreen = Color(0xFFE8F5E9)
 private val PastelYellow = Color(0xFFFFF9C4)
@@ -30,6 +30,7 @@ fun DashboardScreen(
     onNavigateToScopeFunctions: () -> Unit,
     onNavigateToSettings: () -> Unit
 ) {
+    // Complete catalog list to fully test the grid layout and colors
     val topics = listOf(
         TutorialTopic(
             title = "Coroutines",
@@ -42,8 +43,31 @@ fun DashboardScreen(
             description = "let, run, with, apply, also explained.",
             containerColor = PastelGreen,
             onClick = onNavigateToScopeFunctions
+        ),
+        TutorialTopic(
+            title = "Extension Functions",
+            description = "Adding functionality to existing classes without inheritance.",
+            containerColor = PastelYellow,
+            onClick = { Log.d("MasterclassLog", "Extension Functions clicked (Placeholder)") }
+        ),
+        TutorialTopic(
+            title = "Higher-Order Functions",
+            description = "Functions that accept other functions as parameters or return them.",
+            containerColor = PastelPurple,
+            onClick = { Log.d("MasterclassLog", "Higher-Order Functions clicked (Placeholder)") }
+        ),
+        TutorialTopic(
+            title = "Sealed & Enum Classes",
+            description = "Representing restricted class hierarchies and state modeling.",
+            containerColor = PastelCoral,
+            onClick = { Log.d("MasterclassLog", "Sealed Classes clicked (Placeholder)") }
+        ),
+        TutorialTopic(
+            title = "Generics & Variance",
+            description = "Understanding out, in, invariant types, and type safety.",
+            containerColor = PastelOrange,
+            onClick = { Log.d("MasterclassLog", "Generics clicked (Placeholder)") }
         )
-        // Add more items here as we grow the app
     )
 
     Scaffold(
@@ -53,7 +77,7 @@ fun DashboardScreen(
                 colors = TopAppBarDefaults.topAppBarColors(
                     containerColor = MaterialTheme.colorScheme.surfaceVariant
                 ),
-                actions = { // Added the Settings Icon
+                actions = {
                     IconButton(onClick = onNavigateToSettings) {
                         Icon(Icons.Filled.Settings, contentDescription = "Settings")
                     }
@@ -66,10 +90,11 @@ fun DashboardScreen(
                 .fillMaxSize()
                 .padding(paddingValues)
         ) {
-            // Visible UI Comment as requested
             Card(
-                colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.tertiaryContainer),
-                modifier = Modifier.fillMaxWidth().padding(16.dp)
+                colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.secondaryContainer),
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = 16.dp, vertical = 16.dp)
             ) {
                 Text(
                     text = "💡 INSTRUCTIONS: Tap a card below to open its tutorial. Keep your Android Studio Logcat open and filter by 'MasterclassLog' to see background execution results as you interact with the app.",
@@ -80,11 +105,9 @@ fun DashboardScreen(
 
             LazyVerticalGrid(
                 columns = GridCells.Fixed(2),
-                // FIX 1: Provide internal padding so the scrollable area leaves room for shadows
                 contentPadding = PaddingValues(start = 16.dp, end = 16.dp, bottom = 32.dp),
                 horizontalArrangement = Arrangement.spacedBy(16.dp),
                 verticalArrangement = Arrangement.spacedBy(16.dp),
-                // FIX 2: Weight ensures the grid pushes down fully, preventing clipping
                 modifier = Modifier.weight(1f)
             ) {
                 items(topics) { topic ->
@@ -95,13 +118,7 @@ fun DashboardScreen(
     }
 }
 
-data class TutorialTopic(
-    val title: String,
-    val description: String,
-    val containerColor: Color,
-    val onClick: () -> Unit
-)
-
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun TopicCard(topic: TutorialTopic) {
     Card(
@@ -110,8 +127,10 @@ fun TopicCard(topic: TutorialTopic) {
             topic.onClick()
         },
         elevation = CardDefaults.cardElevation(defaultElevation = 6.dp),
-        colors = CardDefaults.cardColors(containerColor = topic.containerColor,
-            contentColor = Color.Black), // Ensuring text is always readable on light pastels
+        colors = CardDefaults.cardColors(
+            containerColor = topic.containerColor,
+            contentColor = Color.Black
+        ),
         modifier = Modifier
             .fillMaxWidth()
             .aspectRatio(1f)
