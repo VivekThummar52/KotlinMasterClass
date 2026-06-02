@@ -5,5 +5,9 @@ sealed class Screen(val route: String) {
     object Dashboard : Screen("dashboard")
     object Coroutines : Screen("coroutines_tutorial")
     object ScopeFunctions : Screen("scope_functions_tutorial")
+    object ExtensionFunctions : Screen("extension_functions_tutorial")
+    object HigherOrderFunctions : Screen("higher_order_functions_tutorial")
+    object SealedClasses : Screen("sealed_classes_tutorial")
+    object Generics : Screen("generics_variance_tutorial")
     // We will add more routes here as we build out the app
 }

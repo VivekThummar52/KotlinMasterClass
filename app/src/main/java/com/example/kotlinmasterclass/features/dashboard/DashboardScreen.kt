@@ -2,6 +2,7 @@ package com.example.kotlinmasterclass.features.dashboard
 
 import android.util.Log
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
@@ -28,6 +29,10 @@ private val PastelOrange = Color(0xFFFFF3E0)
 fun DashboardScreen(
     onNavigateToCoroutines: () -> Unit,
     onNavigateToScopeFunctions: () -> Unit,
+    onNavigateToExtensionFunctions: () -> Unit,
+    onNavigateToHigherOrderFunctions: () -> Unit,
+    onNavigateToSealedClasses: () -> Unit,
+    onNavigateToGenerics: () -> Unit,
     onNavigateToSettings: () -> Unit
 ) {
     // Complete catalog list to fully test the grid layout and colors
@@ -48,25 +53,25 @@ fun DashboardScreen(
             title = "Extension Functions",
             description = "Adding functionality to existing classes without inheritance.",
             containerColor = PastelYellow,
-            onClick = { Log.d("MasterclassLog", "Extension Functions clicked (Placeholder)") }
+            onClick = onNavigateToExtensionFunctions
         ),
         TutorialTopic(
             title = "Higher-Order Functions",
             description = "Functions that accept other functions as parameters or return them.",
             containerColor = PastelPurple,
-            onClick = { Log.d("MasterclassLog", "Higher-Order Functions clicked (Placeholder)") }
+            onClick = onNavigateToHigherOrderFunctions
         ),
         TutorialTopic(
             title = "Sealed & Enum Classes",
             description = "Representing restricted class hierarchies and state modeling.",
             containerColor = PastelCoral,
-            onClick = { Log.d("MasterclassLog", "Sealed Classes clicked (Placeholder)") }
+            onClick = onNavigateToSealedClasses
         ),
         TutorialTopic(
             title = "Generics & Variance",
             description = "Understanding out, in, invariant types, and type safety.",
             containerColor = PastelOrange,
-            onClick = { Log.d("MasterclassLog", "Generics clicked (Placeholder)") }
+            onClick = onNavigateToGenerics
         )
     )
 
@@ -139,7 +144,7 @@ fun TopicCard(topic: TutorialTopic) {
             modifier = Modifier
                 .padding(16.dp)
                 .fillMaxSize(),
-            verticalArrangement = Arrangement.Center
+            verticalArrangement = Arrangement.Top
         ) {
             Text(
                 text = topic.title,
