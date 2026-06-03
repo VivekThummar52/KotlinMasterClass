@@ -23,6 +23,10 @@ private val PastelYellow = Color(0xFFFFF9C4)
 private val PastelPurple = Color(0xFFF3E5F5)
 private val PastelCoral = Color(0xFFFFEBEE)
 private val PastelOrange = Color(0xFFFFF3E0)
+private val PastelCyan = Color(0xFFE0F7FA)
+private val PastelPink = Color(0xFFFCE4EC)
+private val PastelTeal = Color(0xFFC4ECE8)
+private val PastelMint = Color(0xFFE8F5E9)
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -33,6 +37,10 @@ fun DashboardScreen(
     onNavigateToHigherOrderFunctions: () -> Unit,
     onNavigateToSealedClasses: () -> Unit,
     onNavigateToGenerics: () -> Unit,
+    onNavigateToFlow: () -> Unit,
+    onNavigateToConcurrency: () -> Unit,
+    onNavigateToDelegation: () -> Unit,
+    onNavigateToPerformance: () -> Unit,
     onNavigateToSettings: () -> Unit
 ) {
     // Complete catalog list to fully test the grid layout and colors
@@ -72,6 +80,30 @@ fun DashboardScreen(
             description = "Understanding out, in, invariant types, and type safety.",
             containerColor = PastelOrange,
             onClick = onNavigateToGenerics
+        ),
+        TutorialTopic(
+            title = "Kotlin Flow",
+            description = "Reactive streams: StateFlow, SharedFlow, and operators.",
+            containerColor = PastelCyan,
+            onClick = onNavigateToFlow
+        ),
+        TutorialTopic(
+            title = "Advanced Concurrency",
+            description = "Thread safety, Mutex, and structured exception handling.",
+            containerColor = PastelPink,
+            onClick = onNavigateToConcurrency // Linked!
+        ),
+        TutorialTopic(
+            title = "Delegation Patterns",
+            description = "Class delegation and property interception (lazy, observable).",
+            containerColor = PastelTeal,
+            onClick = onNavigateToDelegation // Linked!
+        ),
+        TutorialTopic(
+            title = "Performance & Memory",
+            description = "Sequences vs Iterables, and zero-allocation Value Classes.",
+            containerColor = PastelMint,
+            onClick = onNavigateToPerformance
         )
     )
 

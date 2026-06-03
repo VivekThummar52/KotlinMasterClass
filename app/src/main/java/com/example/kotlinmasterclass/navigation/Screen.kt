@@ -9,5 +9,9 @@ sealed class Screen(val route: String) {
     object HigherOrderFunctions : Screen("higher_order_functions_tutorial")
     object SealedClasses : Screen("sealed_classes_tutorial")
     object Generics : Screen("generics_variance_tutorial")
+    object KotlinFlow : Screen("flow_tutorial")
+    object AdvancedConcurrency : Screen("advanced_concurrency_tutorial")
+    object Delegation : Screen("delegation_tutorial")
+    object Performance : Screen("performance_tutorial")
     // We will add more routes here as we build out the app
 }
