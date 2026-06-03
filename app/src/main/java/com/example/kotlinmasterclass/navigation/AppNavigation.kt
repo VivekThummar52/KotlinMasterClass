@@ -5,6 +5,8 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.example.kotlinmasterclass.features.canvas.CanvasScreen
+import com.example.kotlinmasterclass.features.canvas.CanvasViewModel
 import com.example.kotlinmasterclass.features.concurrency.AdvancedConcurrencyScreen
 import com.example.kotlinmasterclass.features.concurrency.AdvancedConcurrencyViewModel
 import com.example.kotlinmasterclass.features.contextreceivers.ContextReceiversScreen
@@ -53,6 +55,7 @@ fun AppNavigation() {
                 onNavigateToPerformance = { navController.navigate(Screen.Performance.route) },
                 onNavigateToContracts = { navController.navigate(Screen.Contracts.route) },
                 onNavigateToContextReceivers = { navController.navigate(Screen.ContextReceivers.route) },
+                onNavigateToCanvas = { navController.navigate(Screen.CanvasAnimation.route) },
                 onNavigateToSettings = { navController.navigate(Screen.Settings.route) })
         }
 
@@ -150,6 +153,14 @@ fun AppNavigation() {
             val receiversViewModel: ContextReceiversViewModel = hiltViewModel()
             ContextReceiversScreen(
                 viewModel = receiversViewModel,
+                onBackClick = { navController.popBackStack() }
+            )
+        }
+
+        composable(route = Screen.CanvasAnimation.route) {
+            val canvasViewModel: CanvasViewModel = hiltViewModel()
+            CanvasScreen(
+                viewModel = canvasViewModel,
                 onBackClick = { navController.popBackStack() }
             )
         }

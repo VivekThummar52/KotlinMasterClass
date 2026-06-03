@@ -15,5 +15,6 @@ sealed class Screen(val route: String) {
     object Performance : Screen("performance_tutorial")
     object Contracts : Screen("contracts_tutorial")
     object ContextReceivers : Screen("context_receivers_tutorial")
+    object CanvasAnimation : Screen("canvas_animation_tutorial")
     // We will add more routes here as we build out the app
 }

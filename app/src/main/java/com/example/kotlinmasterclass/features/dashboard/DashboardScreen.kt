@@ -26,6 +26,9 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.example.kotlinmasterclass.features.dashboard.model.TutorialTopic
+import androidx.hilt.navigation.compose.hiltViewModel
+import com.example.kotlinmasterclass.features.settings.SettingsViewModel
+import com.example.kotlinmasterclass.features.settings.ThemePreference
 
 // --- LIGHT PALETTE (Bright Pastels) ---
 private val LBlue = Color(0xFFE3F2FD)
@@ -40,6 +43,7 @@ private val LTeal = Color(0xFFE0F2F1)
 private val LMint = Color(0xFFF1F8E9)
 private val LLime = Color(0xFFF9FBE7)
 private val LIndigo = Color(0xFFE8EAF6)
+private val LRed = Color(0xFFFFEBEE)
 
 // --- DARK PALETTE (Deep, Muted Tones) ---
 private val DBlue = Color(0xFF1E3A8A)
@@ -54,6 +58,7 @@ private val DTeal = Color(0xFF134E4A)
 private val DMint = Color(0xFF064E3B)
 private val DLime = Color(0xFF3F6212)
 private val DIndigo = Color(0xFF311B92)
+private val DRed = Color(0xFF7F1D1D)
 
 // Helper class for grouping
 data class TopicCategory(
@@ -76,10 +81,20 @@ fun DashboardScreen(
     onNavigateToPerformance: () -> Unit,
     onNavigateToContracts: () -> Unit,
     onNavigateToContextReceivers: () -> Unit,
-    onNavigateToSettings: () -> Unit
+    onNavigateToCanvas: () -> Unit,
+    onNavigateToSettings: () -> Unit,
+    settingsViewModel: SettingsViewModel = hiltViewModel()
 ) {
-    // Dynamically check the theme to assign the correct palette
-    val isDark = isSystemInDarkTheme()
+    // 1. Observe the app's internal theme setting
+    val currentTheme by settingsViewModel.themePreference.collectAsState()
+    val isSystemDark = isSystemInDarkTheme()
+
+    // 2. Calculate the actual dark mode state based on app settings
+    val isDark = when (currentTheme) {
+        ThemePreference.LIGHT -> false
+        ThemePreference.DARK -> true
+        else -> isSystemDark
+    }
 
     val categorizedTopics = listOf(
         TopicCategory(
@@ -123,6 +138,17 @@ fun DashboardScreen(
                     onClick = onNavigateToContextReceivers // Linked!
                 )
             )
+        ),
+        TopicCategory(
+            title = "UI Engineering & Graphics",
+            topics = listOf(
+                TutorialTopic(
+                    title = "Custom Canvas",
+                    description = "Drawing hardware metrics and infinite animations.",
+                    containerColor = if (isDark) DRed else LRed,
+                    onClick = onNavigateToCanvas // Linked!
+                )
+            )
         )
     )
 
@@ -144,28 +170,46 @@ fun DashboardScreen(
         Column(
             modifier = Modifier
                 .fillMaxSize()
-                .padding(paddingValues)
+                .padding(paddingValues),
+            // Anchor the entire column's content to the bottom
+            verticalArrangement = Arrangement.Bottom
         ) {
-            Card(
-                colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.secondaryContainer),
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(horizontal = 16.dp, vertical = 16.dp)
-            ) {
-                Text(
-                    text = "💡 INSTRUCTIONS: Tap a module below to open its sandbox. Keep your Android Studio Logcat open (filter by 'MasterclassLog') to see background execution results.",
-                    modifier = Modifier.padding(16.dp),
-                    style = MaterialTheme.typography.bodyMedium
-                )
-            }
 
             var expandedTopicTitle by remember { mutableStateOf<String?>(null) }
 
+            // 1. THE LIST (Now aligned to the bottom with an ergonomic top gap)
             LazyColumn(
-                contentPadding = PaddingValues(start = 16.dp, end = 16.dp, bottom = 32.dp),
-                verticalArrangement = Arrangement.spacedBy(12.dp),
+                // The 140.dp top padding acts like Samsung's One UI, pushing the first item
+                // down into the thumb's natural resting arc without breaking scrolling.
+                contentPadding = PaddingValues(top = 100.dp, start = 16.dp, end = 16.dp, bottom = 16.dp),
+
+                // Forces items to stack from the bottom up if the list is short
+                verticalArrangement = Arrangement.spacedBy(12.dp, Alignment.Bottom),
+
                 modifier = Modifier.weight(1f)
             ) {
+                // --- NEW: SCROLL HINT INDICATOR ---
+                item {
+                    Column(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(bottom = 16.dp), // Space between the hint and the first category
+                        horizontalAlignment = Alignment.CenterHorizontally
+                    ) {
+                        Icon(
+                            imageVector = Icons.Filled.KeyboardArrowUp,
+                            contentDescription = "Swipe up to explore",
+                            tint = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.5f)
+                        )
+                        Spacer(modifier = Modifier.height(4.dp))
+                        Text(
+                            text = "Swipe up to explore",
+                            style = MaterialTheme.typography.labelMedium,
+                            color = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.5f)
+                        )
+                    }
+                }
+
                 categorizedTopics.forEach { category ->
                     item {
                         Text(
@@ -183,10 +227,26 @@ fun DashboardScreen(
                             isExpanded = expandedTopicTitle == topic.title,
                             onExpandToggle = {
                                 expandedTopicTitle = if (expandedTopicTitle == topic.title) null else topic.title
-                            }
+                            },
+                            isDark = isDark
                         )
                     }
                 }
+            }
+
+            // 2. THE INSTRUCTIONS CARD (Moved to the bottom)
+            Card(
+                colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.secondaryContainer),
+                modifier = Modifier
+                    .fillMaxWidth()
+                    // Replaced vertical padding with just bottom padding to sit flat above nav bar
+                    .padding(start = 16.dp, end = 16.dp, bottom = 16.dp)
+            ) {
+                Text(
+                    text = "💡 INSTRUCTIONS: Tap a module below to open its sandbox. Keep your Android Studio Logcat open (filter by 'MasterclassLog') to see background execution results.",
+                    modifier = Modifier.padding(16.dp),
+                    style = MaterialTheme.typography.bodyMedium
+                )
             }
         }
     }
@@ -196,12 +256,11 @@ fun DashboardScreen(
 fun TopicCard(
     topic: TutorialTopic,
     isExpanded: Boolean,
-    onExpandToggle: () -> Unit
+    onExpandToggle: () -> Unit,
+    isDark: Boolean
 ) {
     val interactionSource = remember { MutableInteractionSource() }
 
-    // Dynamically assign text and icon colors to prevent contrast issues in Dark Mode
-    val isDark = isSystemInDarkTheme()
     val primaryTextColor = if (isDark) Color(0xFFF8FAFC) else Color(0xFF0F172A)
     val secondaryTextColor = if (isDark) Color(0xFFCBD5E1) else Color(0xFF475569)
 
