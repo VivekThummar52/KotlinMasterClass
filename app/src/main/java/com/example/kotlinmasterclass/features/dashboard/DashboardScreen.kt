@@ -38,6 +38,8 @@ private val LCyan = Color(0xFFE0F7FA)
 private val LPink = Color(0xFFFCE4EC)
 private val LTeal = Color(0xFFE0F2F1)
 private val LMint = Color(0xFFF1F8E9)
+private val LLime = Color(0xFFF9FBE7)
+private val LIndigo = Color(0xFFE8EAF6)
 
 // --- DARK PALETTE (Deep, Muted Tones) ---
 private val DBlue = Color(0xFF1E3A8A)
@@ -50,6 +52,8 @@ private val DCyan = Color(0xFF164E63)
 private val DPink = Color(0xFF831843)
 private val DTeal = Color(0xFF134E4A)
 private val DMint = Color(0xFF064E3B)
+private val DLime = Color(0xFF3F6212)
+private val DIndigo = Color(0xFF311B92)
 
 // Helper class for grouping
 data class TopicCategory(
@@ -70,6 +74,8 @@ fun DashboardScreen(
     onNavigateToConcurrency: () -> Unit,
     onNavigateToDelegation: () -> Unit,
     onNavigateToPerformance: () -> Unit,
+    onNavigateToContracts: () -> Unit,
+    onNavigateToContextReceivers: () -> Unit,
     onNavigateToSettings: () -> Unit
 ) {
     // Dynamically check the theme to assign the correct palette
@@ -99,6 +105,23 @@ fun DashboardScreen(
                 TutorialTopic("Higher-Order Functions", "Functions as parameters or returns.", if (isDark) DPurple else LPurple, onNavigateToHigherOrderFunctions),
                 TutorialTopic("Delegation Patterns", "Class and property interception.", if (isDark) DTeal else LTeal, onNavigateToDelegation),
                 TutorialTopic("Performance & Memory", "Sequences vs Iterables, Value Classes.", if (isDark) DMint else LMint, onNavigateToPerformance)
+            )
+        ),
+        TopicCategory(
+            title = "Expert Compiler Features",
+            topics = listOf(
+                TutorialTopic(
+                    title = "Kotlin Contracts",
+                    description = "Custom smart-casting and compile-time guarantees.",
+                    containerColor = if (isDark) DLime else LLime,
+                    onClick = onNavigateToContracts
+                ),
+                TutorialTopic(
+                    title = "Context Receivers",
+                    description = "Requiring multiple scopes without parameter bloat.",
+                    containerColor = if (isDark) DIndigo else LIndigo,
+                    onClick = onNavigateToContextReceivers // Linked!
+                )
             )
         )
     )

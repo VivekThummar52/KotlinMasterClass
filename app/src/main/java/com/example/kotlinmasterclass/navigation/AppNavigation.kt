@@ -7,6 +7,10 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.example.kotlinmasterclass.features.concurrency.AdvancedConcurrencyScreen
 import com.example.kotlinmasterclass.features.concurrency.AdvancedConcurrencyViewModel
+import com.example.kotlinmasterclass.features.contextreceivers.ContextReceiversScreen
+import com.example.kotlinmasterclass.features.contextreceivers.ContextReceiversViewModel
+import com.example.kotlinmasterclass.features.contracts.ContractsScreen
+import com.example.kotlinmasterclass.features.contracts.ContractsViewModel
 import com.example.kotlinmasterclass.features.coroutines.CoroutinesScreen
 import com.example.kotlinmasterclass.features.coroutines.CoroutinesViewModel
 import com.example.kotlinmasterclass.features.dashboard.DashboardScreen
@@ -47,6 +51,8 @@ fun AppNavigation() {
                 onNavigateToConcurrency = { navController.navigate(Screen.AdvancedConcurrency.route) },
                 onNavigateToDelegation = { navController.navigate(Screen.Delegation.route) },
                 onNavigateToPerformance = { navController.navigate(Screen.Performance.route) },
+                onNavigateToContracts = { navController.navigate(Screen.Contracts.route) },
+                onNavigateToContextReceivers = { navController.navigate(Screen.ContextReceivers.route) },
                 onNavigateToSettings = { navController.navigate(Screen.Settings.route) })
         }
 
@@ -128,6 +134,22 @@ fun AppNavigation() {
             val performanceViewModel: PerformanceViewModel = hiltViewModel()
             PerformanceScreen(
                 viewModel = performanceViewModel,
+                onBackClick = { navController.popBackStack() }
+            )
+        }
+
+        composable(route = Screen.Contracts.route) {
+            val contractsViewModel: ContractsViewModel = hiltViewModel()
+            ContractsScreen(
+                viewModel = contractsViewModel,
+                onBackClick = { navController.popBackStack() }
+            )
+        }
+
+        composable(route = Screen.ContextReceivers.route) {
+            val receiversViewModel: ContextReceiversViewModel = hiltViewModel()
+            ContextReceiversScreen(
+                viewModel = receiversViewModel,
                 onBackClick = { navController.popBackStack() }
             )
         }
