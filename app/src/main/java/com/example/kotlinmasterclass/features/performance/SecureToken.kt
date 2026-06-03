@@ -44,7 +44,7 @@ class PerformanceViewModel @Inject constructor() : ViewModel() {
                 val result = massiveList
                     .map { it * 2 }
                     .filter { it % 3 == 0 }
-                    .take(100000)
+                    .take(10)
                 
                 Log.d(TAG, "Iterable Result: $result")
             }
@@ -70,7 +70,7 @@ class PerformanceViewModel @Inject constructor() : ViewModel() {
                 val result = massiveList.asSequence()
                     .map { it * 2 }
                     .filter { it % 3 == 0 }
-                    .take(100000)
+                    .take(10)
                     .toList() // Terminal operator actually triggers the work
                 
                 Log.d(TAG, "Sequence Result: $result")
