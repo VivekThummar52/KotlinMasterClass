@@ -26,6 +26,10 @@ import com.example.kotlinmasterclass.features.generics.GenericsScreen
 import com.example.kotlinmasterclass.features.generics.GenericsViewModel
 import com.example.kotlinmasterclass.features.higherorderfunctions.HigherOrderFunctionsScreen
 import com.example.kotlinmasterclass.features.higherorderfunctions.HigherOrderFunctionsViewModel
+import com.example.kotlinmasterclass.features.motion.MotionScreen
+import com.example.kotlinmasterclass.features.motion.MotionViewModel
+import com.example.kotlinmasterclass.features.musicplayer.MusicPlayerScreen
+import com.example.kotlinmasterclass.features.musicplayer.MusicPlayerViewModel
 import com.example.kotlinmasterclass.features.performance.PerformanceScreen
 import com.example.kotlinmasterclass.features.performance.PerformanceViewModel
 import com.example.kotlinmasterclass.features.scopefunctions.ScopeFunctionsScreen
@@ -34,6 +38,8 @@ import com.example.kotlinmasterclass.features.sealedclasses.SealedClassesScreen
 import com.example.kotlinmasterclass.features.sealedclasses.SealedClassesViewModel
 import com.example.kotlinmasterclass.features.settings.SettingsScreen
 import com.example.kotlinmasterclass.features.settings.SettingsViewModel
+import com.example.kotlinmasterclass.features.testing.TestingScreen
+import com.example.kotlinmasterclass.features.testing.TestingViewModel
 
 @Composable
 fun AppNavigation() {
@@ -56,6 +62,9 @@ fun AppNavigation() {
                 onNavigateToContracts = { navController.navigate(Screen.Contracts.route) },
                 onNavigateToContextReceivers = { navController.navigate(Screen.ContextReceivers.route) },
                 onNavigateToCanvas = { navController.navigate(Screen.CanvasAnimation.route) },
+                onNavigateToMotion = { navController.navigate(Screen.MotionLayout.route) },
+                onNavigateToMusicPlayer = { navController.navigate(Screen.MusicPlayer.route) },
+                onNavigateToTesting = { navController.navigate(Screen.Testing.route) },
                 onNavigateToSettings = { navController.navigate(Screen.Settings.route) })
         }
 
@@ -161,6 +170,30 @@ fun AppNavigation() {
             val canvasViewModel: CanvasViewModel = hiltViewModel()
             CanvasScreen(
                 viewModel = canvasViewModel,
+                onBackClick = { navController.popBackStack() }
+            )
+        }
+
+        composable(route = Screen.MotionLayout.route) {
+            val motionViewModel: MotionViewModel = hiltViewModel()
+            MotionScreen(
+                viewModel = motionViewModel,
+                onBackClick = { navController.popBackStack() }
+            )
+        }
+
+        composable(route = Screen.MusicPlayer.route) {
+            val musicViewModel: MusicPlayerViewModel = hiltViewModel()
+            MusicPlayerScreen(
+                viewModel = musicViewModel,
+                onBackClick = { navController.popBackStack() }
+            )
+        }
+
+        composable(route = Screen.Testing.route) {
+            val testingViewModel: TestingViewModel = hiltViewModel()
+            TestingScreen(
+                viewModel = testingViewModel,
                 onBackClick = { navController.popBackStack() }
             )
         }

@@ -97,4 +97,11 @@ dependencies {
 
     implementation(libs.androidx.datastore.preferences)
     implementation(libs.androidx.core.splashscreen)
+    implementation(libs.androidx.compose.material.icons.extended)
+
+    // Advanced Flow Testing (Turbine)
+    testImplementation(libs.turbine)
+
+    // Coroutines Time Travel & Virtual Schedulers
+    testImplementation(libs.kotlinx.coroutines.test)
 }

@@ -29,6 +29,21 @@ import com.example.kotlinmasterclass.features.dashboard.model.TutorialTopic
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.kotlinmasterclass.features.settings.SettingsViewModel
 import com.example.kotlinmasterclass.features.settings.ThemePreference
+import androidx.compose.foundation.lazy.LazyListState
+import androidx.compose.ui.draw.drawWithContent
+import androidx.compose.ui.geometry.CornerRadius
+import androidx.compose.ui.geometry.Offset
+import androidx.compose.ui.geometry.Size
+import androidx.compose.foundation.lazy.rememberLazyListState
+import androidx.compose.animation.core.animateFloatAsState
+import androidx.compose.animation.core.tween
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
+import androidx.compose.ui.composed
+import kotlinx.coroutines.delay
 
 // --- LIGHT PALETTE (Bright Pastels) ---
 private val LBlue = Color(0xFFE3F2FD)
@@ -44,6 +59,8 @@ private val LMint = Color(0xFFF1F8E9)
 private val LLime = Color(0xFFF9FBE7)
 private val LIndigo = Color(0xFFE8EAF6)
 private val LRed = Color(0xFFFFEBEE)
+private val LMagenta = Color(0xFFF3E5F5)
+
 
 // --- DARK PALETTE (Deep, Muted Tones) ---
 private val DBlue = Color(0xFF1E3A8A)
@@ -59,6 +76,7 @@ private val DMint = Color(0xFF064E3B)
 private val DLime = Color(0xFF3F6212)
 private val DIndigo = Color(0xFF311B92)
 private val DRed = Color(0xFF7F1D1D)
+private val DMagenta = Color(0xFF4A148C)
 
 // Helper class for grouping
 data class TopicCategory(
@@ -82,6 +100,9 @@ fun DashboardScreen(
     onNavigateToContracts: () -> Unit,
     onNavigateToContextReceivers: () -> Unit,
     onNavigateToCanvas: () -> Unit,
+    onNavigateToMotion: () -> Unit,
+    onNavigateToMusicPlayer: () -> Unit,
+    onNavigateToTesting: () -> Unit,
     onNavigateToSettings: () -> Unit,
     settingsViewModel: SettingsViewModel = hiltViewModel()
 ) {
@@ -140,13 +161,47 @@ fun DashboardScreen(
             )
         ),
         TopicCategory(
-            title = "UI Engineering & Graphics",
+            title = "Simple UI Graphics",
             topics = listOf(
                 TutorialTopic(
                     title = "Custom Canvas",
                     description = "Drawing hardware metrics and infinite animations.",
                     containerColor = if (isDark) DRed else LRed,
                     onClick = onNavigateToCanvas // Linked!
+                )
+            )
+        ),
+        TopicCategory(
+            title = "UI Engineering & Graphics",
+            topics = listOf(
+                TutorialTopic(
+                    title = "Custom Canvas",
+                    description = "Drawing hardware metrics and infinite animations.",
+                    containerColor = if (isDark) DRed else LRed,
+                    onClick = onNavigateToCanvas
+                ),
+                TutorialTopic(
+                    title = "Gesture Physics",
+                    description = "Building tactile, spring-driven morphing UI components.",
+                    containerColor = if (isDark) DOrange else LOrange,
+                    onClick = onNavigateToMotion // Linked!
+                ),
+                TutorialTopic(
+                    title = "Music Player UI",
+                    description = "Infinite rotation, scrubbers, and continuous state.",
+                    containerColor = if (isDark) DMagenta else LMagenta,
+                    onClick = onNavigateToMusicPlayer // Linked!
+                )
+            )
+        ),
+        TopicCategory(
+            title = "Architecture & Testing",
+            topics = listOf(
+                TutorialTopic(
+                    title = "Flows & Turbine",
+                    description = "Time-travel testing for asynchronous state streams.",
+                    containerColor = if (isDark) DTeal else LTeal,
+                    onClick = onNavigateToTesting
                 )
             )
         )
@@ -177,16 +232,28 @@ fun DashboardScreen(
 
             var expandedTopicTitle by remember { mutableStateOf<String?>(null) }
 
+            // --- 1. HOIST THE STATE ---
+            val listState = rememberLazyListState()
+
+            // Determine a beautiful pastel color based on the active theme
+            val pastelScrollbarColor = if (isDark) Color(0xFF9FA8DA) else Color(0xFFC5CAE9) // Pastel Indigo
+
             // 1. THE LIST (Now aligned to the bottom with an ergonomic top gap)
             LazyColumn(
+                state = listState,
                 // The 140.dp top padding acts like Samsung's One UI, pushing the first item
                 // down into the thumb's natural resting arc without breaking scrolling.
-                contentPadding = PaddingValues(top = 100.dp, start = 16.dp, end = 16.dp, bottom = 16.dp),
+                contentPadding = PaddingValues(top = 20.dp, start = 16.dp, end = 16.dp, bottom = 16.dp),
 
                 // Forces items to stack from the bottom up if the list is short
                 verticalArrangement = Arrangement.spacedBy(12.dp, Alignment.Bottom),
 
-                modifier = Modifier.weight(1f)
+                modifier = Modifier
+                    .weight(1f)
+                    .pastelScrollbar(
+                        state = listState,
+                        scrollbarColor = pastelScrollbarColor
+                    )
             ) {
                 // --- NEW: SCROLL HINT INDICATOR ---
                 item {
@@ -350,5 +417,81 @@ fun TopicCard(
                 )
             }
         }
+    }
+}
+
+/**
+ * A highly reusable, stateful modifier to draw a smooth, auto-fading scrollbar.
+ */
+fun Modifier.pastelScrollbar(
+    state: LazyListState,
+    scrollbarColor: Color,
+    thickness: Float = 28f
+): Modifier = composed { // THE FIX: 'composed' allows us to remember states inside a modifier
+
+    // 1. The Fading State Engine
+    var isFadingOut by remember { mutableStateOf(false) }
+
+    // 2. The Inactivity Timer
+    // This restarts automatically every time the user touches or stops touching the list
+    LaunchedEffect(state.isScrollInProgress) {
+        if (state.isScrollInProgress) {
+            // User is actively scrolling, ensure it is fully visible immediately
+            isFadingOut = false
+        } else {
+            // User stopped scrolling. Wait 1.5 seconds, then trigger the fade out
+            delay(1500)
+            isFadingOut = true
+        }
+    }
+
+    // 3. The Smooth Fade Animation
+    val scrollbarAlpha by animateFloatAsState(
+        targetValue = if (isFadingOut) 0f else 0.85f,
+        animationSpec = tween(durationMillis = 500), // Takes half a second to fade out
+        label = "scrollbar_alpha"
+    )
+
+    // 4. The Drawing Logic (Now uses the animated alpha)
+    drawWithContent {
+        drawContent()
+
+        // If it's completely invisible, skip the heavy math to save performance
+        if (scrollbarAlpha == 0f) return@drawWithContent
+
+        val layoutInfo = state.layoutInfo
+        val visibleItemsInfo = layoutInfo.visibleItemsInfo
+
+        if (visibleItemsInfo.isEmpty()) return@drawWithContent
+
+        val totalItems = layoutInfo.totalItemsCount
+        val visibleItemsCount = visibleItemsInfo.size
+
+        if (visibleItemsCount >= totalItems && state.firstVisibleItemScrollOffset == 0) {
+            return@drawWithContent
+        }
+
+        val viewportHeight = size.height
+        val totalVisibleSize = visibleItemsInfo.sumOf { it.size }
+        val averageItemSize = totalVisibleSize.toFloat() / visibleItemsCount
+
+        val estimatedTotalListSize = averageItemSize * totalItems
+
+        val rawThumbHeight = (viewportHeight / estimatedTotalListSize) * viewportHeight
+        val thumbHeight = rawThumbHeight.coerceIn(40f, viewportHeight)
+
+        val estimatedScrollY = (state.firstVisibleItemIndex * averageItemSize) + state.firstVisibleItemScrollOffset
+        val maxScrollY = (estimatedTotalListSize - viewportHeight).coerceAtLeast(1f)
+
+        val scrollProgress = (estimatedScrollY / maxScrollY).coerceIn(0f, 1f)
+        val thumbOffsetY = scrollProgress * (viewportHeight - thumbHeight)
+
+        drawRoundRect(
+            color = scrollbarColor,
+            topLeft = Offset(x = size.width - thickness - 12f, y = thumbOffsetY),
+            size = Size(width = thickness, height = thumbHeight),
+            cornerRadius = CornerRadius(x = thickness / 2, y = thickness / 2),
+            alpha = scrollbarAlpha // THE FIX: Apply the animated alpha here!
+        )
     }
 }
