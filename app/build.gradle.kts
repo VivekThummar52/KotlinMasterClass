@@ -104,4 +104,6 @@ dependencies {
 
     // Coroutines Time Travel & Virtual Schedulers
     testImplementation(libs.kotlinx.coroutines.test)
+
+    implementation(libs.androidx.compose.animation)
 }

@@ -20,5 +20,6 @@ sealed class Screen(val route: String) {
     object MusicPlayer : Screen("music_player_tutorial")
     object Testing : Screen("testing_tutorial")
     object GlassWallet : Screen("glass_wallet_tutorial")
+    object MorphLayout : Screen("morph_layout_tutorial")
     // We will add more routes here as we build out the app
 }

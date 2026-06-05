@@ -106,6 +106,7 @@ fun DashboardScreen(
     onNavigateToMusicPlayer: () -> Unit,
     onNavigateToTesting: () -> Unit,
     onNavigateToGlassWallet: () -> Unit,
+    onNavigateToMorph: () -> Unit,
     onNavigateToSettings: () -> Unit,
     settingsViewModel: SettingsViewModel = hiltViewModel()
 ) {
@@ -200,6 +201,12 @@ fun DashboardScreen(
                     description = "Frosted glassmorphism with spatial physics mapping.",
                     containerColor = if (isDark) DCyan else LCyan,
                     onClick = onNavigateToGlassWallet // Linked!
+                ),
+                TutorialTopic(
+                    title = "Shared Element Morph",
+                    description = "Spatial transitions across completely different UI states.",
+                    containerColor = if (isDark) DYellow else LYellow,
+                    onClick = onNavigateToMorph // Linked!
                 )
             )
         ),

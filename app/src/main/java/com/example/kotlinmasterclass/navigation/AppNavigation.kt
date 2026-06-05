@@ -26,6 +26,7 @@ import com.example.kotlinmasterclass.features.generics.GenericsScreen
 import com.example.kotlinmasterclass.features.generics.GenericsViewModel
 import com.example.kotlinmasterclass.features.higherorderfunctions.HigherOrderFunctionsScreen
 import com.example.kotlinmasterclass.features.higherorderfunctions.HigherOrderFunctionsViewModel
+import com.example.kotlinmasterclass.features.morph.MorphScreen
 import com.example.kotlinmasterclass.features.motion.MotionScreen
 import com.example.kotlinmasterclass.features.motion.MotionViewModel
 import com.example.kotlinmasterclass.features.musicplayer.MusicPlayerScreen
@@ -68,6 +69,7 @@ fun AppNavigation() {
                 onNavigateToMusicPlayer = { navController.navigate(Screen.MusicPlayer.route) },
                 onNavigateToTesting = { navController.navigate(Screen.Testing.route) },
                 onNavigateToGlassWallet = { navController.navigate(Screen.GlassWallet.route) },
+                onNavigateToMorph = { navController.navigate(Screen.MorphLayout.route) },
                 onNavigateToSettings = { navController.navigate(Screen.Settings.route) })
         }
 
@@ -205,6 +207,12 @@ fun AppNavigation() {
             val walletViewModel: WalletViewModel = hiltViewModel()
             GlassWalletScreen(
                 viewModel = walletViewModel,
+                onBackClick = { navController.popBackStack() }
+            )
+        }
+
+        composable(route = Screen.MorphLayout.route) {
+            MorphScreen(
                 onBackClick = { navController.popBackStack() }
             )
         }
