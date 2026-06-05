@@ -60,6 +60,7 @@ private val LLime = Color(0xFFF9FBE7)
 private val LIndigo = Color(0xFFE8EAF6)
 private val LRed = Color(0xFFFFEBEE)
 private val LMagenta = Color(0xFFF3E5F5)
+private val LCyanWallet = Color(0xFFE0F7FA)
 
 
 // --- DARK PALETTE (Deep, Muted Tones) ---
@@ -77,6 +78,7 @@ private val DLime = Color(0xFF3F6212)
 private val DIndigo = Color(0xFF311B92)
 private val DRed = Color(0xFF7F1D1D)
 private val DMagenta = Color(0xFF4A148C)
+private val DCyanWallet = Color(0xFF006064)
 
 // Helper class for grouping
 data class TopicCategory(
@@ -103,6 +105,7 @@ fun DashboardScreen(
     onNavigateToMotion: () -> Unit,
     onNavigateToMusicPlayer: () -> Unit,
     onNavigateToTesting: () -> Unit,
+    onNavigateToGlassWallet: () -> Unit,
     onNavigateToSettings: () -> Unit,
     settingsViewModel: SettingsViewModel = hiltViewModel()
 ) {
@@ -191,6 +194,12 @@ fun DashboardScreen(
                     description = "Infinite rotation, scrubbers, and continuous state.",
                     containerColor = if (isDark) DMagenta else LMagenta,
                     onClick = onNavigateToMusicPlayer // Linked!
+                ),
+                TutorialTopic(
+                    title = "Glass & 3D Tilt",
+                    description = "Frosted glassmorphism with spatial physics mapping.",
+                    containerColor = if (isDark) DCyan else LCyan,
+                    onClick = onNavigateToGlassWallet // Linked!
                 )
             )
         ),

@@ -40,6 +40,8 @@ import com.example.kotlinmasterclass.features.settings.SettingsScreen
 import com.example.kotlinmasterclass.features.settings.SettingsViewModel
 import com.example.kotlinmasterclass.features.testing.TestingScreen
 import com.example.kotlinmasterclass.features.testing.TestingViewModel
+import com.example.kotlinmasterclass.features.wallet.GlassWalletScreen
+import com.example.kotlinmasterclass.features.wallet.WalletViewModel
 
 @Composable
 fun AppNavigation() {
@@ -65,6 +67,7 @@ fun AppNavigation() {
                 onNavigateToMotion = { navController.navigate(Screen.MotionLayout.route) },
                 onNavigateToMusicPlayer = { navController.navigate(Screen.MusicPlayer.route) },
                 onNavigateToTesting = { navController.navigate(Screen.Testing.route) },
+                onNavigateToGlassWallet = { navController.navigate(Screen.GlassWallet.route) },
                 onNavigateToSettings = { navController.navigate(Screen.Settings.route) })
         }
 
@@ -194,6 +197,14 @@ fun AppNavigation() {
             val testingViewModel: TestingViewModel = hiltViewModel()
             TestingScreen(
                 viewModel = testingViewModel,
+                onBackClick = { navController.popBackStack() }
+            )
+        }
+
+        composable(route = Screen.GlassWallet.route) {
+            val walletViewModel: WalletViewModel = hiltViewModel()
+            GlassWalletScreen(
+                viewModel = walletViewModel,
                 onBackClick = { navController.popBackStack() }
             )
         }
