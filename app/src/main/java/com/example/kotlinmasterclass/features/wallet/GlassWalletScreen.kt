@@ -27,13 +27,15 @@ import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.kotlinmasterclass.ui.components.MasterclassTopAppBar
 import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun GlassWalletScreen(
     viewModel: WalletViewModel,
-    onBackClick: () -> Unit
+    onBackClick: () -> Unit,
+    onSettingsClick: () -> Unit
 ) {
     // 1. Morphing State
     var isExpanded by remember { mutableStateOf(false) }
@@ -63,14 +65,15 @@ fun GlassWalletScreen(
 
     Scaffold(
         topBar = {
-            TopAppBar(
+            MasterclassTopAppBar(
                 title = { Text("Glassmorphism & 3D Tilt", color = Color.White) },
-                navigationIcon = {
-                    IconButton(onClick = onBackClick) {
-                        Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = "Back", tint = Color.White)
-                    }
-                },
-                colors = TopAppBarDefaults.topAppBarColors(containerColor = Color.Transparent)
+                onBackClick = onBackClick,
+                onSettingsClick = onSettingsClick,
+                colors = TopAppBarDefaults.topAppBarColors(
+                    containerColor = Color.Transparent,
+                    navigationIconContentColor = Color.White,
+                    actionIconContentColor = Color.White
+                )
             )
         },
         // The vibrant animated background

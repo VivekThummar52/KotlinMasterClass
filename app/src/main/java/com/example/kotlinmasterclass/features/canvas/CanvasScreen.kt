@@ -18,12 +18,14 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import com.example.kotlinmasterclass.ui.components.MasterclassTopAppBar
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun CanvasScreen(
     viewModel: CanvasViewModel,
-    onBackClick: () -> Unit
+    onBackClick: () -> Unit,
+    onSettingsClick: () -> Unit
 ) {
     val batteryLevel by viewModel.batteryLevel.collectAsState()
     val isCharging by viewModel.isCharging.collectAsState()
@@ -31,16 +33,10 @@ fun CanvasScreen(
 
     Scaffold(
         topBar = {
-            TopAppBar(
+            MasterclassTopAppBar(
                 title = { Text("Canvas & Animations") },
-                navigationIcon = {
-                    IconButton(onClick = onBackClick) {
-                        Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = "Back")
-                    }
-                },
-                colors = TopAppBarDefaults.topAppBarColors(
-                    containerColor = MaterialTheme.colorScheme.primaryContainer
-                )
+                onBackClick = onBackClick,
+                onSettingsClick = onSettingsClick
             )
         }
     ) { paddingValues ->

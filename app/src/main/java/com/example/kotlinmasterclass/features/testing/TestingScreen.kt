@@ -12,23 +12,24 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import com.example.kotlinmasterclass.ui.components.MasterclassTopAppBar
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun TestingScreen(
     viewModel: TestingViewModel,
-    onBackClick: () -> Unit
+    onBackClick: () -> Unit,
+    onSettingsClick: () -> Unit
 ) {
     val realTimeLog by viewModel.realTimeLog.collectAsState()
     val virtualTimeLog by viewModel.virtualTimeLog.collectAsState()
 
     Scaffold(
         topBar = {
-            TopAppBar(
+            MasterclassTopAppBar(
                 title = { Text("Coroutines & Turbine") },
-                navigationIcon = {
-                    IconButton(onClick = onBackClick) { Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = "Back") }
-                }
+                onBackClick = onBackClick,
+                onSettingsClick = onSettingsClick
             )
         }
     ) { paddingValues ->

@@ -12,6 +12,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import com.example.kotlinmasterclass.ui.components.MasterclassTopAppBar
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -23,13 +24,9 @@ fun SettingsScreen(
 
     Scaffold(
         topBar = {
-            TopAppBar(
+            MasterclassTopAppBar(
                 title = { Text("Settings", fontWeight = FontWeight.Bold) },
-                navigationIcon = {
-                    IconButton(onClick = onBackClick) {
-                        Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = "Back")
-                    }
-                },
+                onBackClick = onBackClick,
                 colors = TopAppBarDefaults.topAppBarColors(
                     containerColor = MaterialTheme.colorScheme.surfaceVariant
                 )

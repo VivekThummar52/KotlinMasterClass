@@ -40,12 +40,14 @@ import androidx.compose.ui.graphics.Path
  import androidx.compose.ui.graphics.drawscope.translate
  import androidx.compose.ui.graphics.drawscope.rotate
 import androidx.compose.material.icons.filled.Android
+import com.example.kotlinmasterclass.ui.components.MasterclassTopAppBar
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun MusicPlayerScreen(
     viewModel: MusicPlayerViewModel,
-    onBackClick: () -> Unit
+    onBackClick: () -> Unit,
+    onSettingsClick: () -> Unit
 ) {
     val isPlaying by viewModel.isPlaying.collectAsState()
     val currentPosition by viewModel.currentPosition.collectAsState()
@@ -87,13 +89,10 @@ fun MusicPlayerScreen(
 
     Scaffold(
         topBar = {
-            TopAppBar(
+            MasterclassTopAppBar(
                 title = { Text(if (isInfoExpanded) "Track Details" else "Now Playing", style = MaterialTheme.typography.titleMedium) },
-                navigationIcon = {
-                    IconButton(onClick = onBackClick) {
-                        Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = "Back")
-                    }
-                },
+                onBackClick = onBackClick,
+                onSettingsClick = onSettingsClick,
                 actions = {
                     IconButton(onClick = { isInfoExpanded = !isInfoExpanded }) {
                         Icon(

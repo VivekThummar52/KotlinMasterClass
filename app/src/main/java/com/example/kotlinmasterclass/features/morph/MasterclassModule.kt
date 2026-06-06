@@ -30,6 +30,7 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.kotlinmasterclass.ui.components.MasterclassTopAppBar
 
 // 1. Mock Data Class
 data class MasterclassModule(
@@ -50,23 +51,20 @@ val mockModules = listOf(
 @OptIn(ExperimentalSharedTransitionApi::class, ExperimentalMaterial3Api::class)
 @Composable
 fun MorphScreen(
-    onBackClick: () -> Unit
+    onBackClick: () -> Unit,
+    onSettingsClick: () -> Unit
 ) {
     // State to track which module is currently selected (null means show grid)
     var selectedModule by remember { mutableStateOf<MasterclassModule?>(null) }
 
     Scaffold(
         topBar = {
-            TopAppBar(
+            MasterclassTopAppBar(
                 title = { Text("Shared Element Morphing") },
-                navigationIcon = {
-                    IconButton(onClick = { 
-                        // If detail is open, go back to grid. Otherwise, leave screen.
-                        if (selectedModule != null) selectedModule = null else onBackClick() 
-                    }) {
-                        Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = "Back")
-                    }
-                }
+                onBackClick = {
+                    if (selectedModule != null) selectedModule = null else onBackClick()
+                },
+                onSettingsClick = onSettingsClick
             )
         }
     ) { paddingValues ->

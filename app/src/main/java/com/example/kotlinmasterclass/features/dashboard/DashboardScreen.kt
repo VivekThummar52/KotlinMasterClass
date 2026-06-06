@@ -43,6 +43,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.composed
+import com.example.kotlinmasterclass.ui.components.MasterclassTopAppBar
 import kotlinx.coroutines.delay
 
 // --- LIGHT PALETTE (Bright Pastels) ---
@@ -165,17 +166,6 @@ fun DashboardScreen(
             )
         ),
         TopicCategory(
-            title = "Simple UI Graphics",
-            topics = listOf(
-                TutorialTopic(
-                    title = "Custom Canvas",
-                    description = "Drawing hardware metrics and infinite animations.",
-                    containerColor = if (isDark) DRed else LRed,
-                    onClick = onNavigateToCanvas // Linked!
-                )
-            )
-        ),
-        TopicCategory(
             title = "UI Engineering & Graphics",
             topics = listOf(
                 TutorialTopic(
@@ -225,16 +215,12 @@ fun DashboardScreen(
 
     Scaffold(
         topBar = {
-            TopAppBar(
+            MasterclassTopAppBar(
                 title = { Text("Kotlin Masterclass", fontWeight = FontWeight.Bold) },
+                onSettingsClick = onNavigateToSettings,
                 colors = TopAppBarDefaults.topAppBarColors(
                     containerColor = MaterialTheme.colorScheme.surfaceVariant
-                ),
-                actions = {
-                    IconButton(onClick = onNavigateToSettings) {
-                        Icon(Icons.Filled.Settings, contentDescription = "Settings")
-                    }
-                }
+                )
             )
         }
     ) { paddingValues ->

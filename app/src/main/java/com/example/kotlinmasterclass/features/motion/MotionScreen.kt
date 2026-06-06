@@ -23,6 +23,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.kotlinmasterclass.core.utils.CurrencyFormatter
+import com.example.kotlinmasterclass.ui.components.MasterclassTopAppBar
 import kotlinx.coroutines.launch
 import kotlin.math.abs
 
@@ -30,20 +31,15 @@ import kotlin.math.abs
 @Composable
 fun MotionScreen(
     viewModel: MotionViewModel,
-    onBackClick: () -> Unit
+    onBackClick: () -> Unit,
+    onSettingsClick: () -> Unit
 ) {
     Scaffold(
         topBar = {
-            TopAppBar(
+            MasterclassTopAppBar(
                 title = { Text("Physics & Motion UI") },
-                navigationIcon = {
-                    IconButton(onClick = onBackClick) {
-                        Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = "Back")
-                    }
-                },
-                colors = TopAppBarDefaults.topAppBarColors(
-                    containerColor = MaterialTheme.colorScheme.primaryContainer
-                )
+                onBackClick = onBackClick,
+                onSettingsClick = onSettingsClick
             )
         }
     ) { paddingValues ->

@@ -47,6 +47,11 @@ import com.example.kotlinmasterclass.features.wallet.WalletViewModel
 @Composable
 fun AppNavigation() {
     val navController = rememberNavController()
+    val navigateToSettings = {
+        navController.navigate(Screen.Settings.route) {
+            launchSingleTop = true
+        }
+    }
 
     NavHost(navController = navController, startDestination = Screen.Dashboard.route) {
 
@@ -70,21 +75,27 @@ fun AppNavigation() {
                 onNavigateToTesting = { navController.navigate(Screen.Testing.route) },
                 onNavigateToGlassWallet = { navController.navigate(Screen.GlassWallet.route) },
                 onNavigateToMorph = { navController.navigate(Screen.MorphLayout.route) },
-                onNavigateToSettings = { navController.navigate(Screen.Settings.route) })
+                onNavigateToSettings = navigateToSettings)
         }
 
         // Placeholder for Coroutines Screen (We will build this in the next phase)
         composable(route = Screen.Coroutines.route) {
             val coroutinesViewModel: CoroutinesViewModel = hiltViewModel()
             CoroutinesScreen(
-                viewModel = coroutinesViewModel, onBackClick = { navController.popBackStack() })
+                viewModel = coroutinesViewModel,
+                onBackClick = { navController.popBackStack() },
+                onSettingsClick = navigateToSettings
+            )
         }
 
         // Placeholder for Scope Functions Screen
         composable(route = Screen.ScopeFunctions.route) {
             val scopeFunctionsViewModel: ScopeFunctionsViewModel = hiltViewModel()
             ScopeFunctionsScreen(
-                viewModel = scopeFunctionsViewModel, onBackClick = { navController.popBackStack() })
+                viewModel = scopeFunctionsViewModel,
+                onBackClick = { navController.popBackStack() },
+                onSettingsClick = navigateToSettings
+            )
         }
 
         composable(route = Screen.Settings.route) {
@@ -98,20 +109,27 @@ fun AppNavigation() {
         composable(route = Screen.ExtensionFunctions.route) {
             val extensionViewModel: ExtensionFunctionsViewModel = hiltViewModel()
             ExtensionFunctionsScreen(
-                viewModel = extensionViewModel, onBackClick = { navController.popBackStack() })
+                viewModel = extensionViewModel,
+                onBackClick = { navController.popBackStack() },
+                onSettingsClick = navigateToSettings
+            )
         }
 
         composable(route = Screen.HigherOrderFunctions.route) {
             val higherOrderViewModel: HigherOrderFunctionsViewModel = hiltViewModel()
             HigherOrderFunctionsScreen(
-                viewModel = higherOrderViewModel, onBackClick = { navController.popBackStack() })
+                viewModel = higherOrderViewModel,
+                onBackClick = { navController.popBackStack() },
+                onSettingsClick = navigateToSettings
+            )
         }
 
         composable(route = Screen.SealedClasses.route) {
             val sealedViewModel: SealedClassesViewModel = hiltViewModel()
             SealedClassesScreen(
                 viewModel = sealedViewModel,
-                onBackClick = { navController.popBackStack() }
+                onBackClick = { navController.popBackStack() },
+                onSettingsClick = navigateToSettings
             )
         }
 
@@ -119,7 +137,8 @@ fun AppNavigation() {
             val genericsViewModel: GenericsViewModel = hiltViewModel()
             GenericsScreen(
                 viewModel = genericsViewModel,
-                onBackClick = { navController.popBackStack() }
+                onBackClick = { navController.popBackStack() },
+                onSettingsClick = navigateToSettings
             )
         }
 
@@ -127,7 +146,8 @@ fun AppNavigation() {
             val flowViewModel: FlowViewModel = hiltViewModel()
             FlowScreen(
                 viewModel = flowViewModel,
-                onBackClick = { navController.popBackStack() }
+                onBackClick = { navController.popBackStack() },
+                onSettingsClick = navigateToSettings
             )
         }
 
@@ -135,7 +155,8 @@ fun AppNavigation() {
             val concurrencyViewModel: AdvancedConcurrencyViewModel = hiltViewModel()
             AdvancedConcurrencyScreen(
                 viewModel = concurrencyViewModel,
-                onBackClick = { navController.popBackStack() }
+                onBackClick = { navController.popBackStack() },
+                onSettingsClick = navigateToSettings
             )
         }
 
@@ -143,7 +164,8 @@ fun AppNavigation() {
             val delegationViewModel: DelegationViewModel = hiltViewModel()
             DelegationScreen(
                 viewModel = delegationViewModel,
-                onBackClick = { navController.popBackStack() }
+                onBackClick = { navController.popBackStack() },
+                onSettingsClick = navigateToSettings
             )
         }
 
@@ -151,7 +173,8 @@ fun AppNavigation() {
             val performanceViewModel: PerformanceViewModel = hiltViewModel()
             PerformanceScreen(
                 viewModel = performanceViewModel,
-                onBackClick = { navController.popBackStack() }
+                onBackClick = { navController.popBackStack() },
+                onSettingsClick = navigateToSettings
             )
         }
 
@@ -159,7 +182,8 @@ fun AppNavigation() {
             val contractsViewModel: ContractsViewModel = hiltViewModel()
             ContractsScreen(
                 viewModel = contractsViewModel,
-                onBackClick = { navController.popBackStack() }
+                onBackClick = { navController.popBackStack() },
+                onSettingsClick = navigateToSettings
             )
         }
 
@@ -167,7 +191,8 @@ fun AppNavigation() {
             val receiversViewModel: ContextReceiversViewModel = hiltViewModel()
             ContextReceiversScreen(
                 viewModel = receiversViewModel,
-                onBackClick = { navController.popBackStack() }
+                onBackClick = { navController.popBackStack() },
+                onSettingsClick = navigateToSettings
             )
         }
 
@@ -175,7 +200,8 @@ fun AppNavigation() {
             val canvasViewModel: CanvasViewModel = hiltViewModel()
             CanvasScreen(
                 viewModel = canvasViewModel,
-                onBackClick = { navController.popBackStack() }
+                onBackClick = { navController.popBackStack() },
+                onSettingsClick = navigateToSettings
             )
         }
 
@@ -183,7 +209,8 @@ fun AppNavigation() {
             val motionViewModel: MotionViewModel = hiltViewModel()
             MotionScreen(
                 viewModel = motionViewModel,
-                onBackClick = { navController.popBackStack() }
+                onBackClick = { navController.popBackStack() },
+                onSettingsClick = navigateToSettings
             )
         }
 
@@ -191,7 +218,8 @@ fun AppNavigation() {
             val musicViewModel: MusicPlayerViewModel = hiltViewModel()
             MusicPlayerScreen(
                 viewModel = musicViewModel,
-                onBackClick = { navController.popBackStack() }
+                onBackClick = { navController.popBackStack() },
+                onSettingsClick = navigateToSettings
             )
         }
 
@@ -199,7 +227,8 @@ fun AppNavigation() {
             val testingViewModel: TestingViewModel = hiltViewModel()
             TestingScreen(
                 viewModel = testingViewModel,
-                onBackClick = { navController.popBackStack() }
+                onBackClick = { navController.popBackStack() },
+                onSettingsClick = navigateToSettings
             )
         }
 
@@ -207,13 +236,15 @@ fun AppNavigation() {
             val walletViewModel: WalletViewModel = hiltViewModel()
             GlassWalletScreen(
                 viewModel = walletViewModel,
-                onBackClick = { navController.popBackStack() }
+                onBackClick = { navController.popBackStack() },
+                onSettingsClick = navigateToSettings
             )
         }
 
         composable(route = Screen.MorphLayout.route) {
             MorphScreen(
-                onBackClick = { navController.popBackStack() }
+                onBackClick = { navController.popBackStack() },
+                onSettingsClick = navigateToSettings
             )
         }
     }
