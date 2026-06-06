@@ -108,6 +108,7 @@ fun DashboardScreen(
     onNavigateToTesting: () -> Unit,
     onNavigateToGlassWallet: () -> Unit,
     onNavigateToMorph: () -> Unit,
+    onNavigateToMissionControl: () -> Unit,
     onNavigateToSettings: () -> Unit,
     settingsViewModel: SettingsViewModel = hiltViewModel()
 ) {
@@ -208,6 +209,17 @@ fun DashboardScreen(
                     description = "Time-travel testing for asynchronous state streams.",
                     containerColor = if (isDark) DTeal else LTeal,
                     onClick = onNavigateToTesting
+                )
+            )
+        ),
+        TopicCategory(
+            title = "Flagship Experience",
+            topics = listOf(
+                TutorialTopic(
+                    title = "Mission Control",
+                    description = "Operate a live orbital reactor with telemetry, radar, thermal balancing, emergency states, and adaptive command panels.",
+                    containerColor = if (isDark) Color(0xFF003B46) else Color(0xFFD9FBFF),
+                    onClick = onNavigateToMissionControl
                 )
             )
         )

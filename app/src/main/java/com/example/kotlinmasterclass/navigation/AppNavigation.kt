@@ -31,6 +31,8 @@ import com.example.kotlinmasterclass.features.motion.MotionScreen
 import com.example.kotlinmasterclass.features.motion.MotionViewModel
 import com.example.kotlinmasterclass.features.musicplayer.MusicPlayerScreen
 import com.example.kotlinmasterclass.features.musicplayer.MusicPlayerViewModel
+import com.example.kotlinmasterclass.features.missioncontrol.MissionControlScreen
+import com.example.kotlinmasterclass.features.missioncontrol.MissionControlViewModel
 import com.example.kotlinmasterclass.features.performance.PerformanceScreen
 import com.example.kotlinmasterclass.features.performance.PerformanceViewModel
 import com.example.kotlinmasterclass.features.scopefunctions.ScopeFunctionsScreen
@@ -75,7 +77,17 @@ fun AppNavigation() {
                 onNavigateToTesting = { navController.navigate(Screen.Testing.route) },
                 onNavigateToGlassWallet = { navController.navigate(Screen.GlassWallet.route) },
                 onNavigateToMorph = { navController.navigate(Screen.MorphLayout.route) },
+                onNavigateToMissionControl = { navController.navigate(Screen.MissionControl.route) },
                 onNavigateToSettings = navigateToSettings)
+        }
+
+        composable(route = Screen.MissionControl.route) {
+            val missionControlViewModel: MissionControlViewModel = hiltViewModel()
+            MissionControlScreen(
+                viewModel = missionControlViewModel,
+                onBackClick = { navController.popBackStack() },
+                onSettingsClick = navigateToSettings
+            )
         }
 
         // Placeholder for Coroutines Screen (We will build this in the next phase)
