@@ -109,6 +109,11 @@ fun DashboardScreen(
     onNavigateToGlassWallet: () -> Unit,
     onNavigateToMorph: () -> Unit,
     onNavigateToMissionControl: () -> Unit,
+    onNavigateToAiObservatory: () -> Unit,
+    onNavigateToSmartCity: () -> Unit,
+    onNavigateToWeather: () -> Unit,
+    onNavigateToAudioStudio: () -> Unit,
+    onNavigateToFinance: () -> Unit,
     onNavigateToSettings: () -> Unit,
     settingsViewModel: SettingsViewModel = hiltViewModel()
 ) {
@@ -220,6 +225,36 @@ fun DashboardScreen(
                     description = "Operate a live orbital reactor with telemetry, radar, thermal balancing, emergency states, and adaptive command panels.",
                     containerColor = if (isDark) Color(0xFF003B46) else Color(0xFFD9FBFF),
                     onClick = onNavigateToMissionControl
+                ),
+//                TutorialTopic(
+//                    title = "AI System Observatory",
+//                    description = "A living visual map of an Agentic AI brain. Watch tokens pulse through concurrent nodes, tools, and fallback recovery routes.",
+//                    containerColor = if (isDark) DIndigo else LIndigo,
+//                    onClick = onNavigateToAiObservatory
+//                ),
+                TutorialTopic(
+                    title = "Smart City Viewport",
+                    description = "A multi-touch camera engine. Pinch, zoom, and pan across a procedurally generated 5000x5000px cyberpunk city with live traffic.",
+                    containerColor = if (isDark) DPink else LPink,
+                    onClick = onNavigateToSmartCity
+                ),
+                TutorialTopic(
+                    title = "Weather Planetarium",
+                    description = "A full 3D rendering engine built purely on Canvas. Watch a point-cloud planet rotate dynamically with live depth-sorting, yaw/pitch gesture math, and weather-driven gradients.",
+                    containerColor = if (isDark) DBlue else LBlue,
+                    onClick = onNavigateToWeather // Linked!
+                ),
+                TutorialTopic(
+                    title = "Audio Visualizer Studio",
+                    description = "A generative FFT spectrum analyzer featuring a 3D vinyl record, reactive beat pulsing, and a mechanical-switch tactile scrub engine.",
+                    containerColor = if (isDark) Color(0xFF311B92) else Color(0xFFD1C4E9),
+                    onClick = onNavigateToAudioStudio
+                ),
+                TutorialTopic(
+                    title = "Digital Finance Command",
+                    description = "A commercial-grade FinTech dashboard. Features a real-time market simulator, Bezier spline Canvas charts, and an odometer-style rolling balance.",
+                    containerColor = if (isDark) Color(0xFF0D47A1) else Color(0xFFBBDEFB),
+                    onClick = onNavigateToFinance
                 )
             )
         )

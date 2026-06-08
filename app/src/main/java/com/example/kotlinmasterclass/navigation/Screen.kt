@@ -3,7 +3,6 @@ package com.example.kotlinmasterclass.navigation
 sealed class Screen(val route: String) {
     object Settings : Screen("settings")
     object Dashboard : Screen("dashboard")
-    object MissionControl : Screen("mission_control")
     object Coroutines : Screen("coroutines_tutorial")
     object ScopeFunctions : Screen("scope_functions_tutorial")
     object ExtensionFunctions : Screen("extension_functions_tutorial")
@@ -22,5 +21,11 @@ sealed class Screen(val route: String) {
     object Testing : Screen("testing_tutorial")
     object GlassWallet : Screen("glass_wallet_tutorial")
     object MorphLayout : Screen("morph_layout_tutorial")
+    object MissionControl : Screen("mission_control")
+    object AiObservatory : Screen("ai_observatory")
+    object SmartCity : Screen("smart_city_tutorial")
+    object WeatherPlanetarium : Screen("weather_planetarium")
+    object AudioStudio : Screen("audio_studio")
+    object FinanceCommandCenter : Screen("finance_command_center")
     // We will add more routes here as we build out the app
 }
