@@ -237,11 +237,21 @@ fun AnimatedBalanceCounter(balance: Float, colors: FinanceColors) {
         formatted.forEach { char ->
             AnimatedContent(
                 targetState = char,
+//                transitionSpec = {
+//                    if (targetState.isDigit() && initialState.isDigit()) {
+//                        (slideInVertically { height -> height } + fadeIn()) togetherWith
+//                                (slideOutVertically { height -> -height } + fadeOut())
+//                    } else {
+//                        fadeIn() togetherWith fadeOut()
+//                    }
+//                },
                 transitionSpec = {
                     if (targetState.isDigit() && initialState.isDigit()) {
-                        (slideInVertically { height -> height } + fadeIn()) togetherWith
-                                (slideOutVertically { height -> -height } + fadeOut())
+                        // Slides in from the right, slides out to the left
+                        (slideInHorizontally { width -> width } + fadeIn()) togetherWith
+                                (slideOutHorizontally { width -> -width } + fadeOut())
                     } else {
+                        // Fallback for non-digit characters
                         fadeIn() togetherWith fadeOut()
                     }
                 },
