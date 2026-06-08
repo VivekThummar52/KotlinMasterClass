@@ -30,6 +30,20 @@ android {
                 "proguard-rules.pro"
             )
         }
+
+        // ── Add this new build type ──
+        create("profile") {
+            initWith(getByName("debug"))
+            // Tells Android Studio to treat this like a debug build for signing
+            matchingFallbacks += listOf("debug")
+
+            // Disables the heavy debugger attachment, unlocking Release-like speeds
+            isDebuggable = false
+
+            // Optional: You can enable minification here if you want an exact
+            // replica of Release performance, but it will slow down build times.
+            isMinifyEnabled = false
+        }
     }
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_17
@@ -37,6 +51,7 @@ android {
     }
     kotlinOptions {
         jvmTarget = "17"
+        freeCompilerArgs += listOf("-Xcontext-receivers")
     }
     buildFeatures {
         compose = true
@@ -82,4 +97,13 @@ dependencies {
 
     implementation(libs.androidx.datastore.preferences)
     implementation(libs.androidx.core.splashscreen)
+    implementation(libs.androidx.compose.material.icons.extended)
+
+    // Advanced Flow Testing (Turbine)
+    testImplementation(libs.turbine)
+
+    // Coroutines Time Travel & Virtual Schedulers
+    testImplementation(libs.kotlinx.coroutines.test)
+
+    implementation(libs.androidx.compose.animation)
 }

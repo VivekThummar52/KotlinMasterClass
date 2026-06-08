@@ -12,31 +12,24 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import com.example.kotlinmasterclass.ui.components.MasterclassTopAppBar
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun CoroutinesScreen(
     viewModel: CoroutinesViewModel,
-    onBackClick: () -> Unit
+    onBackClick: () -> Unit,
+    onSettingsClick: () -> Unit
 ) {
     val uiState by viewModel.uiState.collectAsState()
     val scrollState = rememberScrollState()
 
     Scaffold(
         topBar = {
-            TopAppBar(
+            MasterclassTopAppBar(
                 title = { Text("Coroutines Tutorial") },
-                navigationIcon = {
-                    IconButton(onClick = onBackClick) {
-                        Icon(
-                            imageVector = Icons.AutoMirrored.Filled.ArrowBack,
-                            contentDescription = "Back to Dashboard"
-                        )
-                    }
-                },
-                colors = TopAppBarDefaults.topAppBarColors(
-                    containerColor = MaterialTheme.colorScheme.primaryContainer
-                )
+                onBackClick = onBackClick,
+                onSettingsClick = onSettingsClick
             )
         }
     ) { paddingValues ->
