@@ -33,6 +33,8 @@ import com.example.kotlinmasterclass.features.musicplayer.MusicPlayerScreen
 import com.example.kotlinmasterclass.features.musicplayer.MusicPlayerViewModel
 import com.example.kotlinmasterclass.features.missioncontrol.MissionControlScreen
 import com.example.kotlinmasterclass.features.missioncontrol.MissionControlViewModel
+import com.example.kotlinmasterclass.features.observatory.AiObservatoryScreen
+import com.example.kotlinmasterclass.features.observatory.AiObservatoryViewModel
 import com.example.kotlinmasterclass.features.performance.PerformanceScreen
 import com.example.kotlinmasterclass.features.performance.PerformanceViewModel
 import com.example.kotlinmasterclass.features.scopefunctions.ScopeFunctionsScreen
@@ -41,10 +43,14 @@ import com.example.kotlinmasterclass.features.sealedclasses.SealedClassesScreen
 import com.example.kotlinmasterclass.features.sealedclasses.SealedClassesViewModel
 import com.example.kotlinmasterclass.features.settings.SettingsScreen
 import com.example.kotlinmasterclass.features.settings.SettingsViewModel
+import com.example.kotlinmasterclass.features.smartcity.SmartCityScreen
+import com.example.kotlinmasterclass.features.smartcity.SmartCityViewModel
 import com.example.kotlinmasterclass.features.testing.TestingScreen
 import com.example.kotlinmasterclass.features.testing.TestingViewModel
 import com.example.kotlinmasterclass.features.wallet.GlassWalletScreen
 import com.example.kotlinmasterclass.features.wallet.WalletViewModel
+import com.example.kotlinmasterclass.features.weather.WeatherPlanetariumScreen
+import com.example.kotlinmasterclass.features.weather.WeatherViewModel
 
 @Composable
 fun AppNavigation() {
@@ -78,16 +84,12 @@ fun AppNavigation() {
                 onNavigateToGlassWallet = { navController.navigate(Screen.GlassWallet.route) },
                 onNavigateToMorph = { navController.navigate(Screen.MorphLayout.route) },
                 onNavigateToMissionControl = { navController.navigate(Screen.MissionControl.route) },
+                onNavigateToAiObservatory = { navController.navigate(Screen.AiObservatory.route) },
+                onNavigateToSmartCity = { navController.navigate(Screen.SmartCity.route) },
+                onNavigateToWeather = { navController.navigate(Screen.WeatherPlanetarium.route) },
+                onNavigateToAudioStudio = { navController.navigate(Screen.AudioStudio.route) },
+                onNavigateToFinance = { navController.navigate(Screen.FinanceCommandCenter.route) },
                 onNavigateToSettings = navigateToSettings)
-        }
-
-        composable(route = Screen.MissionControl.route) {
-            val missionControlViewModel: MissionControlViewModel = hiltViewModel()
-            MissionControlScreen(
-                viewModel = missionControlViewModel,
-                onBackClick = { navController.popBackStack() },
-                onSettingsClick = navigateToSettings
-            )
         }
 
         // Placeholder for Coroutines Screen (We will build this in the next phase)
@@ -255,6 +257,60 @@ fun AppNavigation() {
 
         composable(route = Screen.MorphLayout.route) {
             MorphScreen(
+                onBackClick = { navController.popBackStack() },
+                onSettingsClick = navigateToSettings
+            )
+        }
+
+        composable(route = Screen.MissionControl.route) {
+            val missionControlViewModel: MissionControlViewModel = hiltViewModel()
+            MissionControlScreen(
+                viewModel = missionControlViewModel,
+                onBackClick = { navController.popBackStack() },
+                onSettingsClick = navigateToSettings
+            )
+        }
+
+        composable(route = Screen.AiObservatory.route) {
+            val aiViewModel: AiObservatoryViewModel = hiltViewModel()
+            AiObservatoryScreen(
+                viewModel = aiViewModel,
+                onBackClick = { navController.popBackStack() },
+                onSettingsClick = navigateToSettings
+            )
+        }
+
+        composable(route = Screen.SmartCity.route) {
+            val smartCityViewModel: SmartCityViewModel = hiltViewModel()
+            SmartCityScreen(
+                viewModel = smartCityViewModel,
+                onBackClick = { navController.popBackStack() },
+                onSettingsClick = navigateToSettings
+            )
+        }
+
+        composable(route = Screen.WeatherPlanetarium.route) {
+            val weatherViewModel: WeatherViewModel = hiltViewModel()
+            WeatherPlanetariumScreen(
+                viewModel = weatherViewModel,
+                onBackClick = { navController.popBackStack() },
+                onSettingsClick = navigateToSettings
+            )
+        }
+
+        composable(route = Screen.AudioStudio.route) {
+            val audioViewModel: com.example.kotlinmasterclass.features.audio.AudioStudioViewModel = hiltViewModel()
+            com.example.kotlinmasterclass.features.audio.AudioStudioScreen(
+                viewModel = audioViewModel,
+                onBackClick = { navController.popBackStack() },
+                onSettingsClick = navigateToSettings
+            )
+        }
+
+        composable(route = Screen.FinanceCommandCenter.route) {
+            val financeViewModel: com.example.kotlinmasterclass.features.finance.FinanceViewModel = hiltViewModel()
+            com.example.kotlinmasterclass.features.finance.FinanceCommandCenterScreen(
+                viewModel = financeViewModel,
                 onBackClick = { navController.popBackStack() },
                 onSettingsClick = navigateToSettings
             )

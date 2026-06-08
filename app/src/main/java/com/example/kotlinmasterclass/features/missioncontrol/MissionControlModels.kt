@@ -52,7 +52,8 @@ data class MissionControlState(
     val contacts: List<RadarContact> = defaultRadarContacts,
     val events: List<MissionEvent> = listOf(
         MissionEvent(0, "Command systems ready. Reactor is offline.", EventSeverity.INFO)
-    )
+    ),
+    val autopilot: AiAutopilotState = AiAutopilotState()
 ) {
     val alertMessage: String
         get() = when (mode) {
@@ -70,4 +71,19 @@ internal val defaultRadarContacts = listOf(
     RadarContact(id = 2, angleDegrees = 118f, distance = 0.48f, threat = true),
     RadarContact(id = 3, angleDegrees = 214f, distance = 0.82f, threat = false),
     RadarContact(id = 4, angleDegrees = 305f, distance = 0.58f, threat = false)
+)
+
+// --- AI AUTOPILOT MODELS ---
+
+data class Pulse(
+    val fromId: String,
+    val toId: String,
+    val progress: Float
+)
+
+data class AiAutopilotState(
+    val isEngaged: Boolean = false,
+    val isIntervening: Boolean = false,
+    val pulses: List<Pulse> = emptyList(),
+    val activeNodes: Set<String> = emptySet()
 )

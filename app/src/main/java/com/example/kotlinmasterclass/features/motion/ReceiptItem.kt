@@ -1,7 +1,7 @@
 package com.example.kotlinmasterclass.features.motion
 
 import androidx.lifecycle.ViewModel
-import com.example.kotlinmasterclass.core.utils.CurrencyFormatter // ADD THIS IMPORT
+import com.example.kotlinmasterclass.utils.CurrencyFormatter // ADD THIS IMPORT
 import dagger.hilt.android.lifecycle.HiltViewModel
 import java.math.BigDecimal
 import java.math.RoundingMode

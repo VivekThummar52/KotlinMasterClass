@@ -53,6 +53,40 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import com.example.kotlinmasterclass.ui.components.MasterclassTopAppBar
 
+// --- DYNAMIC THEME (Place in MissionControlScreen.kt) ---
+data class MissionColors(
+    val bg: Color,
+    val panel: Color,
+    val accent: Color,
+    val muted: Color,
+    val alert: Color,
+    val warning: Color,
+    val purple: Color,
+    val textMain: Color
+)
+
+val DarkMissionColors = MissionColors(
+    bg = Color(0xFF050B14),
+    panel = Color(0xFF0B1421),
+    accent = Color(0xFF00E5FF),
+    muted = Color(0xFF1D2E45),
+    alert = Color(0xFFFF1744),
+    warning = Color(0xFFFFEA00),
+    purple = Color(0xFFB388FF),
+    textMain = Color.White
+)
+
+val LightMissionColors = MissionColors(
+    bg = Color(0xFFF1F5F9),
+    panel = Color(0xFFFFFFFF),
+    accent = Color(0xFF0284C7),
+    muted = Color(0xFFCBD5E1),
+    alert = Color(0xFFE11D48),
+    warning = Color(0xFFD97706),
+    purple = Color(0xFF7C3AED),
+    textMain = Color(0xFF0F172A)
+)
+
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun MissionControlScreen(
@@ -118,7 +152,8 @@ fun MissionControlScreen(
                     onToggleShields = viewModel::toggleShields,
                     onToggleBoost = viewModel::toggleBoost,
                     onStabilize = viewModel::stabilize,
-                    onShutdown = viewModel::emergencyShutdown
+                    onShutdown = viewModel::emergencyShutdown,
+                    onToggleAutopilot = viewModel::toggleAutopilot
                 )
             }
         }
@@ -135,7 +170,8 @@ private fun MissionControlDashboard(
     onToggleShields: () -> Unit,
     onToggleBoost: () -> Unit,
     onStabilize: () -> Unit,
-    onShutdown: () -> Unit
+    onShutdown: () -> Unit,
+    onToggleAutopilot: () -> Unit
 ) {
     LazyColumn(
         modifier = Modifier.fillMaxSize(),
@@ -158,6 +194,9 @@ private fun MissionControlDashboard(
                         verticalArrangement = Arrangement.spacedBy(14.dp)
                     ) {
                         MetricsGrid(state)
+                        androidx.compose.animation.AnimatedVisibility(visible = state.autopilot.isEngaged) {
+                            AiNeuralCorePanel(state.autopilot)
+                        }
                         ControlPanel(
                             state,
                             onStart,
@@ -166,7 +205,8 @@ private fun MissionControlDashboard(
                             onToggleShields,
                             onToggleBoost,
                             onStabilize,
-                            onShutdown
+                            onShutdown,
+                            onToggleAutopilot
                         )
                     }
                 }
@@ -174,6 +214,9 @@ private fun MissionControlDashboard(
                 Column(verticalArrangement = Arrangement.spacedBy(14.dp)) {
                     ReactorPanel(state)
                     MetricsGrid(state)
+                    androidx.compose.animation.AnimatedVisibility(visible = state.autopilot.isEngaged) {
+                        AiNeuralCorePanel(state.autopilot)
+                    }
                     ControlPanel(
                         state,
                         onStart,
@@ -182,7 +225,8 @@ private fun MissionControlDashboard(
                         onToggleShields,
                         onToggleBoost,
                         onStabilize,
-                        onShutdown
+                        onShutdown,
+                        onToggleAutopilot
                     )
                 }
             }
@@ -332,7 +376,8 @@ private fun ControlPanel(
     onToggleShields: () -> Unit,
     onToggleBoost: () -> Unit,
     onStabilize: () -> Unit,
-    onShutdown: () -> Unit
+    onShutdown: () -> Unit,
+    onToggleAutopilot: () -> Unit
 ) {
     CommandPanel(title = "Command deck") {
         ControlSlider(
@@ -379,6 +424,13 @@ private fun ControlPanel(
                     modifier = Modifier.weight(1f)
                 )
             }
+            Spacer(Modifier.height(8.dp))
+            CommandButton(
+                text = if (state.autopilot.isEngaged) "AI AUTOPILOT ACTIVE" else "ENGAGE AI AUTOPILOT",
+                color = if (state.autopilot.isEngaged) MissionPurple else MissionMuted,
+                onClick = onToggleAutopilot,
+                modifier = Modifier.fillMaxWidth()
+            )
             Spacer(Modifier.height(8.dp))
             Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
                 CommandButton(

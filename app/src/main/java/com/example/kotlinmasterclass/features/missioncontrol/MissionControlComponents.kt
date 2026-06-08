@@ -380,3 +380,105 @@ internal fun ReactorMode.accentColor(): Color = when (this) {
     ReactorMode.CRITICAL -> MissionRed
     ReactorMode.STABILIZED -> MissionGreen
 }
+
+// --- AI AUTOPILOT CANVAS COMPONENTS ---
+
+data class AiUiNode(val id: String, val label: String, val x: Float, val y: Float)
+
+// Normalized Canvas Coordinates (0.0 to 1.0)
+private val aiNodes = listOf(
+    AiUiNode("sensor", "TELEMETRY", 0.1f, 0.5f),
+    AiUiNode("analyzer", "CORE LOGIC", 0.5f, 0.5f),
+    AiUiNode("coolant", "THERMAL SYS", 0.9f, 0.2f),
+    AiUiNode("containment", "QUANTUM SYS", 0.9f, 0.8f)
+)
+
+private val aiEdges = listOf(
+    Pair("sensor", "analyzer"),
+    Pair("analyzer", "coolant"),
+    Pair("analyzer", "containment")
+)
+
+@Composable
+internal fun AiNeuralCorePanel(
+    state: AiAutopilotState,
+    modifier: Modifier = Modifier
+) {
+    CommandPanel(
+        modifier = modifier,
+        title = "AI Autopilot Core",
+        accent = if (state.isEngaged) MissionPurple else MissionMuted
+    ) {
+        Canvas(
+            modifier = Modifier
+                .fillMaxWidth()
+                .height(140.dp)
+        ) {
+            val w = size.width
+            val h = size.height
+
+            // 1. Draw Neural Wires
+            aiEdges.forEach { edge ->
+                val from = aiNodes.find { it.id == edge.first } ?: return@forEach
+                val to = aiNodes.find { it.id == edge.second } ?: return@forEach
+
+                val start = Offset(from.x * w, from.y * h)
+                val end = Offset(to.x * w, to.y * h)
+
+                // Draw Bezier Curve
+                val path = Path().apply {
+                    moveTo(start.x, start.y)
+                    val controlX = start.x + (end.x - start.x) * 0.5f
+                    cubicTo(controlX, start.y, controlX, end.y, end.x, end.y)
+                }
+                drawPath(path, MissionMuted.copy(alpha = 0.2f), style = Stroke(width = 3f))
+            }
+
+            // 2. Draw Moving Data Pulses
+            state.pulses.forEach { pulse ->
+                val from = aiNodes.find { it.id == pulse.fromId } ?: return@forEach
+                val to = aiNodes.find { it.id == pulse.toId } ?: return@forEach
+
+                val start = Offset(from.x * w, from.y * h)
+                val end = Offset(to.x * w, to.y * h)
+
+                // Calculate exact Bezier point
+                val controlX = start.x + (end.x - start.x) * 0.5f
+                val t = pulse.progress
+                val u = 1f - t
+                val px = (u * u * u * start.x) + (3 * u * u * t * controlX) + (3 * u * t * t * controlX) + (t * t * t * end.x)
+                val py = (u * u * u * start.y) + (3 * u * u * t * start.y) + (3 * u * t * t * end.y) + (t * t * t * end.y)
+                val pulsePos = Offset(px, py)
+
+                drawCircle(
+                    brush = Brush.radialGradient(listOf(Color.White, MissionPurple.copy(alpha = 0.6f), Color.Transparent), center = pulsePos, radius = 24f),
+                    radius = 24f,
+                    center = pulsePos
+                )
+                drawCircle(Color.White, 4f, pulsePos)
+            }
+
+            // 3. Draw Nodes
+            aiNodes.forEach { node ->
+                val isActive = state.activeNodes.contains(node.id)
+                val center = Offset(node.x * w, node.y * h)
+                val color = if (isActive) MissionPurple else MissionMuted
+
+                if (isActive) {
+                    drawCircle(
+                        brush = Brush.radialGradient(listOf(color.copy(alpha = 0.5f), Color.Transparent), center = center, radius = 50f),
+                        radius = 50f,
+                        center = center
+                    )
+                }
+
+                drawCircle(MissionPanelBright, 14f, center)
+                drawCircle(color, 14f, center, style = Stroke(width = 4f))
+                drawCircle(if (isActive) Color.White else color, 6f, center)
+            }
+        }
+    }
+}
+
+// Add this color to the top of MissionControlComponents.kt with your other colors
+internal val MissionPurple = Color(0xFFB388FF)

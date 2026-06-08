@@ -162,7 +162,7 @@ fun DashboardScreen(
                     title = "Context Receivers",
                     description = "Requiring multiple scopes without parameter bloat.",
                     containerColor = if (isDark) DIndigo else LIndigo,
-                    onClick = onNavigateToContextReceivers // Linked!
+                    onClick = onNavigateToContextReceivers
                 )
             )
         ),
@@ -179,25 +179,25 @@ fun DashboardScreen(
                     title = "Gesture Physics",
                     description = "Building tactile, spring-driven morphing UI components.",
                     containerColor = if (isDark) DOrange else LOrange,
-                    onClick = onNavigateToMotion // Linked!
+                    onClick = onNavigateToMotion
                 ),
                 TutorialTopic(
                     title = "Music Player UI",
                     description = "Infinite rotation, scrubbers, and continuous state.",
                     containerColor = if (isDark) DMagenta else LMagenta,
-                    onClick = onNavigateToMusicPlayer // Linked!
+                    onClick = onNavigateToMusicPlayer
                 ),
                 TutorialTopic(
                     title = "Glass & 3D Tilt",
                     description = "Frosted glassmorphism with spatial physics mapping.",
                     containerColor = if (isDark) DCyan else LCyan,
-                    onClick = onNavigateToGlassWallet // Linked!
+                    onClick = onNavigateToGlassWallet
                 ),
                 TutorialTopic(
                     title = "Shared Element Morph",
                     description = "Spatial transitions across completely different UI states.",
                     containerColor = if (isDark) DYellow else LYellow,
-                    onClick = onNavigateToMorph // Linked!
+                    onClick = onNavigateToMorph
                 )
             )
         ),
