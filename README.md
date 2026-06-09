@@ -1,20 +1,367 @@
 <div align="center">
 
-# 🚀 Kotlin Masterclass: Advanced Android Architecture & UI
+# 🚀 Kotlin Masterclass
 
-**An elite sandbox demonstrating expert-level Jetpack Compose UI engineering, physics-based animations, asynchronous state management, and time-travel testing.**
+### Advanced Kotlin, Jetpack Compose & Android Architecture Playground
 
-[![Kotlin](https://img.shields.io/badge/Kotlin-1.9.0-blue.svg?style=flat&logo=kotlin)](https://kotlinlang.org)
-[![Jetpack Compose](https://img.shields.io/badge/Jetpack%20Compose-Material%203-4CAF50.svg?style=flat&logo=android)](https://developer.android.com/jetpack/compose)
-[![Dagger Hilt](https://img.shields.io/badge/DI-Dagger%20Hilt-red.svg?style=flat)](https://dagger.dev/hilt/)
-[![Coroutines & Flow](https://img.shields.io/badge/Async-Coroutines%20%7C%20Flow-orange.svg?style=flat)](https://kotlinlang.org/docs/coroutines-overview.html)
-[![Turbine Testing](https://img.shields.io/badge/Testing-Turbine-success.svg?style=flat)](https://github.com/cashapp/turbine)
+A comprehensive Android learning laboratory showcasing modern Kotlin features, Jetpack Compose UI engineering, custom Canvas rendering, reactive state management, concurrency patterns, testing strategies, and production-inspired architecture.
+
+![Kotlin](https://img.shields.io/badge/Kotlin-Modern-purple?style=for-the-badge\&logo=kotlin)
+![Android](https://img.shields.io/badge/Android-Jetpack%20Compose-green?style=for-the-badge\&logo=android)
+![Material3](https://img.shields.io/badge/Material%203-Compose-blue?style=for-the-badge)
+![Hilt](https://img.shields.io/badge/Dependency%20Injection-Hilt-red?style=for-the-badge)
+![Coroutines](https://img.shields.io/badge/Coroutines%20%26%20Flow-Reactive-orange?style=for-the-badge)
 
 </div>
 
-<br/>
+---
 
-> **Overview:** This project goes beyond basic Android development. It is a comprehensive architectural playground designed to showcase production-ready implementations of complex concepts, ranging from raw Canvas drawing and Spring Physics to advanced flow testing and compiler features.
+## 📖 Overview
+
+Kotlin Masterclass is an educational Android application built to demonstrate advanced Kotlin language features, modern Android architecture patterns, and highly customized Jetpack Compose interfaces.
+
+Unlike traditional sample applications that focus on a single topic, this project acts as a collection of interactive learning modules where each screen explores a specific Kotlin, Compose, architecture, graphics, or concurrency concept.
+
+The project emphasizes:
+
+* Modern Android development practices
+* Clean architecture principles
+* State-driven UI
+* Advanced Compose rendering
+* Kotlin language mastery
+* Real-world concurrency patterns
+* Custom graphics and animations
+* Testable code structure
+
+---
+
+# ✨ Feature Highlights
+
+## 🎛️ Audio Visualizer Studio
+
+A futuristic music player demonstrating:
+
+* Reactive waveform visualization
+* Animated vinyl record rendering
+* Beat pulse simulation
+* Playback state management
+* Interactive media controls
+* Custom Canvas drawing
+
+---
+
+## 📈 Finance Command Center
+
+A modern FinTech-inspired dashboard featuring:
+
+* Live portfolio simulation
+* Animated balance updates
+* Dynamic market movements
+* Asset performance visualization
+* Transaction history
+* Real-time state updates
+
+---
+
+## 🚀 Orbital Mission Control
+
+A complex state-driven simulation featuring:
+
+* Reactor management
+* Telemetry monitoring
+* AI-driven system events
+* Dynamic status indicators
+* Custom Canvas graphics
+* Real-time simulation engine
+
+---
+
+## 🏠 Neumorphic Smart Home
+
+A premium smart-home interface showcasing:
+
+* Neumorphic design principles
+* Dynamic lighting controls
+* Device management
+* Temperature controls
+* Interactive animations
+* Advanced Compose layouts
+
+---
+
+## 🏙️ Cyberpunk Smart City
+
+A futuristic city monitoring dashboard demonstrating:
+
+* Interactive city visualization
+* Sensor monitoring
+* Real-time state updates
+* Complex UI composition
+* Multi-layer rendering techniques
+
+---
+
+## 🌦️ Weather Planetarium
+
+A fully custom weather visualization experience featuring:
+
+* 3D point-cloud rendering concepts
+* Spatial positioning
+* Dynamic weather states
+* Custom animation systems
+* Compose Canvas graphics
+
+---
+
+## 🧮 Fluid Graphing Calculator
+
+An interactive calculator demonstrating:
+
+* Graph rendering
+* Mathematical plotting
+* Animated screen transitions
+* Dynamic layout transformations
+* Canvas coordinate systems
+
+---
+
+## 💳 Glass Wallet
+
+A glassmorphism-inspired wallet interface featuring:
+
+* Modern card layouts
+* Financial visualizations
+* Layered transparency effects
+* Compose animation patterns
+
+---
+
+## 🎨 Canvas Playground
+
+A dedicated module exploring:
+
+* Custom drawing
+* Paths
+* Shapes
+* Animations
+* Real-time rendering
+* Battery visualization concepts
+
+---
+
+## 🎬 Motion Experiments
+
+A collection of motion-design demonstrations including:
+
+* Compose animations
+* State transitions
+* Dynamic interactions
+* Material motion principles
+
+---
+
+# 📚 Kotlin Concepts Covered
+
+This repository serves as a practical reference for advanced Kotlin development.
+
+## Core Language Features
+
+### Extension Functions
+
+* Custom extension methods
+* Extension properties
+* Nullable receivers
+* Static resolution behavior
+
+### Higher-Order Functions
+
+* Passing functions as parameters
+* Returning functions
+* Inline functions
+* crossinline & noinline
+
+### Scope Functions
+
+* let
+* run
+* apply
+* also
+* with
+
+### Delegation
+
+* Class delegation
+* Property delegation
+* Lazy delegation
+* Observable delegates
+* Vetoable delegates
+* Custom delegates
+
+### Generics
+
+* Covariance (out)
+* Contravariance (in)
+* Reified type parameters
+* Type-safe APIs
+
+### Sealed Classes
+
+* Exhaustive when expressions
+* State modeling
+* Type hierarchies
+
+### Contracts
+
+* Smart-cast contracts
+* Calls-in-place contracts
+
+### Context Receivers
+
+* Context-based dependency access
+* Scoped execution models
+
+---
+
+# ⚡ Coroutines & Reactive Programming
+
+## Coroutines
+
+Demonstrations include:
+
+* Dispatchers
+* launch vs async
+* Job lifecycle
+* Cancellation
+* Structured concurrency
+* SupervisorScope
+* Exception handling
+
+## Flow
+
+Examples include:
+
+* Cold Flows
+* StateFlow
+* SharedFlow
+* Flow operators
+* Stream transformations
+* Reactive UI updates
+
+## Advanced Concurrency
+
+Topics covered:
+
+* Race conditions
+* Mutex synchronization
+* Thread safety
+* Concurrent state updates
+
+---
+
+# 🏗️ Architecture
+
+The project follows a modern Android architecture approach.
+
+```text
+UI (Compose Screens)
+        │
+        ▼
+ViewModels
+        │
+        ▼
+StateFlow / SharedFlow
+        │
+        ▼
+Domain Models
+        │
+        ▼
+Rendering Layer
+```
+
+### Architectural Principles
+
+* MVVM Architecture
+* Unidirectional Data Flow (UDF)
+* State-Driven UI
+* Immutable UI State
+* Dependency Injection
+* Lifecycle-Aware Components
+* Testable Business Logic
+
+---
+
+# 🛠️ Tech Stack
+
+| Category             | Technology         |
+| -------------------- | ------------------ |
+| Language             | Kotlin             |
+| UI Toolkit           | Jetpack Compose    |
+| Design System        | Material 3         |
+| Architecture         | MVVM               |
+| State Management     | StateFlow          |
+| Event Streams        | SharedFlow         |
+| Dependency Injection | Dagger Hilt        |
+| Navigation           | Navigation Compose |
+| Persistence          | DataStore          |
+| Concurrency          | Kotlin Coroutines  |
+| Testing              | JUnit4             |
+| Flow Testing         | Turbine            |
+| Graphics             | Compose Canvas     |
+
+---
+
+# 📂 Project Structure
+
+```text
+app/
+└── src/main/java/com/example/kotlinmasterclass
+    ├── features/
+    │   ├── audio/
+    │   ├── calculator/
+    │   ├── canvas/
+    │   ├── concurrency/
+    │   ├── contextreceivers/
+    │   ├── contracts/
+    │   ├── coroutines/
+    │   ├── delegation/
+    │   ├── extensionfunctions/
+    │   ├── finance/
+    │   ├── flow/
+    │   ├── generics/
+    │   ├── higherorderfunctions/
+    │   ├── missioncontrol/
+    │   ├── motion/
+    │   ├── settings/
+    │   ├── sealedclasses/
+    │   ├── smarthome/
+    │   ├── smartcity/
+    │   ├── testing/
+    │   ├── wallet/
+    │   └── weather/
+    │
+    ├── navigation/
+    ├── ui/
+    └── utils/
+```
+
+---
+
+# 🧪 Testing
+
+The project contains examples of:
+
+* Unit Testing
+* Coroutine Testing
+* StateFlow Testing
+* SharedFlow Testing
+* Turbine Integration
+* Business Logic Verification
+
+### Testing Tools
+
+* JUnit4
+* kotlinx-coroutines-test
+* Turbine
 
 ---
 
@@ -53,47 +400,86 @@
 
 ---
 
-## ✨ Boss-Level Implementations
+# 🚀 Getting Started
 
-### 🎨 UI Engineering & Graphics
-* **Physics-Driven Gestures:** A morphing POS receipt built with `PointerInput` and Spring Physics, bypassing standard XML MotionLayout for pure Compose fluidity.
-* **Continuous State Animation:** A retro music player featuring an infinitely rotating vinyl record, accurate `Animatable` swing-arm physics, and dynamic layout repacking.
-* **Custom Canvas Drawing:** A hardware battery simulation drawn entirely from scratch using `Canvas`, `Path`, `cubicTo` bezier curves, and pulsating glow alpha states.
-* **"One UI" Ergonomics:** Custom bottom-anchored lazy lists with proprietary, math-driven pastel scrollbars that auto-fade upon scroll completion.
+## Prerequisites
 
-### 🏗️ Architecture & State
-* **Unidirectional Data Flow (UDF):** Clean separation of concerns using `StateFlow` and `ViewModel` orchestration.
-* **Financial Standard Precision:** Implementation of `BigDecimal` and Banker's Rounding (`HALF_EVEN`) to completely eliminate floating-point drift in POS transactions.
-* **Dependency Injection:** Fully scoped and injected dependencies utilizing **Dagger Hilt**.
+* Android Studio Hedgehog or newer
+* JDK 17+
+* Android SDK
+* Gradle
 
-### 🧪 Advanced Testing
-* **Virtual Time Travel:** Integration of `kotlinx-coroutines-test` and `TestCoroutineScheduler` to execute heavily delayed asynchronous flows in milliseconds.
-* **Stream Verification:** Real-world usage of **CashApp's Turbine** to rigorously test `StateFlow` and `SharedFlow` emissions.
+## Clone Repository
+
+```bash
+git clone https://github.com/your-username/kotlin-masterclass.git
+```
+
+## Open Project
+
+Open the project using Android Studio.
+
+## Build
+
+```bash
+./gradlew assembleDebug
+```
+
+## Run Tests
+
+```bash
+./gradlew test
+```
 
 ---
 
-## 🛠️ Tech Stack
+# 🎯 Learning Goals
 
-| Category | Technologies Used |
-| :--- | :--- |
-| **Language** | Kotlin |
-| **UI Toolkit** | Jetpack Compose (Material 3) |
-| **Architecture** | MVVM, UDF, Repository Pattern |
-| **Concurrency** | Kotlin Coroutines, StateFlow, SharedFlow |
-| **Dependency Injection** | Dagger Hilt |
-| **Navigation** | Compose Navigation API |
-| **Testing** | JUnit4, Turbine, Coroutines Test |
+This project is ideal for developers interested in learning:
+
+* Modern Android Development
+* Jetpack Compose
+* Kotlin Language Features
+* Reactive Programming
+* State Management
+* Dependency Injection
+* Custom Graphics
+* Canvas Rendering
+* Animation Systems
+* Testing Practices
 
 ---
 
-## 🚀 Getting Started
+# 🔮 Future Enhancements
 
-### Prerequisites
-* **Android Studio:** Hedgehog (2023.1.1) or newer.
-* **Kotlin:** 1.9.0+
-* **JDK:** 17+
+* Screenshot gallery
+* GIF demonstrations
+* Compose Multiplatform experiments
+* Performance benchmarking
+* Accessibility improvements
+* Advanced testing modules
+* More Kotlin language demonstrations
 
-### Installation
-1. Clone the repository:
-   ```bash
-   git clone [https://github.com/YourUsername/KotlinMasterclass.git](https://github.com/YourUsername/KotlinMasterclass.git)
+---
+
+# 🤝 Contributions
+
+Contributions, improvements, and suggestions are welcome.
+
+Feel free to fork the repository, open issues, and submit pull requests.
+
+---
+
+# 📜 License
+
+This project is intended for educational and learning purposes.
+
+Choose and update the appropriate license before public distribution.
+
+---
+
+<div align="center">
+
+### Built with ❤️ using Kotlin & Jetpack Compose
+
+</div>
