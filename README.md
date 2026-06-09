@@ -367,33 +367,51 @@ The project contains examples of:
 
 ## 📸 Screenshots
 
-*(Screenshots coming soon)*
-
 <table>
   <tbody>
     <tr>
-      <td align="center"><strong>Dashboard & Scrollbar</strong></td>
+      <td align="center"><strong>Dashboard / Home Screen</strong></td>
+      <td align="center"><strong>Extension functions</strong></td>
       <td align="center"><strong>Canvas Battery Gauge</strong></td>
-      <td align="center"><strong>Motion Layout Physics</strong></td>
       <td align="center"><strong>Retro Music Player</strong></td>
     </tr>
     <tr>
-      <td><img width="270" src="" alt="Dashboard Screen"/></td>
-      <td><img width="270" src="" alt="Canvas Battery Screen"/></td>
-      <td><img width="270" src="" alt="Motion Physics Screen"/></td>
-      <td><img width="270" src="" alt="Music Player Screen"/></td>
+      <td><img width="270" src="https://github.com/user-attachments/assets/a25bc7ec-8ae4-4f8a-a343-b9792d67c1a5" /></td>
+      <td><img width="270" src="https://github.com/user-attachments/assets/6cda2d84-8323-4b86-b8e3-1acc19a23bbe" /></td>
+      <td><img width="270" src="https://github.com/user-attachments/assets/c78c1176-c74f-4ffb-b26e-a31656ef08ef" /></td>
+      <td><img width="270" src="https://github.com/user-attachments/assets/63d4a453-fe79-4295-a1d3-313286c0b071" /></td>
     </tr>
     <tr>
-      <td align="center"><strong>Time-Travel Testing</strong></td>
-      <td align="center"><strong>Expert Compiler Features</strong></td>
-      <td align="center"><strong>Dark Mode UI</strong></td>
-      <td align="center"><strong>Settings & Theming</strong></td>
+      <td align="center"><strong>Music info</strong></td>
+      <td align="center"><strong>3D Glassmorphism card</strong></td>
+      <td align="center"><strong>Smart home</strong></td>
+      <td align="center"><strong>Fluid graphing calculator</strong></td>
     </tr>
     <tr>
-      <td><img width="270" src="" alt="Testing Screen"/></td>
-      <td><img width="270" src="" alt="Compiler Features"/></td>
-      <td><img width="270" src="" alt="Dark Mode"/></td>
-      <td><img width="270" src="" alt="Settings"/></td>
+      <td><img width="270" src="https://github.com/user-attachments/assets/44d05b93-ba2e-4a54-93e1-253273292341" /></td>
+      <td><img width="270" src="https://github.com/user-attachments/assets/e3bb6aa7-a123-44cf-b379-293f06a363e1" /></td>
+      <td><img width="270" src="https://github.com/user-attachments/assets/998f2fbc-9cc6-4c2a-8873-f1be3784af2c" /></td>
+      <td><img width="270" src="https://github.com/user-attachments/assets/b8f62a98-2044-43d1-9208-c255d12b2053" /></td>
+    </tr>
+    <tr>
+      <td align="center"><strong>Mission control</strong></td>
+      <td align="center"><strong>Cyberpunk colony</strong></td>
+      <td align="center"><strong>Weather Planetarium</strong></td>
+      <td align="center"><strong>Audio Visualized studio</strong></td>
+    </tr>
+    <tr>
+      <td><img width="270" src="https://github.com/user-attachments/assets/16b689fc-268b-46e2-86e1-efb62bfa35ba" /></td>
+      <td><img width="270" src="https://github.com/user-attachments/assets/693ddfbc-7f11-44e7-8a10-601d90aa4a44" /></td>
+      <td><img width="270" src="https://github.com/user-attachments/assets/f4dd5625-8b54-4b50-9bd6-3e804b07171e" /></td>
+      <td><img width="270" src="https://github.com/user-attachments/assets/2a04309a-9219-47a0-90b0-d35d624a2570" /></td>
+    </tr>
+    <tr>
+      <td align="center"><strong>Digital finance command</strong></td>
+      <td align="center"><strong>Dark mode</strong></td>
+    </tr>
+    <tr>
+      <td><img width="270" src="https://github.com/user-attachments/assets/b20b5fbd-a7f3-4e41-a788-10a88c83ed69" /></td>
+      <td><img width="270" src="https://github.com/user-attachments/assets/bfd0ffad-5e3e-4664-85cb-f7be17ce24ee" /></td>
     </tr>
   </tbody>
 </table>
