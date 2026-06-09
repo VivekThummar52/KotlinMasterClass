@@ -24,17 +24,23 @@ class AudioStudioViewModel @Inject constructor() : ViewModel() {
     }
 
     // --- TRANSPORT TOGGLES ---
-    fun togglePlayback() = _uiState.update { it.copy(isPlaying = !it.isPlaying) }
+    fun togglePlayback() = _uiState.update { state ->
+        val willPlay = !state.isPlaying
+        // UX Enhancement: If we are hitting play and the track is finished, automatically restart it
+        val nextProgress = if (willPlay && state.trackProgress >= 1f) 0f else state.trackProgress
+        state.copy(isPlaying = willPlay, trackProgress = nextProgress)
+    }
+
     fun updateProgress(progress: Float) = _uiState.update { it.copy(trackProgress = progress.coerceIn(0f, 1f)) }
     fun toggleLike() = _uiState.update { it.copy(isLiked = !it.isLiked) }
     fun toggleShuffle() = _uiState.update { it.copy(isShuffleOn = !it.isShuffleOn) }
 
     fun toggleRepeat() {
         _uiState.update {
-            val nextMode = when (it.repeatMode) {
-                RepeatMode.OFF -> RepeatMode.ALL
-                RepeatMode.ALL -> RepeatMode.ONE
-                RepeatMode.ONE -> RepeatMode.OFF
+            val nextMode = when (it.repeatMode.name) {
+                "OFF" -> RepeatMode.ALL
+                "ALL" -> RepeatMode.ONE
+                else -> RepeatMode.OFF
             }
             it.copy(repeatMode = nextMode)
         }
@@ -44,7 +50,7 @@ class AudioStudioViewModel @Inject constructor() : ViewModel() {
     private fun startAudioEngine() {
         viewModelScope.launch {
             while (true) {
-                delay(16)
+                delay(16) // ~60 FPS
                 val currentState = _uiState.value
 
                 if (currentState.isPlaying) {
@@ -60,17 +66,30 @@ class AudioStudioViewModel @Inject constructor() : ViewModel() {
                     val bassAverage = newFrequencies.take(5).average().toFloat()
                     val newPulse = if (bassAverage > 0.85f) 1f else (currentState.beatPulse - 0.05f).coerceAtLeast(0f)
 
-                    _uiState.update {
-                        it.copy(
+                    _uiState.update { state ->
+                        val nextProgress = state.trackProgress + 0.0005f
+
+                        // THE FIX: If Repeat is ALL or ONE, restart the track. Otherwise, pause at 100%.
+                        val (finalProgress, finalIsPlaying) = if (nextProgress >= 1f) {
+                            if (state.repeatMode.name == "ONE" || state.repeatMode.name == "ALL") {
+                                0f to true // Restart the song
+                            } else {
+                                1f to false // Stop progress and pause the player
+                            }
+                        } else {
+                            nextProgress to state.isPlaying // Continue normally
+                        }
+
+                        state.copy(
+                            isPlaying = finalIsPlaying,
                             frequencies = newFrequencies,
                             beatPulse = newPulse,
-                            vinylRotation = (it.vinylRotation + 1.5f) % 360f,
-                            // If repeat ONE is on, loop progress back to 0 when it hits 1
-                            trackProgress = if (it.trackProgress >= 0.999f && it.repeatMode == RepeatMode.ONE) 0f
-                            else (it.trackProgress + 0.0005f).coerceIn(0f, 1f)
+                            vinylRotation = (state.vinylRotation + 1.5f) % 360f,
+                            trackProgress = finalProgress
                         )
                     }
                 } else {
+                    // Decay the FFT visualizer smoothly when paused
                     val decayedFreqs = currentState.frequencies.map { (it - 0.05f).coerceAtLeast(0.05f) }
                     _uiState.update {
                         it.copy(

@@ -114,6 +114,8 @@ fun DashboardScreen(
     onNavigateToWeather: () -> Unit,
     onNavigateToAudioStudio: () -> Unit,
     onNavigateToFinance: () -> Unit,
+    onNavigateToSmartHome: () -> Unit,
+    onNavigateToGraphingCalculator: () -> Unit,
     onNavigateToSettings: () -> Unit,
     settingsViewModel: SettingsViewModel = hiltViewModel()
 ) {
@@ -203,6 +205,18 @@ fun DashboardScreen(
                     description = "Spatial transitions across completely different UI states.",
                     containerColor = if (isDark) DYellow else LYellow,
                     onClick = onNavigateToMorph
+                ),
+                TutorialTopic(
+                    title = "Neumorphic Smart Home",
+                    description = "Soft UI extrusion shaders and trigonometric radial dial gestures.",
+                    containerColor = if (isDark) DTeal else LTeal,
+                    onClick = onNavigateToSmartHome
+                ),
+                TutorialTopic(
+                    title = "Fluid Graphing Calculator",
+                    description = "Morphing layout geometry and real-time Canvas calculus plotting.",
+                    containerColor = if (isDark) DIndigo else LIndigo,
+                    onClick = onNavigateToGraphingCalculator
                 )
             )
         ),

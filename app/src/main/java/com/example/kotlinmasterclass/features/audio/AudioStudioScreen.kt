@@ -128,22 +128,34 @@ fun AudioStudioScreen(
             Column(modifier = Modifier.fillMaxWidth().padding(horizontal = 32.dp, vertical = 24.dp)) {
                 var scrubAnchor by remember { mutableFloatStateOf(0f) }
                 Box(
-                    modifier = Modifier.fillMaxWidth().height(48.dp).background(colors.vinyl, RoundedCornerShape(24.dp)).pointerInput(Unit) {
-                        detectHorizontalDragGestures(
-                            onDragStart = { scrubAnchor = state.trackProgress },
-                            onHorizontalDrag = { change, dragAmount ->
-                                change.consume()
-                                val newProgress = (state.trackProgress + (dragAmount / size.width)).coerceIn(0f, 1f)
-                                viewModel.updateProgress(newProgress)
-                                if (Math.abs(newProgress - scrubAnchor) > 0.02f) {
-                                    haptic.performHapticFeedback(HapticFeedbackType.TextHandleMove)
-                                    scrubAnchor = newProgress
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .height(48.dp)
+                        .clip(RoundedCornerShape(24.dp)) // THE FIX: Parent acts as a perfect mask
+                        .background(colors.vinyl)        // Background applied after clipping
+                        .pointerInput(Unit) {
+                            detectHorizontalDragGestures(
+                                onDragStart = { scrubAnchor = state.trackProgress },
+                                onHorizontalDrag = { change, dragAmount ->
+                                    change.consume()
+                                    val newProgress = (state.trackProgress + (dragAmount / size.width)).coerceIn(0f, 1f)
+                                    viewModel.updateProgress(newProgress)
+                                    if (Math.abs(newProgress - scrubAnchor) > 0.02f) {
+                                        haptic.performHapticFeedback(HapticFeedbackType.TextHandleMove)
+                                        scrubAnchor = newProgress
+                                    }
                                 }
-                            }
-                        )
-                    }
+                            )
+                        }
                 ) {
-                    Box(modifier = Modifier.fillMaxHeight().fillMaxWidth(state.trackProgress).clip(RoundedCornerShape(24.dp)).background(Brush.horizontalGradient(listOf(colors.neon, colors.active))))
+                    // The inner fill is now just a plain rectangle
+                    // It won't glitch at 1% because the parent handles the rounded corners!
+                    Box(
+                        modifier = Modifier
+                            .fillMaxHeight()
+                            .fillMaxWidth(state.trackProgress)
+                            .background(Brush.horizontalGradient(listOf(colors.neon, colors.active)))
+                    )
                 }
             }
 

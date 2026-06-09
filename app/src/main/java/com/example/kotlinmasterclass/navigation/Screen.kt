@@ -27,5 +27,9 @@ sealed class Screen(val route: String) {
     object WeatherPlanetarium : Screen("weather_planetarium")
     object AudioStudio : Screen("audio_studio")
     object FinanceCommandCenter : Screen("finance_command_center")
+
+    // --- NEW MORPHISM SCREENS ---
+    object SmartHome : Screen("smart_home_tutorial")
+    object GraphingCalculator : Screen("graphing_calculator_tutorial")
     // We will add more routes here as we build out the app
 }
