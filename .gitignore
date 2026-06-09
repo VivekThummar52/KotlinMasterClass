@@ -16,3 +16,4 @@ local.properties
 
 .idea/gradle.xml
 .idea/vcs.xml
+.idea/deploymentTargetSelector.xml

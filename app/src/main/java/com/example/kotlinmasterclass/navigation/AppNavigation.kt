@@ -5,6 +5,10 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.example.kotlinmasterclass.features.audio.AudioStudioScreen
+import com.example.kotlinmasterclass.features.audio.AudioStudioViewModel
+import com.example.kotlinmasterclass.features.calculator.GraphingCalculatorScreen
+import com.example.kotlinmasterclass.features.calculator.GraphingViewModel
 import com.example.kotlinmasterclass.features.canvas.CanvasScreen
 import com.example.kotlinmasterclass.features.canvas.CanvasViewModel
 import com.example.kotlinmasterclass.features.concurrency.AdvancedConcurrencyScreen
@@ -20,6 +24,8 @@ import com.example.kotlinmasterclass.features.delegation.DelegationScreen
 import com.example.kotlinmasterclass.features.delegation.DelegationViewModel
 import com.example.kotlinmasterclass.features.extensionfunctions.ExtensionFunctionsScreen
 import com.example.kotlinmasterclass.features.extensionfunctions.ExtensionFunctionsViewModel
+import com.example.kotlinmasterclass.features.finance.FinanceCommandCenterScreen
+import com.example.kotlinmasterclass.features.finance.FinanceViewModel
 import com.example.kotlinmasterclass.features.flow.FlowScreen
 import com.example.kotlinmasterclass.features.flow.FlowViewModel
 import com.example.kotlinmasterclass.features.generics.GenericsScreen
@@ -45,6 +51,8 @@ import com.example.kotlinmasterclass.features.settings.SettingsScreen
 import com.example.kotlinmasterclass.features.settings.SettingsViewModel
 import com.example.kotlinmasterclass.features.smartcity.SmartCityScreen
 import com.example.kotlinmasterclass.features.smartcity.SmartCityViewModel
+import com.example.kotlinmasterclass.features.smarthome.SmartHomeScreen
+import com.example.kotlinmasterclass.features.smarthome.SmartHomeViewModel
 import com.example.kotlinmasterclass.features.testing.TestingScreen
 import com.example.kotlinmasterclass.features.testing.TestingViewModel
 import com.example.kotlinmasterclass.features.wallet.GlassWalletScreen
@@ -89,6 +97,8 @@ fun AppNavigation() {
                 onNavigateToWeather = { navController.navigate(Screen.WeatherPlanetarium.route) },
                 onNavigateToAudioStudio = { navController.navigate(Screen.AudioStudio.route) },
                 onNavigateToFinance = { navController.navigate(Screen.FinanceCommandCenter.route) },
+                onNavigateToSmartHome = { navController.navigate(Screen.SmartHome.route) },
+                onNavigateToGraphingCalculator = { navController.navigate(Screen.GraphingCalculator.route) },
                 onNavigateToSettings = navigateToSettings)
         }
 
@@ -299,8 +309,8 @@ fun AppNavigation() {
         }
 
         composable(route = Screen.AudioStudio.route) {
-            val audioViewModel: com.example.kotlinmasterclass.features.audio.AudioStudioViewModel = hiltViewModel()
-            com.example.kotlinmasterclass.features.audio.AudioStudioScreen(
+            val audioViewModel: AudioStudioViewModel = hiltViewModel()
+            AudioStudioScreen(
                 viewModel = audioViewModel,
                 onBackClick = { navController.popBackStack() },
                 onSettingsClick = navigateToSettings
@@ -308,9 +318,27 @@ fun AppNavigation() {
         }
 
         composable(route = Screen.FinanceCommandCenter.route) {
-            val financeViewModel: com.example.kotlinmasterclass.features.finance.FinanceViewModel = hiltViewModel()
-            com.example.kotlinmasterclass.features.finance.FinanceCommandCenterScreen(
+            val financeViewModel: FinanceViewModel = hiltViewModel()
+            FinanceCommandCenterScreen(
                 viewModel = financeViewModel,
+                onBackClick = { navController.popBackStack() },
+                onSettingsClick = navigateToSettings
+            )
+        }
+
+        composable(route = Screen.SmartHome.route) {
+            val viewModel: SmartHomeViewModel = hiltViewModel()
+            SmartHomeScreen(
+                viewModel = viewModel,
+                onBackClick = { navController.popBackStack() },
+                onSettingsClick = navigateToSettings
+            )
+        }
+
+        composable(route = Screen.GraphingCalculator.route) {
+            val viewModel: GraphingViewModel = hiltViewModel()
+            GraphingCalculatorScreen(
+                viewModel = viewModel,
                 onBackClick = { navController.popBackStack() },
                 onSettingsClick = navigateToSettings
             )

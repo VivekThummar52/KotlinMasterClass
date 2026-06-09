@@ -4,6 +4,7 @@ import androidx.compose.animation.animateColorAsState
 import androidx.compose.animation.core.*
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.gestures.detectDragGestures
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyRow
@@ -48,7 +49,6 @@ fun WeatherPlanetariumScreen(
 ) {
     val selectedLoc by viewModel.selectedLocation.collectAsState()
 
-    // THE FIX: Listen to the active MaterialTheme token provider
     val isDarkTheme = !MaterialTheme.colorScheme.surfaceAnalysisProvider()
     val colors = if (isDarkTheme) DarkWeatherColors else LightWeatherColors
 
@@ -79,7 +79,6 @@ fun WeatherPlanetariumScreen(
             val r = sqrt(1 - y * y)
             val theta = phi * i
 
-            // Using Constructor reflection or assumes Point3D is imported correctly
             Point3D((cos(theta) * r).toFloat(), y.toFloat(), (sin(theta) * r).toFloat(), i % 10 == 0)
         }
     }
@@ -148,10 +147,19 @@ fun WeatherPlanetariumScreen(
                             "STORM" -> Icons.Filled.Thunderstorm
                             else -> Icons.Filled.Cloud
                         }
+
+                        // THE FIX: Provide an empty interaction source and null indication to remove the ripple
+                        val interactionSource = remember { MutableInteractionSource() }
+
                         Card(
                             colors = CardDefaults.cardColors(containerColor = if (isSelected) primaryColor.copy(alpha = 0.2f) else colors.textMain.copy(alpha = 0.05f)),
                             shape = RoundedCornerShape(24.dp),
-                            modifier = Modifier.clickable { viewModel.selectLocation(loc.id) }
+                            modifier = Modifier.clickable(
+                                interactionSource = interactionSource,
+                                indication = null
+                            ) {
+                                viewModel.selectLocation(loc.id)
+                            }
                         ) {
                             Row(verticalAlignment = Alignment.CenterVertically, modifier = Modifier.padding(horizontal = 16.dp, vertical = 12.dp)) {
                                 Icon(icon, contentDescription = null, tint = if (isSelected) primaryColor else colors.textMain)
