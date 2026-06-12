@@ -309,8 +309,24 @@ private fun ReactorPanel(state: MissionControlState, modifier: Modifier = Modifi
                 .fillMaxWidth()
                 .height(320.dp)
         )
-        Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween) {
+        Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween, verticalAlignment = Alignment.Bottom) {
             ReactorReadout("FREQUENCY", "${(4.2f + state.power / 52f).formatOne()} THz")
+
+            Column(horizontalAlignment = Alignment.CenterHorizontally) {
+                Text(
+                    text = "${state.power.toInt()}%",
+                    style = MaterialTheme.typography.headlineLarge,
+                    fontWeight = FontWeight.Black,
+                    color = MissionText
+                )
+                Text(
+                    text = "CORE OUTPUT",
+                    style = MaterialTheme.typography.labelSmall,
+                    color = MissionMuted,
+                    fontWeight = FontWeight.Bold
+                )
+            }
+
             ReactorReadout("CONTAINMENT", "${state.stability.toInt()}%", Alignment.End)
         }
     }
@@ -323,8 +339,11 @@ private fun ReactorReadout(
     alignment: Alignment.Horizontal = Alignment.Start
 ) {
     Column(horizontalAlignment = alignment) {
-        Text(label, color = MissionMuted, style = MaterialTheme.typography.labelSmall)
+        // 1. Value is drawn first (Top)
         Text(value, color = MissionText, fontWeight = FontWeight.Bold)
+
+        // 2. Label is drawn second (Bottom)
+        Text(label, color = MissionMuted, style = MaterialTheme.typography.labelSmall)
     }
 }
 

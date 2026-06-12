@@ -178,21 +178,6 @@ internal fun ReactorCore(
                 radius = radius * 0.08f * pulse
             )
         }
-
-        Column(horizontalAlignment = Alignment.CenterHorizontally) {
-            Text(
-                text = "${state.power.toInt()}%",
-                style = MaterialTheme.typography.headlineLarge,
-                fontWeight = FontWeight.Black,
-                color = MissionText
-            )
-            Text(
-                text = "CORE OUTPUT",
-                style = MaterialTheme.typography.labelSmall,
-                color = accent,
-                fontWeight = FontWeight.Bold
-            )
-        }
     }
 }
 
