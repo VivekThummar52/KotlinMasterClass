@@ -1,10 +1,21 @@
 package com.example.kotlinmasterclass.features.smarthome
 
+import android.graphics.BlurMaskFilter
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.gestures.detectDragGestures
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.aspectRatio
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
@@ -16,8 +27,15 @@ import androidx.compose.material.icons.filled.AcUnit
 import androidx.compose.material.icons.filled.Lightbulb
 import androidx.compose.material.icons.filled.Speaker
 import androidx.compose.material.icons.filled.Tv
-import androidx.compose.material3.*
-import androidx.compose.runtime.*
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Text
+import androidx.compose.material3.TopAppBarDefaults
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -29,11 +47,10 @@ import androidx.compose.ui.graphics.drawscope.drawIntoCanvas
 import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.kotlinmasterclass.utils.surfaceAnalysisProvider
 import com.example.kotlinmasterclass.ui.components.MasterclassTopAppBar
+import com.example.kotlinmasterclass.utils.surfaceAnalysisProvider
 import kotlin.math.atan2
 import kotlin.math.cos
 import kotlin.math.sin
@@ -178,30 +195,39 @@ fun SmartHomeScreen(
 }
 
 // --- THE MASTERCLASS NEUMORPHIC SHADER ---
+// --- THE UPGRADED NEUMORPHIC SHADER (Backward Compatible) ---
 fun Modifier.neumorphic(
     colors: SmartHomeColors,
     isPressed: Boolean = false,
-    cornerRadius: Dp = 16.dp,
+    cornerRadius: androidx.compose.ui.unit.Dp = 16.dp,
     blurRadius: Float = 20f
 ) = this.drawBehind {
     drawIntoCanvas { canvas ->
         val paint = Paint()
         val frameworkPaint = paint.asFrameworkPaint()
-        frameworkPaint.color = Color.Transparent.toArgb()
-        frameworkPaint.setShadowLayer(
-            blurRadius,
-            if (isPressed) -10f else 10f,
-            if (isPressed) -10f else 10f,
-            colors.darkShadow.toArgb()
-        )
-        canvas.drawRoundRect(0f, 0f, size.width, size.height, cornerRadius.toPx(), cornerRadius.toPx(), paint)
+        frameworkPaint.isAntiAlias = true
 
-        frameworkPaint.setShadowLayer(
+        // THE FIX: Use BlurMaskFilter instead of setShadowLayer.
+        // This is strictly supported by Hardware Acceleration on Android 8 and below.
+        frameworkPaint.maskFilter = BlurMaskFilter(
             blurRadius,
-            if (isPressed) 10f else -10f,
-            if (isPressed) 10f else -10f,
-            colors.lightShadow.toArgb()
+            BlurMaskFilter.Blur.NORMAL
         )
+
+        val offset = if (isPressed) -10f else 10f
+
+        // 1. Draw the Dark Shadow (Bottom Right)
+        frameworkPaint.color = colors.darkShadow.toArgb()
+        canvas.save()
+        canvas.translate(offset, offset)
         canvas.drawRoundRect(0f, 0f, size.width, size.height, cornerRadius.toPx(), cornerRadius.toPx(), paint)
+        canvas.restore()
+
+        // 2. Draw the Light Shadow (Top Left)
+        frameworkPaint.color = colors.lightShadow.toArgb()
+        canvas.save()
+        canvas.translate(-offset, -offset)
+        canvas.drawRoundRect(0f, 0f, size.width, size.height, cornerRadius.toPx(), cornerRadius.toPx(), paint)
+        canvas.restore()
     }
-}.background(colors.bg, RoundedCornerShape(cornerRadius))
+}.background(colors.bg, androidx.compose.foundation.shape.RoundedCornerShape(cornerRadius))
