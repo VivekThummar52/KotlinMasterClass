@@ -4,7 +4,6 @@ import androidx.compose.animation.*
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
@@ -25,8 +24,6 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.kotlinmasterclass.utils.surfaceAnalysisProvider
 import com.example.kotlinmasterclass.ui.components.MasterclassTopAppBar
-import kotlin.math.cos
-import kotlin.math.sin
 
 // --- CALCULATOR PALETTES ---
 val DarkCalcColors = CalcColors(bg = Color(0xFF000000), panel = Color(0xFF1C1C1E), accent = Color(0xFFFF9F0A), textMain = Color.White, padGray = Color(0xFF333333))
@@ -100,11 +97,21 @@ fun GraphingCalculatorScreen(
                                     val mathX = (px - centerX) / scale
                                     
                                     // Simulated Parser: If expression contains "sin", graph sine wave.
+                                    // Upgraded Simulated Parser
                                     val mathY = when {
-                                        state.expression.contains("sin") -> sin(mathX)
-                                        state.expression.contains("cos") -> cos(mathX)
-                                        state.expression.contains("x") -> mathX * mathX * 0.1f // x^2 parabola
-                                        else -> sin(mathX) // Default
+                                        state.expression.contains("sin") -> kotlin.math.sin(mathX)
+                                        state.expression.contains("cos") -> kotlin.math.cos(mathX)
+                                        state.expression.contains("tan") -> kotlin.math.tan(mathX)
+                                        // If they type "x×x" (x squared)
+                                        state.expression.contains("x×x") -> mathX * mathX * 0.2f
+                                        // If they just type "x" (linear diagonal line)
+                                        state.expression.contains("x") -> mathX
+                                        // If they just type a number, draw a flat horizontal line at that height
+                                        state.expression.isNotEmpty() && state.expression.all { it.isDigit() || it == '.' } -> {
+                                            state.expression.toFloatOrNull() ?: 0f
+                                        }
+                                        // Default to a flat line at zero (the X-axis) if empty or invalid
+                                        else -> 0f
                                     }
 
                                     val py = centerY - (mathY * scale)
