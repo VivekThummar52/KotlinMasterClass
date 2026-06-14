@@ -30,6 +30,6 @@ sealed class Screen(val route: String) {
 
     // --- NEW MORPHISM SCREENS ---
     object SmartHome : Screen("smart_home_tutorial")
-    object GraphingCalculator : Screen("graphing_calculator_tutorial")
+    object GraphingCalculatorScreen : Screen("graphing_calculator_tutorial")
     // We will add more routes here as we build out the app
 }
