@@ -1,7 +1,10 @@
 package com.example.kotlinmasterclass.features.jobdiscovery
 
+import android.app.Activity
+import android.graphics.Color as AndroidColor
 import android.os.Bundle
 import androidx.activity.ComponentActivity
+import androidx.activity.SystemBarStyle
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.BorderStroke
@@ -42,6 +45,7 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.SideEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -50,14 +54,17 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.hapticfeedback.HapticFeedbackType
 import androidx.compose.ui.platform.LocalHapticFeedback
+import androidx.compose.ui.platform.LocalView
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.core.view.WindowCompat
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.kotlinmasterclass.ui.theme.KotlinMasterclassTheme
 import dagger.hilt.android.AndroidEntryPoint
@@ -66,9 +73,23 @@ import dagger.hilt.android.AndroidEntryPoint
 class JobDiscoveryActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
+        enableEdgeToEdge(
+            statusBarStyle = SystemBarStyle.dark(AndroidColor.TRANSPARENT),
+            navigationBarStyle = SystemBarStyle.dark(AndroidColor.TRANSPARENT)
+        )
         setContent {
             KotlinMasterclassTheme {
+                val view = LocalView.current
+                if (!view.isInEditMode) {
+                    SideEffect {
+                        val window = (view.context as Activity).window
+                        // 1. Set the status bar color to match your Scaffold (Black/Dark)
+                        window.statusBarColor = Color(0xFF121212).toArgb()
+
+                        // 2. Force status bar icons to be light (White)
+                        WindowCompat.getInsetsController(window, view).isAppearanceLightStatusBars = false
+                    }
+                }
                 JobDiscoveryApp()
             }
         }
@@ -309,7 +330,9 @@ fun JobCard(job: JobItem) {
         shape = RoundedCornerShape(32.dp),
         colors = CardDefaults.cardColors(containerColor = Color(job.backgroundColor))
     ) {
-        Box(modifier = Modifier.fillMaxSize().padding(20.dp)) {
+        Box(modifier = Modifier
+            .fillMaxSize()
+            .padding(20.dp)) {
             Column {
                 Row(
                     modifier = Modifier.fillMaxWidth(),
