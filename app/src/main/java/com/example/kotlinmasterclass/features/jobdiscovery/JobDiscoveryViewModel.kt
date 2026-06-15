@@ -5,22 +5,6 @@ import androidx.lifecycle.ViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
-data class JobType(
-    val id: Int,
-    val name: String
-)
-
-data class JobItem(
-    val id: Int,
-    val companyName: String,
-    val companyLogo: Int,
-    val jobTitle: String,
-    val salary: String,
-    val status: String,
-    val applicantsCount: String,
-    val backgroundColor: Long
-)
-
 @HiltViewModel
 class JobDiscoveryViewModel @Inject constructor() : ViewModel() {
 
