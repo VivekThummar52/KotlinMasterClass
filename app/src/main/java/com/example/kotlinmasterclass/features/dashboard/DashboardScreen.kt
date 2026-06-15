@@ -117,6 +117,7 @@ fun DashboardScreen(
     onNavigateToSmartHome: () -> Unit,
     onNavigateToGraphingCalculator: () -> Unit,
     onLaunchJobDiscovery: () -> Unit,
+    onLaunchMySpendings: () -> Unit,
     onNavigateToSettings: () -> Unit,
     settingsViewModel: SettingsViewModel = hiltViewModel()
 ) {
@@ -282,6 +283,12 @@ fun DashboardScreen(
                     description = "A standalone activity demonstrating the adaptive NavigationSuiteScaffold for foldable and tablet scaling.",
                     containerColor = if (isDark) Color(0xFF1B5E20) else Color(0xFFE8F5E9),
                     onClick = onLaunchJobDiscovery
+                ),
+                TutorialTopic(
+                    title = "My Spendings",
+                    description = "A standalone activity listing all the spendings for the including Shopping, Entertainment, OTT platforms and a lot more",
+                    containerColor = if (isDark) DIndigo else LIndigo,
+                    onClick = onLaunchMySpendings
                 )
             )
         )
