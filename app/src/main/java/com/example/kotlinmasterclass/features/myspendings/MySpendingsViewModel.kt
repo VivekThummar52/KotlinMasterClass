@@ -2,10 +2,10 @@ package com.example.kotlinmasterclass.features.myspendings
 
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.CarRental
+import androidx.compose.material.icons.filled.Coffee
 import androidx.compose.material.icons.filled.DirectionsBus
 import androidx.compose.material.icons.filled.Fastfood
 import androidx.compose.material.icons.filled.LiveTv
-import androidx.compose.material.icons.filled.LocalDrink
 import androidx.compose.material.icons.filled.LocalPharmacy
 import androidx.compose.material.icons.filled.LocalPizza
 import androidx.compose.material.icons.filled.LocalTaxi
@@ -35,7 +35,7 @@ class MySpendingsViewModel @Inject constructor() : ViewModel() {
         RecentTransactionData(3, Icons.Default.ShoppingCart, "Amazon", "Shopping", "-$89.99", "14 June", 0xFFE57373, 0xFFFFCDD2),
         RecentTransactionData(4, Icons.Default.Videocam, "Netflix", "Entertainment", "-$15.50", "12 June", 0xFFF06292, 0xFFF8BBD0),
         RecentTransactionData(5, Icons.Default.LocalPharmacy, "Pharmacy", "Health", "-$30.00", "10 June", 0xFFFBC02D, 0xFFFFF9C4),
-        RecentTransactionData(6, Icons.Default.LocalDrink, "Starbucks", "Food & Drinks", "-$5.50", "09 June", 0xFF757575, 0xFFE0E0E0)
+        RecentTransactionData(6, Icons.Default.Coffee, "Starbucks", "Food & Drinks", "-$5.50", "09 June", 0xFF757575, 0xFFE0E0E0)
     )
 
 }

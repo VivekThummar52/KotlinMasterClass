@@ -19,15 +19,17 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Apps
-import androidx.compose.material.icons.filled.PersonOutline
-import androidx.compose.material.icons.filled.Water
+import androidx.compose.material.icons.filled.Circle
+import androidx.compose.material.icons.filled.Person
+import androidx.compose.material.icons.filled.Waves
 import androidx.compose.material.icons.outlined.Notifications
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
@@ -94,61 +96,55 @@ class MySpendingsActivity : ComponentActivity() {
 @Composable
 fun MySpendingsScreen(viewModel: MySpendingsViewModel = hiltViewModel()) {
     val softWhite = Color(0xFFFAF5F5)
-    val softLavenderWhite = Color(0xFFF7F3F5)
-    val softLavenderDarker = Color(0xFFECE5EB)
     val softLavenderPerfect = Color(0xFFF1EBEE)
-
-
-    val paleRoseWhite = Color(0xFFF6F1F3)
     val haptic = LocalHapticFeedback.current
     var progress by remember { mutableFloatStateOf(0.7f) }
 
     Box(modifier = Modifier.fillMaxSize()) {
         Scaffold(
             modifier = Modifier.fillMaxSize(),
-            containerColor = softWhite, // Sets a light background for the whole screen
+            containerColor = softWhite,
         ) { innerPadding ->
-            Box(
+            Column(
                 modifier = Modifier
                     .fillMaxSize()
                     .padding(innerPadding)
-                    .padding(16.dp), // General content padding
+                    .padding(16.dp)
+                    .verticalScroll(rememberScrollState()),
             ) {
+                TopBarView(haptic)
+
+                Spacer(modifier = Modifier.height(24.dp))
+
                 Column {
-                    TopBarView(haptic)
-
-                    Spacer(modifier = Modifier.height(18.dp))
-
-                    Column {
-                        Text(text = "Good morning,", fontSize = 24.sp, color = Color.Black)
-                        Text(text = "James 👋", fontSize = 24.sp, color = Color.Black)
-                    }
-
-                    Spacer(modifier = Modifier.height(18.dp))
-
-                    CurrentMonthOverView(softLavenderPerfect, progress)
-
-                    Spacer(modifier = Modifier.height(18.dp))
-
-                    SpendingOverView()
-
-                    Spacer(modifier = Modifier.height(18.dp))
-
-                    SpendingOverViewList(viewModel)
-
-                    Spacer(modifier = Modifier.height(18.dp))
-
-                    Text(
-                        text = "Recent Transactions",
-                        fontWeight = FontWeight.Bold,
-                        fontSize = 16.sp,
-                        color = Color.Black
-                    )
-
-                    Spacer(modifier = Modifier.height(18.dp))
-
-                    RecentTransactionList(viewModel)
+                    Text(text = "Good morning,", fontSize = 28.sp, color = Color.Black.copy(alpha = 0.6f))
+                    Text(text = "James 👋", fontSize = 28.sp, color = Color.Black, fontWeight = FontWeight.Bold)
                 }
+
+                Spacer(modifier = Modifier.height(24.dp))
+
+                CurrentMonthOverView(softLavenderPerfect, progress)
+
+                Spacer(modifier = Modifier.height(24.dp))
+
+                SpendingOverView()
+
+                Spacer(modifier = Modifier.height(16.dp))
+
+                SpendingOverViewList(viewModel)
+
+                Spacer(modifier = Modifier.height(24.dp))
+
+                Text(
+                    text = "Recent Transactions",
+                    fontWeight = FontWeight.Bold,
+                    fontSize = 18.sp,
+                    color = Color.Black
+                )
+
+                Spacer(modifier = Modifier.height(16.dp))
+
+                RecentTransactionList(viewModel)
             }
         }
     }
@@ -156,11 +152,11 @@ fun MySpendingsScreen(viewModel: MySpendingsViewModel = hiltViewModel()) {
 
 @Composable
 fun RecentTransactionList(viewModel: MySpendingsViewModel) {
-    LazyColumn(
-        contentPadding = PaddingValues(horizontal = 4.dp),
-        verticalArrangement = Arrangement.spacedBy(12.dp)
+    Column(
+        modifier = Modifier.padding(horizontal = 4.dp),
+        verticalArrangement = Arrangement.spacedBy(16.dp)
     ) {
-        items(viewModel.recentTransactionsList) { transactionData ->
+        viewModel.recentTransactionsList.forEach { transactionData ->
             TransactionCard(transactionData)
         }
     }
@@ -168,20 +164,23 @@ fun RecentTransactionList(viewModel: MySpendingsViewModel) {
 
 @Composable
 fun TransactionCard(transactionData: RecentTransactionData) {
-    Row(verticalAlignment = Alignment.CenterVertically) {
+    Row(
+        verticalAlignment = Alignment.CenterVertically,
+        modifier = Modifier.fillMaxWidth()
+    ) {
         Card(
-            shape = RoundedCornerShape(32.dp),
-            colors = CardDefaults.cardColors(containerColor = Color(transactionData.backgroundColor))
+            shape = RoundedCornerShape(16.dp),
+            colors = CardDefaults.cardColors(containerColor = Color(transactionData.backgroundColor)),
+            modifier = Modifier.size(56.dp)
         ) {
-            Surface(
-                modifier = Modifier.size(48.dp),
-                shape = CircleShape,
-                color = Color(transactionData.backgroundColor).copy(alpha = 0.3f)
+            Box(
+                modifier = Modifier.fillMaxSize(),
+                contentAlignment = Alignment.Center
             ) {
                 Icon(
                     imageVector = transactionData.icon,
                     contentDescription = null,
-                    modifier = Modifier.padding(12.dp),
+                    modifier = Modifier.size(28.dp),
                     tint = Color(transactionData.iconColor)
                 )
             }
@@ -192,26 +191,35 @@ fun TransactionCard(transactionData: RecentTransactionData) {
         Column(
             modifier = Modifier
                 .weight(1f)
-                .padding(vertical = 12.dp)
+                .padding(vertical = 4.dp)
         ) {
             Text(
-                text = transactionData.name, color = Color.Black, fontWeight = FontWeight.Bold
+                text = transactionData.name,
+                color = Color.Black,
+                fontWeight = FontWeight.Bold,
+                fontSize = 16.sp
             )
             Text(
-                text = transactionData.category, color = Color.Gray, fontWeight = FontWeight.Bold
+                text = transactionData.category,
+                color = Color.Gray,
+                fontSize = 14.sp
             )
         }
 
-        Spacer(modifier = Modifier.width(16.dp))
-
         Column(
-            modifier = Modifier.padding(vertical = 12.dp), horizontalAlignment = Alignment.End
+            modifier = Modifier.padding(vertical = 4.dp),
+            horizontalAlignment = Alignment.End
         ) {
             Text(
-                text = transactionData.amount, color = Color.Black, fontWeight = FontWeight.Bold
+                text = transactionData.amount,
+                color = Color.Black,
+                fontWeight = FontWeight.Bold,
+                fontSize = 16.sp
             )
             Text(
-                text = transactionData.date, color = Color.Gray, fontWeight = FontWeight.Bold
+                text = transactionData.date,
+                color = Color.Gray,
+                fontSize = 14.sp
             )
         }
     }
@@ -221,43 +229,52 @@ fun TransactionCard(transactionData: RecentTransactionData) {
 fun TopBarView(haptic: HapticFeedback) {
     Row(
         modifier = Modifier.fillMaxWidth(),
-        verticalAlignment = Alignment.CenterVertically // Centers icons and text
+        verticalAlignment = Alignment.CenterVertically
     ) {
-        Icon(
-            Icons.Default.Apps,
-            contentDescription = null,
-            tint = Color.Black,
-            modifier = Modifier.size(24.dp)
-        )
+        IconButton(onClick = { haptic.performHapticFeedback(HapticFeedbackType.LongPress) }) {
+            Icon(
+                Icons.Default.Apps,
+                contentDescription = null,
+                tint = Color.Black,
+                modifier = Modifier.size(28.dp)
+            )
+        }
 
-        Spacer(
-            modifier = Modifier.weight(1f)
-        )
+        Spacer(modifier = Modifier.weight(1f))
 
         Icon(
             Icons.Outlined.Notifications,
             contentDescription = null,
             tint = Color.Black,
-            modifier = Modifier.size(24.dp)
+            modifier = Modifier.size(28.dp)
         )
 
         Spacer(modifier = Modifier.width(16.dp))
 
-        IconButton(onClick = { haptic.performHapticFeedback(HapticFeedbackType.LongPress) }) {
+        Box(contentAlignment = Alignment.TopEnd) {
             Box(
                 modifier = Modifier
                     .size(40.dp)
                     .clip(CircleShape)
-                    .background(Color.Transparent),
+                    .background(Color.LightGray),
                 contentAlignment = Alignment.Center
             ) {
                 Icon(
-                    Icons.Default.PersonOutline,
+                    Icons.Default.Person,
                     contentDescription = null,
-                    tint = Color.Black,
-                    modifier = Modifier.size(24.dp)
+                    modifier = Modifier.size(24.dp),
+                    tint = Color.DarkGray
                 )
             }
+            Icon(
+                Icons.Default.Circle,
+                contentDescription = null,
+                tint = Color(0xFF6C63FF),
+                modifier = Modifier
+                    .size(12.dp)
+                    .background(Color.White, CircleShape)
+                    .padding(1.dp)
+            )
         }
     }
 }
@@ -267,60 +284,59 @@ fun CurrentMonthOverView(softLavenderPerfect: Color, progress: Float) {
     Surface(
         modifier = Modifier
             .fillMaxWidth()
-            .height(130.dp),
-        shape = RoundedCornerShape(24.dp),
+            .height(160.dp),
+        shape = RoundedCornerShape(28.dp),
         color = softLavenderPerfect,
     ) {
-        Row(modifier = Modifier.padding(16.dp)) {
-            Column(modifier = Modifier.weight(0.7f)) {
+        Row(
+            modifier = Modifier.padding(24.dp),
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            Column(modifier = Modifier.weight(1f)) {
                 Text(
-                    text = "Total Balance", fontSize = 16.sp, color = Color.Black.copy(alpha = 0.7f)
+                    text = "Total Balance",
+                    fontSize = 14.sp,
+                    color = Color.Gray
                 )
                 Spacer(Modifier.height(8.dp))
                 Text(
-                    text = "$7540.50",
+                    text = "$7,540.50",
                     fontWeight = FontWeight.Bold,
                     fontSize = 32.sp,
-                    color = Color.Black.copy(alpha = 0.7f)
+                    color = Color.Black
                 )
-                Spacer(Modifier.height(8.dp))
+                Spacer(Modifier.height(12.dp))
 
-                Row(modifier = Modifier.weight(1f)) {
+                Row(verticalAlignment = Alignment.CenterVertically) {
                     Text(
-                        text = "This month", fontSize = 16.sp, color = Color.Gray
+                        text = "This month", fontSize = 14.sp, color = Color.Gray
                     )
                     Spacer(Modifier.width(8.dp))
                     Text(
-                        text = "↑ 5.2%", fontSize = 16.sp, color = Color.Green
+                        text = "↑ 5.2%",
+                        fontSize = 14.sp,
+                        color = Color(0xFF4CAF50),
+                        fontWeight = FontWeight.Bold
                     )
                 }
             }
 
-            Box(modifier = Modifier.weight(0.3f)) {
+            Box(contentAlignment = Alignment.Center) {
                 CircularProgressIndicator(
-                    modifier = Modifier.size(100.dp),
+                    modifier = Modifier.size(90.dp),
                     progress = { progress },
-                    color = Color.Blue.copy(alpha = 0.6f),
-                    strokeWidth = 6.dp,
-                    trackColor = Color.White.copy(alpha = 0.7f),
+                    color = Color(0xFF6C63FF),
+                    strokeWidth = 4.dp,
+                    trackColor = Color(0xFF6C63FF).copy(alpha = 0.1f),
                     strokeCap = StrokeCap.Round
                 )
 
-                Box(
-                    modifier = Modifier
-                        .size(40.dp)
-                        .clip(CircleShape)
-                        .align(Alignment.Center)
-                        .background(Color.LightGray.copy(alpha = 0.3f)),
-                    contentAlignment = Alignment.Center
-                ) {
-                    Icon(
-                        Icons.Default.Water,
-                        contentDescription = null,
-                        tint = Color.Blue,
-                        modifier = Modifier.size(24.dp)
-                    )
-                }
+                Icon(
+                    Icons.Default.Waves,
+                    contentDescription = null,
+                    tint = Color(0xFF6C63FF),
+                    modifier = Modifier.size(32.dp)
+                )
             }
         }
     }
@@ -336,11 +352,14 @@ fun SpendingOverView() {
         Text(
             text = "Spending overview",
             fontWeight = FontWeight.Bold,
-            fontSize = 16.sp,
+            fontSize = 18.sp,
             color = Color.Black
         )
         Text(
-            text = "View all", fontSize = 14.sp, color = Color.Blue.copy(alpha = 0.6f)
+            text = "View all",
+            fontSize = 14.sp,
+            color = Color(0xFF6C63FF),
+            fontWeight = FontWeight.Medium
         )
     }
 }
@@ -349,7 +368,7 @@ fun SpendingOverView() {
 fun SpendingOverViewList(viewModel: MySpendingsViewModel) {
     LazyRow(
         contentPadding = PaddingValues(horizontal = 4.dp),
-        horizontalArrangement = Arrangement.spacedBy(12.dp)
+        horizontalArrangement = Arrangement.spacedBy(16.dp)
     ) {
         items(viewModel.spendingOverviewList) { spendingData ->
             OverviewCard(spendingData)
@@ -361,27 +380,36 @@ fun SpendingOverViewList(viewModel: MySpendingsViewModel) {
 fun OverviewCard(spending: SpendingOverviewTypes) {
     Column(horizontalAlignment = Alignment.CenterHorizontally) {
         Card(
-            shape = RoundedCornerShape(32.dp),
-            colors = CardDefaults.cardColors(containerColor = Color(spending.backgroundColor))
+            shape = RoundedCornerShape(16.dp),
+            colors = CardDefaults.cardColors(containerColor = Color(spending.backgroundColor)),
+            modifier = Modifier.size(64.dp)
         ) {
-            Surface(
-                modifier = Modifier.size(48.dp),
-                shape = CircleShape,
-                color = Color(spending.backgroundColor).copy(alpha = 0.3f)
+            Box(
+                modifier = Modifier.fillMaxSize(),
+                contentAlignment = Alignment.Center
             ) {
                 Icon(
                     imageVector = spending.icon,
                     contentDescription = null,
-                    modifier = Modifier.padding(12.dp),
+                    modifier = Modifier.size(28.dp),
                     tint = Color(spending.iconColor)
                 )
             }
         }
 
-        Spacer(modifier = Modifier.height(8.dp))
-        Text(text = spending.category, color = Color.Black, fontWeight = FontWeight.Bold)
-        Spacer(modifier = Modifier.height(4.dp))
-        Text(text = spending.amount, color = Color.Gray.copy(alpha = 0.7f))
+        Spacer(modifier = Modifier.height(12.dp))
+        Text(
+            text = spending.category,
+            color = Color.Black,
+            fontWeight = FontWeight.Medium,
+            fontSize = 14.sp
+        )
+        Spacer(modifier = Modifier.height(2.dp))
+        Text(
+            text = spending.amount,
+            color = Color.Gray,
+            fontSize = 14.sp
+        )
     }
 }
 
