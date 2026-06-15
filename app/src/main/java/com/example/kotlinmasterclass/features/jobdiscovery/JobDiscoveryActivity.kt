@@ -1,4 +1,4 @@
-package com.example.kotlinmasterclass
+package com.example.kotlinmasterclass.features.jobdiscovery
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -50,6 +50,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.hapticfeedback.HapticFeedbackType
 import androidx.compose.ui.platform.LocalHapticFeedback
 import androidx.compose.ui.res.painterResource
@@ -278,7 +279,7 @@ fun BottomNavBar(
 
 @Composable
 fun NavItem(
-    icon: androidx.compose.ui.graphics.vector.ImageVector,
+    icon: ImageVector,
     isSelected: Boolean,
     onClick: () -> Unit
 ) {

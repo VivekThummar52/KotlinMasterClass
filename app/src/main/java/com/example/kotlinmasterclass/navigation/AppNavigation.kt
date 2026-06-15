@@ -7,7 +7,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import com.example.kotlinmasterclass.JobDiscoveryActivity
+import com.example.kotlinmasterclass.features.jobdiscovery.JobDiscoveryActivity
 import com.example.kotlinmasterclass.features.audio.AudioStudioScreen
 import com.example.kotlinmasterclass.features.audio.AudioStudioViewModel
 import com.example.kotlinmasterclass.features.calculator.GraphingCalculatorScreen

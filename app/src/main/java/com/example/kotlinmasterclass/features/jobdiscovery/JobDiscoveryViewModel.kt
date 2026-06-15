@@ -1,5 +1,6 @@
-package com.example.kotlinmasterclass
+package com.example.kotlinmasterclass.features.jobdiscovery
 
+import android.R
 import androidx.lifecycle.ViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
@@ -35,7 +36,7 @@ class JobDiscoveryViewModel @Inject constructor() : ViewModel() {
         JobItem(
             id = 1,
             companyName = "Amazon",
-            companyLogo = android.R.drawable.ic_menu_gallery, // Placeholder
+            companyLogo = R.drawable.ic_menu_gallery, // Placeholder
             jobTitle = "Senior Product Designer",
             salary = "$120K",
             status = "Applied",
@@ -45,7 +46,7 @@ class JobDiscoveryViewModel @Inject constructor() : ViewModel() {
         JobItem(
             id = 2,
             companyName = "Google",
-            companyLogo = android.R.drawable.ic_menu_gallery,
+            companyLogo = R.drawable.ic_menu_gallery,
             jobTitle = "UX Researcher",
             salary = "$150K",
             status = "New",
@@ -55,7 +56,7 @@ class JobDiscoveryViewModel @Inject constructor() : ViewModel() {
         JobItem(
             id = 3,
             companyName = "Netflix",
-            companyLogo = android.R.drawable.ic_menu_gallery,
+            companyLogo = R.drawable.ic_menu_gallery,
             jobTitle = "Senior Android Developer",
             salary = "$180K",
             status = "Applied",
@@ -65,7 +66,7 @@ class JobDiscoveryViewModel @Inject constructor() : ViewModel() {
         JobItem(
             id = 4,
             companyName = "Meta",
-            companyLogo = android.R.drawable.ic_menu_gallery,
+            companyLogo = R.drawable.ic_menu_gallery,
             jobTitle = "Product Manager",
             salary = "$160K",
             status = "Saved",
@@ -75,7 +76,7 @@ class JobDiscoveryViewModel @Inject constructor() : ViewModel() {
         JobItem(
             id = 5,
             companyName = "Apple",
-            companyLogo = android.R.drawable.ic_menu_gallery,
+            companyLogo = R.drawable.ic_menu_gallery,
             jobTitle = "iOS Developer",
             salary = "$145K",
             status = "Applied",
@@ -85,7 +86,7 @@ class JobDiscoveryViewModel @Inject constructor() : ViewModel() {
         JobItem(
             id = 6,
             companyName = "Airbnb",
-            companyLogo = android.R.drawable.ic_menu_gallery,
+            companyLogo = R.drawable.ic_menu_gallery,
             jobTitle = "UI Designer",
             salary = "$110K",
             status = "Saved",
@@ -95,7 +96,7 @@ class JobDiscoveryViewModel @Inject constructor() : ViewModel() {
         JobItem(
             id = 7,
             companyName = "Uber",
-            companyLogo = android.R.drawable.ic_menu_gallery,
+            companyLogo = R.drawable.ic_menu_gallery,
             jobTitle = "Backend Engineer",
             salary = "$155K",
             status = "New",
@@ -105,7 +106,7 @@ class JobDiscoveryViewModel @Inject constructor() : ViewModel() {
         JobItem(
             id = 8,
             companyName = "Spotify",
-            companyLogo = android.R.drawable.ic_menu_gallery,
+            companyLogo = R.drawable.ic_menu_gallery,
             jobTitle = "Data Scientist",
             salary = "$135K",
             status = "Applied",
@@ -115,7 +116,7 @@ class JobDiscoveryViewModel @Inject constructor() : ViewModel() {
         JobItem(
             id = 9,
             companyName = "Slack",
-            companyLogo = android.R.drawable.ic_menu_gallery,
+            companyLogo = R.drawable.ic_menu_gallery,
             jobTitle = "Frontend Developer",
             salary = "$125K",
             status = "New",
@@ -125,7 +126,7 @@ class JobDiscoveryViewModel @Inject constructor() : ViewModel() {
         JobItem(
             id = 10,
             companyName = "Microsoft",
-            companyLogo = android.R.drawable.ic_menu_gallery,
+            companyLogo = R.drawable.ic_menu_gallery,
             jobTitle = "Cloud Architect",
             salary = "$170K",
             status = "Applied",
@@ -135,7 +136,7 @@ class JobDiscoveryViewModel @Inject constructor() : ViewModel() {
         JobItem(
             id = 11,
             companyName = "Tesla",
-            companyLogo = android.R.drawable.ic_menu_gallery,
+            companyLogo = R.drawable.ic_menu_gallery,
             jobTitle = "Mechanical Engineer",
             salary = "$140K",
             status = "New",
@@ -145,7 +146,7 @@ class JobDiscoveryViewModel @Inject constructor() : ViewModel() {
         JobItem(
             id = 12,
             companyName = "Twitter",
-            companyLogo = android.R.drawable.ic_menu_gallery,
+            companyLogo = R.drawable.ic_menu_gallery,
             jobTitle = "Security Engineer",
             salary = "$130K",
             status = "Saved",
@@ -155,7 +156,7 @@ class JobDiscoveryViewModel @Inject constructor() : ViewModel() {
         JobItem(
             id = 13,
             companyName = "LinkedIn",
-            companyLogo = android.R.drawable.ic_menu_gallery,
+            companyLogo = R.drawable.ic_menu_gallery,
             jobTitle = "Marketing Specialist",
             salary = "$95K",
             status = "Applied",
@@ -165,7 +166,7 @@ class JobDiscoveryViewModel @Inject constructor() : ViewModel() {
         JobItem(
             id = 14,
             companyName = "Adobe",
-            companyLogo = android.R.drawable.ic_menu_gallery,
+            companyLogo = R.drawable.ic_menu_gallery,
             jobTitle = "Graphic Designer",
             salary = "$105K",
             status = "New",
@@ -175,7 +176,7 @@ class JobDiscoveryViewModel @Inject constructor() : ViewModel() {
         JobItem(
             id = 15,
             companyName = "Oracle",
-            companyLogo = android.R.drawable.ic_menu_gallery,
+            companyLogo = R.drawable.ic_menu_gallery,
             jobTitle = "Database Admin",
             salary = "$120K",
             status = "Applied",
@@ -185,7 +186,7 @@ class JobDiscoveryViewModel @Inject constructor() : ViewModel() {
         JobItem(
             id = 16,
             companyName = "Intel",
-            companyLogo = android.R.drawable.ic_menu_gallery,
+            companyLogo = R.drawable.ic_menu_gallery,
             jobTitle = "Hardware Engineer",
             salary = "$150K",
             status = "New",
@@ -195,7 +196,7 @@ class JobDiscoveryViewModel @Inject constructor() : ViewModel() {
         JobItem(
             id = 17,
             companyName = "Nvidia",
-            companyLogo = android.R.drawable.ic_menu_gallery,
+            companyLogo = R.drawable.ic_menu_gallery,
             jobTitle = "AI Researcher",
             salary = "$190K",
             status = "Applied",
@@ -205,7 +206,7 @@ class JobDiscoveryViewModel @Inject constructor() : ViewModel() {
         JobItem(
             id = 18,
             companyName = "Zoom",
-            companyLogo = android.R.drawable.ic_menu_gallery,
+            companyLogo = R.drawable.ic_menu_gallery,
             jobTitle = "QA Automation",
             salary = "$115K",
             status = "Saved",
@@ -215,7 +216,7 @@ class JobDiscoveryViewModel @Inject constructor() : ViewModel() {
         JobItem(
             id = 19,
             companyName = "Salesforce",
-            companyLogo = android.R.drawable.ic_menu_gallery,
+            companyLogo = R.drawable.ic_menu_gallery,
             jobTitle = "Solution Architect",
             salary = "$165K",
             status = "Applied",
@@ -225,7 +226,7 @@ class JobDiscoveryViewModel @Inject constructor() : ViewModel() {
         JobItem(
             id = 20,
             companyName = "Shopify",
-            companyLogo = android.R.drawable.ic_menu_gallery,
+            companyLogo = R.drawable.ic_menu_gallery,
             jobTitle = "E-commerce Dev",
             salary = "$125K",
             status = "New",
