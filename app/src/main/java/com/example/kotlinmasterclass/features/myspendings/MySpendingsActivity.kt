@@ -6,6 +6,8 @@ import androidx.activity.ComponentActivity
 import androidx.activity.SystemBarStyle
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
+import androidx.compose.foundation.ExperimentalFoundationApi
+import androidx.compose.foundation.LocalOverscrollConfiguration
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -40,6 +42,7 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.SideEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableFloatStateOf
@@ -93,6 +96,7 @@ class MySpendingsActivity : ComponentActivity() {
     }
 }
 
+@OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun MySpendingsScreen(viewModel: MySpendingsViewModel = hiltViewModel()) {
     val softWhite = Color(0xFFFAF5F5)
@@ -100,51 +104,55 @@ fun MySpendingsScreen(viewModel: MySpendingsViewModel = hiltViewModel()) {
     val haptic = LocalHapticFeedback.current
     var progress by remember { mutableFloatStateOf(0.7f) }
 
-    Box(modifier = Modifier.fillMaxSize()) {
-        Scaffold(
-            modifier = Modifier.fillMaxSize(),
-            containerColor = softWhite,
-        ) { innerPadding ->
-            Column(
-                modifier = Modifier
-                    .fillMaxSize()
-                    .padding(innerPadding)
-                    .padding(16.dp)
-                    .verticalScroll(rememberScrollState()),
-            ) {
-                TopBarView(haptic)
+    CompositionLocalProvider(
+        LocalOverscrollConfiguration provides null
+    ) {
+        Box(modifier = Modifier.fillMaxSize()) {
+            Scaffold(
+                modifier = Modifier.fillMaxSize(),
+                containerColor = softWhite,
+            ) { innerPadding ->
+                Column(
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .padding(innerPadding)
+                        .padding(16.dp)
+                        .verticalScroll(rememberScrollState()),
+                ) {
+                    TopBarView(haptic)
 
-                Spacer(modifier = Modifier.height(24.dp))
+                    Spacer(modifier = Modifier.height(24.dp))
 
-                Column {
-                    Text(text = "Good morning,", fontSize = 28.sp, color = Color.Black.copy(alpha = 0.6f))
-                    Text(text = "James 👋", fontSize = 28.sp, color = Color.Black, fontWeight = FontWeight.Bold)
+                    Column {
+                        Text(text = "Good morning,", fontSize = 28.sp, color = Color.Black.copy(alpha = 0.6f))
+                        Text(text = "James 👋", fontSize = 28.sp, color = Color.Black, fontWeight = FontWeight.Bold)
+                    }
+
+                    Spacer(modifier = Modifier.height(24.dp))
+
+                    CurrentMonthOverView(softLavenderPerfect, progress)
+
+                    Spacer(modifier = Modifier.height(24.dp))
+
+                    SpendingOverView()
+
+                    Spacer(modifier = Modifier.height(16.dp))
+
+                    SpendingOverViewList(viewModel)
+
+                    Spacer(modifier = Modifier.height(24.dp))
+
+                    Text(
+                        text = "Recent Transactions",
+                        fontWeight = FontWeight.Bold,
+                        fontSize = 18.sp,
+                        color = Color.Black
+                    )
+
+                    Spacer(modifier = Modifier.height(16.dp))
+
+                    RecentTransactionList(viewModel)
                 }
-
-                Spacer(modifier = Modifier.height(24.dp))
-
-                CurrentMonthOverView(softLavenderPerfect, progress)
-
-                Spacer(modifier = Modifier.height(24.dp))
-
-                SpendingOverView()
-
-                Spacer(modifier = Modifier.height(16.dp))
-
-                SpendingOverViewList(viewModel)
-
-                Spacer(modifier = Modifier.height(24.dp))
-
-                Text(
-                    text = "Recent Transactions",
-                    fontWeight = FontWeight.Bold,
-                    fontSize = 18.sp,
-                    color = Color.Black
-                )
-
-                Spacer(modifier = Modifier.height(16.dp))
-
-                RecentTransactionList(viewModel)
             }
         }
     }
