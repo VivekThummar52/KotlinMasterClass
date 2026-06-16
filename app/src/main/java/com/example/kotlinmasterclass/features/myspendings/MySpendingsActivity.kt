@@ -15,6 +15,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -30,6 +31,17 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Apps
 import androidx.compose.material.icons.filled.Circle
+import androidx.compose.animation.core.Spring
+import androidx.compose.animation.core.animateFloatAsState
+import androidx.compose.animation.core.spring
+import androidx.compose.foundation.Canvas
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.interaction.MutableInteractionSource
+import androidx.compose.foundation.layout.offset
+import androidx.compose.material.icons.automirrored.filled.ShowChart
+import androidx.compose.material.icons.filled.Add
+import androidx.compose.material.icons.filled.CreditCard
+import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.Person
 import androidx.compose.material.icons.filled.Waves
 import androidx.compose.material.icons.outlined.Notifications
@@ -46,14 +58,17 @@ import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.SideEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableFloatStateOf
+import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.Path
 import androidx.compose.ui.graphics.StrokeCap
 import androidx.compose.ui.graphics.toArgb
+import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.hapticfeedback.HapticFeedback
 import androidx.compose.ui.hapticfeedback.HapticFeedbackType
 import androidx.compose.ui.platform.LocalHapticFeedback
@@ -103,6 +118,7 @@ fun MySpendingsScreen(viewModel: MySpendingsViewModel = hiltViewModel()) {
     val softLavenderPerfect = Color(0xFFF1EBEE)
     val haptic = LocalHapticFeedback.current
     var progress by remember { mutableFloatStateOf(0.7f) }
+    var selectedTab by remember { mutableIntStateOf(0) }
 
     CompositionLocalProvider(
         LocalOverscrollConfiguration provides null
@@ -111,12 +127,18 @@ fun MySpendingsScreen(viewModel: MySpendingsViewModel = hiltViewModel()) {
             Scaffold(
                 modifier = Modifier.fillMaxSize(),
                 containerColor = softWhite,
+                bottomBar = {
+                    MySpendingsBottomNavigation(
+                        selectedTab = selectedTab,
+                        onTabSelected = { selectedTab = it }
+                    )
+                }
             ) { innerPadding ->
                 Column(
                     modifier = Modifier
                         .fillMaxSize()
                         .padding(innerPadding)
-                        .padding(16.dp)
+                        .padding(start = 16.dp, end = 16.dp, top = 16.dp, bottom = 6.dp)
                         .verticalScroll(rememberScrollState()),
                 ) {
                     TopBarView(haptic)
@@ -428,3 +450,143 @@ fun GreetingPreview() {
         MySpendingsScreen()
     }
 }
+
+@Composable
+fun MySpendingsBottomNavigation(
+    selectedTab: Int,
+    onTabSelected: (Int) -> Unit
+) {
+    val items = listOf(
+        BottomNavItem("Home", Icons.Default.Home, 0),
+        BottomNavItem("Analytics", Icons.AutoMirrored.Filled.ShowChart, 1),
+        BottomNavItem("Add", Icons.Default.Add, 2),
+        BottomNavItem("Cards", Icons.Default.CreditCard, 3),
+        BottomNavItem("Profile", Icons.Default.Person, 4)
+    )
+
+    val animatedX by animateFloatAsState(
+        targetValue = selectedTab.toFloat(),
+        animationSpec = spring(dampingRatio = Spring.DampingRatioLowBouncy, stiffness = Spring.StiffnessLow),
+        label = "humpX"
+    )
+
+    Box(
+        modifier = Modifier
+            .fillMaxWidth()
+            .height(72.dp)
+    ) {
+        Canvas(
+            modifier = Modifier
+                .fillMaxWidth()
+                .height(72.dp)
+        ) {
+            val barHeight = 56.dp.toPx()
+            val width = size.width
+            val height = size.height
+            val itemWidth = width / 5
+            val centerX = itemWidth * animatedX + itemWidth / 2
+            
+            val path = Path().apply {
+                val curveWidth = 50.dp.toPx()
+                val curveHeight = 16.dp.toPx()
+                
+                moveTo(0f, height)
+                lineTo(0f, height - barHeight)
+                
+                // Line to the start of the curve
+                lineTo(centerX - curveWidth, height - barHeight)
+                
+                // Smooth curve up
+                cubicTo(
+                    centerX - curveWidth / 1.5f, height - barHeight,
+                    centerX - curveWidth / 2f, height - barHeight - curveHeight,
+                    centerX, height - barHeight - curveHeight
+                )
+                
+                // Smooth curve down
+                cubicTo(
+                    centerX + curveWidth / 2f, height - barHeight - curveHeight,
+                    centerX + curveWidth / 1.5f, height - barHeight,
+                    centerX + curveWidth, height - barHeight
+                )
+                
+                lineTo(width, height - barHeight)
+                lineTo(width, height)
+                close()
+            }
+            
+            drawPath(path, color = Color.White)
+        }
+
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .align(Alignment.BottomCenter)
+                .height(56.dp),
+            verticalAlignment = Alignment.Bottom
+        ) {
+            items.forEachIndexed { index, item ->
+                val isSelected = selectedTab == index
+                val animatedOffset by animateFloatAsState(
+                    targetValue = if (isSelected) -12f else 0f,
+                    animationSpec = spring(dampingRatio = Spring.DampingRatioLowBouncy, stiffness = Spring.StiffnessLow),
+                    label = "iconOffset"
+                )
+
+                Box(
+                    modifier = Modifier
+                        .weight(1f)
+                        .fillMaxHeight()
+                        .clickable(
+                            interactionSource = remember { MutableInteractionSource() },
+                            indication = null
+                        ) { onTabSelected(index) },
+                    contentAlignment = Alignment.BottomCenter
+                ) {
+                    Column(
+                        horizontalAlignment = Alignment.CenterHorizontally,
+                        modifier = Modifier
+                            .padding(bottom = 6.dp)
+                            .offset(y = animatedOffset.dp)
+                    ) {
+                        if (index == 2) {
+                            Box(
+                                modifier = Modifier
+                                    .size(if (isSelected) 52.dp else 44.dp)
+                                    .clip(CircleShape)
+                                    .background(Color(0xFF6C63FF)),
+                                contentAlignment = Alignment.Center
+                            ) {
+                                Icon(
+                                    item.icon,
+                                    contentDescription = null,
+                                    tint = Color.White,
+                                    modifier = Modifier.size(if (isSelected) 28.dp else 24.dp)
+                                )
+                            }
+                        } else {
+                            Icon(
+                                imageVector = item.icon,
+                                contentDescription = null,
+                                tint = if (isSelected) Color(0xFF6C63FF) else Color.Gray.copy(alpha = 0.6f),
+                                modifier = Modifier.size(24.dp)
+                            )
+                            Text(
+                                text = item.name,
+                                fontSize = 11.sp,
+                                color = if (isSelected) Color(0xFF6C63FF) else Color.Gray.copy(alpha = 0.6f),
+                                fontWeight = if (isSelected) FontWeight.Bold else FontWeight.Medium
+                            )
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+data class BottomNavItem(
+    val name: String,
+    val icon: ImageVector,
+    val index: Int
+)
