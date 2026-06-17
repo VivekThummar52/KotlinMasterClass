@@ -116,6 +116,7 @@ fun DashboardScreen(
     onNavigateToFinance: () -> Unit,
     onNavigateToSmartHome: () -> Unit,
     onNavigateToGraphingCalculator: () -> Unit,
+    onLaunchJobDiscovery: () -> Unit,
     onNavigateToSettings: () -> Unit,
     settingsViewModel: SettingsViewModel = hiltViewModel()
 ) {
@@ -269,6 +270,18 @@ fun DashboardScreen(
                     description = "A commercial-grade FinTech dashboard. Features a real-time market simulator, Bezier spline Canvas charts, and an odometer-style rolling balance.",
                     containerColor = if (isDark) Color(0xFF0D47A1) else Color(0xFFBBDEFB),
                     onClick = onNavigateToFinance
+                )
+            )
+        ),
+
+        TopicCategory(
+            title = "App Modules & Adaptive UI",
+            topics = listOf(
+                TutorialTopic(
+                    title = "Job Discovery Board",
+                    description = "A standalone activity demonstrating the adaptive NavigationSuiteScaffold for foldable and tablet scaling.",
+                    containerColor = if (isDark) Color(0xFF1B5E20) else Color(0xFFE8F5E9),
+                    onClick = onLaunchJobDiscovery
                 )
             )
         )

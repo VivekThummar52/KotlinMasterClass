@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Kotlin Masterclass</string>
+    <string name="title_activity_job_discovery">JobDiscoveryActivity</string>
 </resources>

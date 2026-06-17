@@ -1,10 +1,13 @@
 package com.example.kotlinmasterclass.navigation
 
+import android.content.Intent
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.platform.LocalContext
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.example.kotlinmasterclass.features.jobdiscovery.JobDiscoveryActivity
 import com.example.kotlinmasterclass.features.audio.AudioStudioScreen
 import com.example.kotlinmasterclass.features.audio.AudioStudioViewModel
 import com.example.kotlinmasterclass.features.calculator.GraphingCalculatorScreen
@@ -72,6 +75,7 @@ fun AppNavigation() {
     NavHost(navController = navController, startDestination = Screen.Dashboard.route) {
 
         composable(route = Screen.Dashboard.route) {
+            val context = LocalContext.current
             DashboardScreen(
                 onNavigateToCoroutines = { navController.navigate(Screen.Coroutines.route) },
                 onNavigateToScopeFunctions = { navController.navigate(Screen.ScopeFunctions.route) },
@@ -98,7 +102,11 @@ fun AppNavigation() {
                 onNavigateToAudioStudio = { navController.navigate(Screen.AudioStudio.route) },
                 onNavigateToFinance = { navController.navigate(Screen.FinanceCommandCenter.route) },
                 onNavigateToSmartHome = { navController.navigate(Screen.SmartHome.route) },
-                onNavigateToGraphingCalculator = { navController.navigate(Screen.GraphingCalculator.route) },
+                onNavigateToGraphingCalculator = { navController.navigate(Screen.GraphingCalculatorScreen.route) },
+                onLaunchJobDiscovery = {
+                    val intent = Intent(context, JobDiscoveryActivity::class.java)
+                    context.startActivity(intent)
+                },
                 onNavigateToSettings = navigateToSettings)
         }
 
@@ -335,7 +343,7 @@ fun AppNavigation() {
             )
         }
 
-        composable(route = Screen.GraphingCalculator.route) {
+        composable(route = Screen.GraphingCalculatorScreen.route) {
             val viewModel: GraphingViewModel = hiltViewModel()
             GraphingCalculatorScreen(
                 viewModel = viewModel,
