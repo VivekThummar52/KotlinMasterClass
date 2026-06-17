@@ -13,6 +13,11 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.KotlinMasterclass">
         <activity
+            android:name=".features.myspendings.MySpendingsActivity"
+            android:exported="false"
+            android:label="@string/title_activity_my_spendings"
+            android:theme="@style/Theme.KotlinMasterclass" />
+        <activity
             android:name=".features.jobdiscovery.JobDiscoveryActivity"
             android:exported="false"
             android:label="@string/title_activity_job_discovery"

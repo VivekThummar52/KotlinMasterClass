@@ -42,6 +42,7 @@ import com.example.kotlinmasterclass.features.musicplayer.MusicPlayerScreen
 import com.example.kotlinmasterclass.features.musicplayer.MusicPlayerViewModel
 import com.example.kotlinmasterclass.features.missioncontrol.MissionControlScreen
 import com.example.kotlinmasterclass.features.missioncontrol.MissionControlViewModel
+import com.example.kotlinmasterclass.features.myspendings.MySpendingsActivity
 import com.example.kotlinmasterclass.features.observatory.AiObservatoryScreen
 import com.example.kotlinmasterclass.features.observatory.AiObservatoryViewModel
 import com.example.kotlinmasterclass.features.performance.PerformanceScreen
@@ -105,6 +106,10 @@ fun AppNavigation() {
                 onNavigateToGraphingCalculator = { navController.navigate(Screen.GraphingCalculatorScreen.route) },
                 onLaunchJobDiscovery = {
                     val intent = Intent(context, JobDiscoveryActivity::class.java)
+                    context.startActivity(intent)
+                },
+                onLaunchMySpendings = {
+                    val intent = Intent(context, MySpendingsActivity::class.java)
                     context.startActivity(intent)
                 },
                 onNavigateToSettings = navigateToSettings)
