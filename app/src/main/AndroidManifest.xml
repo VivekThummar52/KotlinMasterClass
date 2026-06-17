@@ -13,6 +13,11 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.KotlinMasterclass">
         <activity
+            android:name=".features.myhealthvitals.MyHealthActivity"
+            android:exported="false"
+            android:label="@string/title_activity_my_healthctivity"
+            android:theme="@style/Theme.KotlinMasterclass" />
+        <activity
             android:name=".features.myspendings.MySpendingsActivity"
             android:exported="false"
             android:label="@string/title_activity_my_spendings"

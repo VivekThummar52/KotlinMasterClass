@@ -42,6 +42,7 @@ import com.example.kotlinmasterclass.features.musicplayer.MusicPlayerScreen
 import com.example.kotlinmasterclass.features.musicplayer.MusicPlayerViewModel
 import com.example.kotlinmasterclass.features.missioncontrol.MissionControlScreen
 import com.example.kotlinmasterclass.features.missioncontrol.MissionControlViewModel
+import com.example.kotlinmasterclass.features.myhealthvitals.MyHealthActivity
 import com.example.kotlinmasterclass.features.myspendings.MySpendingsActivity
 import com.example.kotlinmasterclass.features.observatory.AiObservatoryScreen
 import com.example.kotlinmasterclass.features.observatory.AiObservatoryViewModel
@@ -63,10 +64,12 @@ import com.example.kotlinmasterclass.features.wallet.GlassWalletScreen
 import com.example.kotlinmasterclass.features.wallet.WalletViewModel
 import com.example.kotlinmasterclass.features.weather.WeatherPlanetariumScreen
 import com.example.kotlinmasterclass.features.weather.WeatherViewModel
+import kotlin.jvm.java
+
+import androidx.navigation.NavHostController
 
 @Composable
-fun AppNavigation() {
-    val navController = rememberNavController()
+fun AppNavigation(navController: NavHostController = rememberNavController()) {
     val navigateToSettings = {
         navController.navigate(Screen.Settings.route) {
             launchSingleTop = true
@@ -110,6 +113,10 @@ fun AppNavigation() {
                 },
                 onLaunchMySpendings = {
                     val intent = Intent(context, MySpendingsActivity::class.java)
+                    context.startActivity(intent)
+                },
+                onLaunchMyHealth = {
+                    val intent = Intent(context, MyHealthActivity::class.java)
                     context.startActivity(intent)
                 },
                 onNavigateToSettings = navigateToSettings)

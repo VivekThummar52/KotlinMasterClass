@@ -118,6 +118,7 @@ fun DashboardScreen(
     onNavigateToGraphingCalculator: () -> Unit,
     onLaunchJobDiscovery: () -> Unit,
     onLaunchMySpendings: () -> Unit,
+    onLaunchMyHealth: () -> Unit,
     onNavigateToSettings: () -> Unit,
     settingsViewModel: SettingsViewModel = hiltViewModel()
 ) {
@@ -289,6 +290,12 @@ fun DashboardScreen(
                     description = "A standalone activity listing all the spendings for the including Shopping, Entertainment, OTT platforms and a lot more",
                     containerColor = if (isDark) DIndigo else LIndigo,
                     onClick = onLaunchMySpendings
+                ),
+                TutorialTopic(
+                    title = "Vital Sync (Health)",
+                    description = "A modern health tracking dashboard that empowers users to monitor vital metrics, activity, sleep, and energy levels at a glance.",
+                    containerColor = if (isDark) Color(0xFF003B46) else Color(0xFFD9FBFF),
+                    onClick = onLaunchMyHealth
                 )
             )
         )
