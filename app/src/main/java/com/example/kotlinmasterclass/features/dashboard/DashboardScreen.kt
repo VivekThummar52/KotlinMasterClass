@@ -119,6 +119,7 @@ fun DashboardScreen(
     onLaunchJobDiscovery: () -> Unit,
     onLaunchMySpendings: () -> Unit,
     onLaunchMyHealth: () -> Unit,
+    onLaunchAICompanion: () -> Unit,
     onNavigateToSettings: () -> Unit,
     settingsViewModel: SettingsViewModel = hiltViewModel()
 ) {
@@ -296,6 +297,12 @@ fun DashboardScreen(
                     description = "A modern health tracking dashboard that empowers users to monitor vital metrics, activity, sleep, and energy levels at a glance.",
                     containerColor = if (isDark) Color(0xFF003B46) else Color(0xFFD9FBFF),
                     onClick = onLaunchMyHealth
+                ),
+                TutorialTopic(
+                    title = "AI Companion",
+                    description = "Your intelligent AI companion for conversations, voice assistance, image generation, and everyday knowledge discovery.",
+                    containerColor = if (isDark) DOrange else LOrange,
+                    onClick = onLaunchAICompanion
                 )
             )
         )

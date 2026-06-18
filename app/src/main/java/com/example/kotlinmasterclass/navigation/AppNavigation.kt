@@ -67,6 +67,7 @@ import com.example.kotlinmasterclass.features.weather.WeatherViewModel
 import kotlin.jvm.java
 
 import androidx.navigation.NavHostController
+import com.example.kotlinmasterclass.features.aicompanion.AICompanionActivity
 
 @Composable
 fun AppNavigation(navController: NavHostController = rememberNavController()) {
@@ -117,6 +118,10 @@ fun AppNavigation(navController: NavHostController = rememberNavController()) {
                 },
                 onLaunchMyHealth = {
                     val intent = Intent(context, MyHealthActivity::class.java)
+                    context.startActivity(intent)
+                },
+                onLaunchAICompanion = {
+                    val intent = Intent(context, AICompanionActivity::class.java)
                     context.startActivity(intent)
                 },
                 onNavigateToSettings = navigateToSettings)
