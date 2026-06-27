@@ -13,6 +13,11 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.KotlinMasterclass">
         <activity
+            android:name=".features.digitalwallet.DigitalWalletActivity"
+            android:exported="false"
+            android:label="@string/title_activity_digital_wallet"
+            android:theme="@style/Theme.KotlinMasterclass" />
+        <activity
             android:name=".features.aicompanion.AICompanionActivity"
             android:exported="false"
             android:label="@string/title_activity_aicompanion"
