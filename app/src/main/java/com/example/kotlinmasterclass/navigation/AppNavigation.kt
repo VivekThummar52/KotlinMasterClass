@@ -68,6 +68,7 @@ import kotlin.jvm.java
 
 import androidx.navigation.NavHostController
 import com.example.kotlinmasterclass.features.aicompanion.AICompanionActivity
+import com.example.kotlinmasterclass.features.digitalwallet.DigitalWalletActivity
 
 @Composable
 fun AppNavigation(navController: NavHostController = rememberNavController()) {
@@ -122,6 +123,10 @@ fun AppNavigation(navController: NavHostController = rememberNavController()) {
                 },
                 onLaunchAICompanion = {
                     val intent = Intent(context, AICompanionActivity::class.java)
+                    context.startActivity(intent)
+                },
+                onLaunchWalletActivity = {
+                    val intent = Intent(context, DigitalWalletActivity::class.java)
                     context.startActivity(intent)
                 },
                 onNavigateToSettings = navigateToSettings)

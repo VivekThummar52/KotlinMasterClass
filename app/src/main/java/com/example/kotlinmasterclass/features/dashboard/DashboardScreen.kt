@@ -120,6 +120,7 @@ fun DashboardScreen(
     onLaunchMySpendings: () -> Unit,
     onLaunchMyHealth: () -> Unit,
     onLaunchAICompanion: () -> Unit,
+    onLaunchWalletActivity: () -> Unit,
     onNavigateToSettings: () -> Unit,
     settingsViewModel: SettingsViewModel = hiltViewModel()
 ) {
@@ -303,6 +304,12 @@ fun DashboardScreen(
                     description = "Your intelligent AI companion for conversations, voice assistance, image generation, and everyday knowledge discovery.",
                     containerColor = if (isDark) DOrange else LOrange,
                     onClick = onLaunchAICompanion
+                ),
+                TutorialTopic(
+                    title = "Digital Wallet",
+                    description = "A modern digital wallet that simplifies money management, transfers, income tracking, and transaction monitoring in one place.",
+                    containerColor = if (isDark) DCyanWallet else LCyanWallet,
+                    onClick = onLaunchWalletActivity
                 )
             )
         )
