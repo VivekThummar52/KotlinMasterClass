@@ -13,11 +13,14 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.example.kotlinmasterclass.ui.components.MasterclassTopAppBar
+import androidx.compose.ui.tooling.preview.Preview
+import com.example.kotlinmasterclass.ui.theme.KotlinMasterclassTheme
+import androidx.hilt.navigation.compose.hiltViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun HigherOrderFunctionsScreen(
-    viewModel: HigherOrderFunctionsViewModel,
+    viewModel: HigherOrderFunctionsViewModel = hiltViewModel(),
     onBackClick: () -> Unit,
     onSettingsClick: () -> Unit
 ) {
@@ -89,6 +92,9 @@ fun HigherOrderFunctionsScreen(
     }
 }
 
+
+
+
 @Composable
 fun HigherOrderCard(
     title: String,
@@ -113,3 +119,16 @@ fun HigherOrderCard(
         }
     }
 }
+
+@Preview(showBackground = true)
+@Composable
+fun HigherOrderFunctionsScreenPreview() {
+    KotlinMasterclassTheme {
+        HigherOrderFunctionsScreen(
+            onBackClick = {},
+            onSettingsClick = {}
+        )
+    }
+}
+
+

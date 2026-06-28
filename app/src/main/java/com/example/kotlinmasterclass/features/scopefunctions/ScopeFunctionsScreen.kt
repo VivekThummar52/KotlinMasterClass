@@ -13,11 +13,14 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.example.kotlinmasterclass.ui.components.MasterclassTopAppBar
+import androidx.compose.ui.tooling.preview.Preview
+import com.example.kotlinmasterclass.ui.theme.KotlinMasterclassTheme
+import androidx.hilt.navigation.compose.hiltViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ScopeFunctionsScreen(
-    viewModel: ScopeFunctionsViewModel,
+    viewModel: ScopeFunctionsViewModel = hiltViewModel(),
     onBackClick: () -> Unit,
     onSettingsClick: () -> Unit
 ) {
@@ -102,6 +105,7 @@ fun ScopeFunctionsScreen(
     }
 }
 
+
 @Composable
 fun ScopeCard(
     title: String,
@@ -123,5 +127,16 @@ fun ScopeCard(
                 Text("Execute $title")
             }
         }
+    }
+}
+
+@Preview(showBackground = true)
+@Composable
+fun ScopeFunctionsScreenPreview() {
+    KotlinMasterclassTheme {
+        ScopeFunctionsScreen(
+            onBackClick = {},
+            onSettingsClick = {}
+        )
     }
 }

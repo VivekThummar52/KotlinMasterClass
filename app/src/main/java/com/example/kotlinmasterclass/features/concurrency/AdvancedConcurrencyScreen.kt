@@ -13,11 +13,14 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.example.kotlinmasterclass.ui.components.MasterclassTopAppBar
+import androidx.compose.ui.tooling.preview.Preview
+import com.example.kotlinmasterclass.ui.theme.KotlinMasterclassTheme
+import androidx.hilt.navigation.compose.hiltViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun AdvancedConcurrencyScreen(
-    viewModel: AdvancedConcurrencyViewModel,
+    viewModel: AdvancedConcurrencyViewModel = hiltViewModel(),
     onBackClick: () -> Unit,
     onSettingsClick: () -> Unit
 ) {
@@ -86,6 +89,7 @@ fun AdvancedConcurrencyScreen(
     }
 }
 
+
 @Composable
 fun ConcurrencyCard(
     title: String,
@@ -106,5 +110,16 @@ fun ConcurrencyCard(
                 Text(actionText)
             }
         }
+    }
+}
+
+@Preview(showBackground = true)
+@Composable
+fun AdvancedConcurrencyScreenPreview() {
+    KotlinMasterclassTheme {
+        AdvancedConcurrencyScreen(
+            onBackClick = {},
+            onSettingsClick = {}
+        )
     }
 }

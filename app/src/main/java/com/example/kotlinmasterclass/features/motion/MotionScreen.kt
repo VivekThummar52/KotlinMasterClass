@@ -21,12 +21,15 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.example.kotlinmasterclass.utils.CurrencyFormatter
 import com.example.kotlinmasterclass.ui.components.MasterclassTopAppBar
+import androidx.compose.ui.tooling.preview.Preview
+import com.example.kotlinmasterclass.ui.theme.KotlinMasterclassTheme
+import androidx.hilt.navigation.compose.hiltViewModel
 import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun MotionScreen(
-    viewModel: MotionViewModel,
+    viewModel: MotionViewModel = hiltViewModel(),
     onBackClick: () -> Unit,
     onSettingsClick: () -> Unit
 ) {
@@ -179,3 +182,15 @@ fun MorphingReceiptCard(viewModel: MotionViewModel) {
         }
     }
 }
+
+@Preview(showBackground = true)
+@Composable
+fun MotionScreenPreview() {
+    KotlinMasterclassTheme {
+        MotionScreen(
+            onBackClick = {},
+            onSettingsClick = {}
+        )
+    }
+}
+

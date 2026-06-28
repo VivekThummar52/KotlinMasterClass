@@ -1,4 +1,4 @@
-package com.example.kotlinmasterclass.features.dashboard.model
+package com.example.kotlinmasterclass.features.dashboard
 
 import androidx.compose.ui.graphics.Color
 

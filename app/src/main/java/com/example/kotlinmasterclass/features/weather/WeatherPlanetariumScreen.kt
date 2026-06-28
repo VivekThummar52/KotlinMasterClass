@@ -28,6 +28,9 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.kotlinmasterclass.ui.components.MasterclassTopAppBar
 import com.example.kotlinmasterclass.utils.surfaceAnalysisProvider
+import androidx.compose.ui.tooling.preview.Preview
+import com.example.kotlinmasterclass.ui.theme.KotlinMasterclassTheme
+import androidx.hilt.navigation.compose.hiltViewModel
 import kotlin.math.*
 
 val DarkWeatherColors = WeatherColors(
@@ -43,7 +46,7 @@ val LightWeatherColors = WeatherColors(
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun WeatherPlanetariumScreen(
-    viewModel: WeatherViewModel,
+    viewModel: WeatherViewModel = hiltViewModel(),
     onBackClick: () -> Unit,
     onSettingsClick: () -> Unit
 ) {
@@ -171,5 +174,16 @@ fun WeatherPlanetariumScreen(
                 }
             }
         }
+    }
+}
+
+@Preview(showBackground = true)
+@Composable
+fun WeatherPlanetariumScreenPreview() {
+    KotlinMasterclassTheme {
+        WeatherPlanetariumScreen(
+            onBackClick = {},
+            onSettingsClick = {}
+        )
     }
 }

@@ -13,11 +13,14 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.example.kotlinmasterclass.ui.components.MasterclassTopAppBar
+import androidx.compose.ui.tooling.preview.Preview
+import com.example.kotlinmasterclass.ui.theme.KotlinMasterclassTheme
+import androidx.hilt.navigation.compose.hiltViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun SealedClassesScreen(
-    viewModel: SealedClassesViewModel,
+    viewModel: SealedClassesViewModel = hiltViewModel(),
     onBackClick: () -> Unit,
     onSettingsClick: () -> Unit
 ) {
@@ -112,5 +115,16 @@ fun ModelingCard(
                 secondaryAction()
             }
         }
+    }
+}
+
+@Preview(showBackground = true)
+@Composable
+fun SealedClassesScreenPreview() {
+    KotlinMasterclassTheme {
+        SealedClassesScreen(
+            onBackClick = {},
+            onSettingsClick = {}
+        )
     }
 }

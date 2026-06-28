@@ -16,7 +16,6 @@ import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.filled.Brush
 import androidx.compose.material.icons.filled.Code
 import androidx.compose.material.icons.filled.Memory
@@ -31,6 +30,8 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.kotlinmasterclass.ui.components.MasterclassTopAppBar
+import androidx.compose.ui.tooling.preview.Preview
+import com.example.kotlinmasterclass.ui.theme.KotlinMasterclassTheme
 
 // 1. Mock Data Class
 data class MasterclassModule(
@@ -197,3 +198,15 @@ fun MorphScreen(
         }
     }
 }
+
+@Preview(showBackground = true)
+@Composable
+fun MorphScreenPreview() {
+    KotlinMasterclassTheme {
+        MorphScreen(
+            onBackClick = {},
+            onSettingsClick = {}
+        )
+    }
+}
+

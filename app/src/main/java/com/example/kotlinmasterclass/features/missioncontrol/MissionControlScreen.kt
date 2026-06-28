@@ -48,6 +48,10 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.hapticfeedback.HapticFeedbackType
 import androidx.compose.ui.platform.LocalHapticFeedback
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.tooling.preview.Preview
+import com.example.kotlinmasterclass.ui.theme.KotlinMasterclassTheme
+import androidx.hilt.navigation.compose.hiltViewModel
+import com.example.kotlinmasterclass.ui.components.MasterclassTopAppBar
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
@@ -90,7 +94,7 @@ val LightMissionColors = MissionColors(
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun MissionControlScreen(
-    viewModel: MissionControlViewModel,
+    viewModel: MissionControlViewModel = hiltViewModel(),
     onBackClick: () -> Unit,
     onSettingsClick: () -> Unit
 ) {
@@ -604,3 +608,14 @@ private fun EventLog(events: List<MissionEvent>) {
 }
 
 private fun Float.formatOne(): String = String.format("%.1f", this)
+
+@Preview(showBackground = true)
+@Composable
+fun MissionControlScreenPreview() {
+    KotlinMasterclassTheme {
+        MissionControlScreen(
+            onBackClick = {},
+            onSettingsClick = {}
+        )
+    }
+}
