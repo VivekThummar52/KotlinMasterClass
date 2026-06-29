@@ -89,6 +89,13 @@ data class TopicCategory(
     val topics: List<TutorialTopic>
 )
 
+data class TutorialTopic(
+    val title: String,
+    val description: String,
+    val containerColor: Color,
+    val onClick: () -> Unit
+)
+
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun DashboardScreen(

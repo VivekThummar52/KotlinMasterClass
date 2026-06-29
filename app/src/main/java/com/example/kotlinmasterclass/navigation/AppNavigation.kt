@@ -59,7 +59,6 @@ import com.example.kotlinmasterclass.features.smartcity.SmartCityViewModel
 import com.example.kotlinmasterclass.features.smarthome.SmartHomeScreen
 import com.example.kotlinmasterclass.features.smarthome.SmartHomeViewModel
 import com.example.kotlinmasterclass.features.testing.TestingScreen
-import com.example.kotlinmasterclass.features.testing.TestingViewModel
 import com.example.kotlinmasterclass.features.wallet.GlassWalletScreen
 import com.example.kotlinmasterclass.features.wallet.WalletViewModel
 import com.example.kotlinmasterclass.features.weather.WeatherPlanetariumScreen
@@ -69,6 +68,7 @@ import kotlin.jvm.java
 import androidx.navigation.NavHostController
 import com.example.kotlinmasterclass.features.aicompanion.AICompanionActivity
 import com.example.kotlinmasterclass.features.digitalwallet.DigitalWalletActivity
+import com.example.kotlinmasterclass.features.testing.TestingViewModel
 
 @Composable
 fun AppNavigation(navController: NavHostController = rememberNavController()) {

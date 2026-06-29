@@ -13,9 +13,30 @@ import androidx.compose.material.icons.filled.MedicalServices
 import androidx.compose.material.icons.filled.ShoppingBag
 import androidx.compose.material.icons.filled.ShoppingCart
 import androidx.compose.material.icons.filled.Videocam
+import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.lifecycle.ViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
+
+data class RecentTransactionData(
+    val id: Int,
+    val icon: ImageVector,
+    val name: String,
+    val category: String,
+    val amount: String,
+    val date: String,
+    val iconColor: Long,
+    val backgroundColor: Long
+)
+
+data class SpendingOverviewTypes(
+    val id: Int,
+    val icon: ImageVector,
+    val category: String,
+    val amount: String,
+    val iconColor: Long,
+    val backgroundColor: Long
+)
 
 @HiltViewModel
 class MySpendingsViewModel @Inject constructor() : ViewModel() {
