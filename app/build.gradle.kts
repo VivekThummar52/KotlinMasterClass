@@ -6,11 +6,11 @@ plugins {
 }
 
 android {
-    namespace = "com.example.kotlinmasterclass" // Match your actual package structure
+    namespace = "com.codecraft.kotlinmasterclass" // Match your actual package structure
     compileSdk = 34
 
     defaultConfig {
-        applicationId = "com.example.kotlinmasterclass"
+        applicationId = "com.codecraft.kotlinmasterclass"
         minSdk = 26
         targetSdk = 34
         versionCode = 1
