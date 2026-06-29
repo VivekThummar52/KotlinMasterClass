@@ -1,5 +1,6 @@
 package com.example.kotlinmasterclass.features.weather
 
+import androidx.compose.ui.graphics.Color
 import androidx.lifecycle.ViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -17,6 +18,14 @@ data class GeoLocation(
     val type: WeatherType,
     val lat: Float, 
     val lon: Float
+)
+
+// Helper to hold 3D coordinates
+data class Point3D(val x: Float, val y: Float, val z: Float, val isNode: Boolean = false)
+
+data class WeatherColors(
+    val bg: Color, val star: Color, val atmosphere: Color, val textMain: Color,
+    val clear: Color, val rain: Color, val storm: Color, val cloudy: Color
 )
 
 @HiltViewModel

@@ -13,11 +13,14 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.example.kotlinmasterclass.ui.components.MasterclassTopAppBar
+import androidx.compose.ui.tooling.preview.Preview
+import com.example.kotlinmasterclass.ui.theme.KotlinMasterclassTheme
+import androidx.hilt.navigation.compose.hiltViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ExtensionFunctionsScreen(
-    viewModel: ExtensionFunctionsViewModel,
+    viewModel: ExtensionFunctionsViewModel = hiltViewModel(),
     onBackClick: () -> Unit,
     onSettingsClick: () -> Unit
 ) {
@@ -97,6 +100,7 @@ fun ExtensionFunctionsScreen(
     }
 }
 
+
 @Composable
 fun ExtensionLessonCard(
     title: String,
@@ -119,5 +123,16 @@ fun ExtensionLessonCard(
                 Text(actionText)
             }
         }
+    }
+}
+
+@Preview(showBackground = true)
+@Composable
+fun ExtensionFunctionsScreenPreview() {
+    KotlinMasterclassTheme {
+        ExtensionFunctionsScreen(
+            onBackClick = {},
+            onSettingsClick = {}
+        )
     }
 }

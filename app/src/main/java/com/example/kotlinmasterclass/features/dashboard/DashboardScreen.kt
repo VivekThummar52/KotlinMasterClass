@@ -25,7 +25,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import com.example.kotlinmasterclass.features.dashboard.model.TutorialTopic
+import com.example.kotlinmasterclass.features.dashboard.TutorialTopic
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.kotlinmasterclass.features.settings.SettingsViewModel
 import com.example.kotlinmasterclass.features.settings.ThemePreference
@@ -45,6 +45,8 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.composed
 import com.example.kotlinmasterclass.ui.components.MasterclassTopAppBar
 import kotlinx.coroutines.delay
+import androidx.compose.ui.tooling.preview.Preview
+import com.example.kotlinmasterclass.ui.theme.KotlinMasterclassTheme
 
 // --- LIGHT PALETTE (Bright Pastels) ---
 private val LBlue = Color(0xFFE3F2FD)
@@ -87,6 +89,13 @@ data class TopicCategory(
     val topics: List<TutorialTopic>
 )
 
+data class TutorialTopic(
+    val title: String,
+    val description: String,
+    val containerColor: Color,
+    val onClick: () -> Unit
+)
+
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun DashboardScreen(
@@ -126,9 +135,84 @@ fun DashboardScreen(
 ) {
     // 1. Observe the app's internal theme setting
     val currentTheme by settingsViewModel.themePreference.collectAsState()
+
+    DashboardContent(
+        currentTheme = currentTheme,
+        onNavigateToCoroutines = onNavigateToCoroutines,
+        onNavigateToScopeFunctions = onNavigateToScopeFunctions,
+        onNavigateToExtensionFunctions = onNavigateToExtensionFunctions,
+        onNavigateToHigherOrderFunctions = onNavigateToHigherOrderFunctions,
+        onNavigateToSealedClasses = onNavigateToSealedClasses,
+        onNavigateToGenerics = onNavigateToGenerics,
+        onNavigateToFlow = onNavigateToFlow,
+        onNavigateToConcurrency = onNavigateToConcurrency,
+        onNavigateToDelegation = onNavigateToDelegation,
+        onNavigateToPerformance = onNavigateToPerformance,
+        onNavigateToContracts = onNavigateToContracts,
+        onNavigateToContextReceivers = onNavigateToContextReceivers,
+        onNavigateToCanvas = onNavigateToCanvas,
+        onNavigateToMotion = onNavigateToMotion,
+        onNavigateToMusicPlayer = onNavigateToMusicPlayer,
+        onNavigateToTesting = onNavigateToTesting,
+        onNavigateToGlassWallet = onNavigateToGlassWallet,
+        onNavigateToMorph = onNavigateToMorph,
+        onNavigateToMissionControl = onNavigateToMissionControl,
+        onNavigateToAiObservatory = onNavigateToAiObservatory,
+        onNavigateToSmartCity = onNavigateToSmartCity,
+        onNavigateToWeather = onNavigateToWeather,
+        onNavigateToAudioStudio = onNavigateToAudioStudio,
+        onNavigateToFinance = onNavigateToFinance,
+        onNavigateToSmartHome = onNavigateToSmartHome,
+        onNavigateToGraphingCalculator = onNavigateToGraphingCalculator,
+        onLaunchJobDiscovery = onLaunchJobDiscovery,
+        onLaunchMySpendings = onLaunchMySpendings,
+        onLaunchMyHealth = onLaunchMyHealth,
+        onLaunchAICompanion = onLaunchAICompanion,
+        onLaunchWalletActivity = onLaunchWalletActivity,
+        onNavigateToSettings = onNavigateToSettings
+    )
+}
+
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+fun DashboardContent(
+    currentTheme: ThemePreference?,
+    onNavigateToCoroutines: () -> Unit,
+    onNavigateToScopeFunctions: () -> Unit,
+    onNavigateToExtensionFunctions: () -> Unit,
+    onNavigateToHigherOrderFunctions: () -> Unit,
+    onNavigateToSealedClasses: () -> Unit,
+    onNavigateToGenerics: () -> Unit,
+    onNavigateToFlow: () -> Unit,
+    onNavigateToConcurrency: () -> Unit,
+    onNavigateToDelegation: () -> Unit,
+    onNavigateToPerformance: () -> Unit,
+    onNavigateToContracts: () -> Unit,
+    onNavigateToContextReceivers: () -> Unit,
+    onNavigateToCanvas: () -> Unit,
+    onNavigateToMotion: () -> Unit,
+    onNavigateToMusicPlayer: () -> Unit,
+    onNavigateToTesting: () -> Unit,
+    onNavigateToGlassWallet: () -> Unit,
+    onNavigateToMorph: () -> Unit,
+    onNavigateToMissionControl: () -> Unit,
+    onNavigateToAiObservatory: () -> Unit,
+    onNavigateToSmartCity: () -> Unit,
+    onNavigateToWeather: () -> Unit,
+    onNavigateToAudioStudio: () -> Unit,
+    onNavigateToFinance: () -> Unit,
+    onNavigateToSmartHome: () -> Unit,
+    onNavigateToGraphingCalculator: () -> Unit,
+    onLaunchJobDiscovery: () -> Unit,
+    onLaunchMySpendings: () -> Unit,
+    onLaunchMyHealth: () -> Unit,
+    onLaunchAICompanion: () -> Unit,
+    onLaunchWalletActivity: () -> Unit,
+    onNavigateToSettings: () -> Unit
+) {
     val isSystemDark = isSystemInDarkTheme()
 
-    // 2. Calculate the actual dark mode state based on app settings
+    // Calculate the actual dark mode state
     val isDark = when (currentTheme) {
         ThemePreference.LIGHT -> false
         ThemePreference.DARK -> true
@@ -245,12 +329,6 @@ fun DashboardScreen(
                     containerColor = if (isDark) Color(0xFF003B46) else Color(0xFFD9FBFF),
                     onClick = onNavigateToMissionControl
                 ),
-//                TutorialTopic(
-//                    title = "AI System Observatory",
-//                    description = "A living visual map of an Agentic AI brain. Watch tokens pulse through concurrent nodes, tools, and fallback recovery routes.",
-//                    containerColor = if (isDark) DIndigo else LIndigo,
-//                    onClick = onNavigateToAiObservatory
-//                ),
                 TutorialTopic(
                     title = "Smart City Viewport",
                     description = "A multi-touch camera engine. Pinch, zoom, and pan across a procedurally generated 5000x5000px cyberpunk city with live traffic.",
@@ -261,7 +339,7 @@ fun DashboardScreen(
                     title = "Weather Planetarium",
                     description = "A full 3D rendering engine built purely on Canvas. Watch a point-cloud planet rotate dynamically with live depth-sorting, yaw/pitch gesture math, and weather-driven gradients.",
                     containerColor = if (isDark) DBlue else LBlue,
-                    onClick = onNavigateToWeather // Linked!
+                    onClick = onNavigateToWeather
                 ),
                 TutorialTopic(
                     title = "Audio Visualizer Studio",
@@ -277,7 +355,6 @@ fun DashboardScreen(
                 )
             )
         ),
-
         TopicCategory(
             title = "App Modules & Adaptive UI",
             topics = listOf(
@@ -330,41 +407,25 @@ fun DashboardScreen(
             modifier = Modifier
                 .fillMaxSize()
                 .padding(paddingValues),
-            // Anchor the entire column's content to the bottom
             verticalArrangement = Arrangement.Bottom
         ) {
-
             var expandedTopicTitle by remember { mutableStateOf<String?>(null) }
-
-            // --- 1. HOIST THE STATE ---
             val listState = rememberLazyListState()
+            val pastelScrollbarColor = if (isDark) Color(0xFF9FA8DA) else Color(0xFFC5CAE9)
 
-            // Determine a beautiful pastel color based on the active theme
-            val pastelScrollbarColor = if (isDark) Color(0xFF9FA8DA) else Color(0xFFC5CAE9) // Pastel Indigo
-
-            // 1. THE LIST (Now aligned to the bottom with an ergonomic top gap)
             LazyColumn(
                 state = listState,
-                // The 140.dp top padding acts like Samsung's One UI, pushing the first item
-                // down into the thumb's natural resting arc without breaking scrolling.
                 contentPadding = PaddingValues(top = 20.dp, start = 16.dp, end = 16.dp, bottom = 16.dp),
-
-                // Forces items to stack from the bottom up if the list is short
                 verticalArrangement = Arrangement.spacedBy(12.dp, Alignment.Bottom),
-
                 modifier = Modifier
                     .weight(1f)
-                    .pastelScrollbar(
-                        state = listState,
-                        scrollbarColor = pastelScrollbarColor
-                    )
+                    .pastelScrollbar(state = listState, scrollbarColor = pastelScrollbarColor)
             ) {
-                // --- NEW: SCROLL HINT INDICATOR ---
                 item {
                     Column(
                         modifier = Modifier
                             .fillMaxWidth()
-                            .padding(bottom = 16.dp), // Space between the hint and the first category
+                            .padding(bottom = 16.dp),
                         horizontalAlignment = Alignment.CenterHorizontally
                     ) {
                         Icon(
@@ -405,12 +466,10 @@ fun DashboardScreen(
                 }
             }
 
-            // 2. THE INSTRUCTIONS CARD (Moved to the bottom)
             Card(
                 colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.secondaryContainer),
                 modifier = Modifier
                     .fillMaxWidth()
-                    // Replaced vertical padding with just bottom padding to sit flat above nav bar
                     .padding(start = 16.dp, end = 16.dp, bottom = 16.dp)
             ) {
                 Text(
@@ -431,14 +490,13 @@ fun TopicCard(
     isDark: Boolean
 ) {
     val interactionSource = remember { MutableInteractionSource() }
-
     val primaryTextColor = if (isDark) Color(0xFFF8FAFC) else Color(0xFF0F172A)
     val secondaryTextColor = if (isDark) Color(0xFFCBD5E1) else Color(0xFF475569)
 
     Surface(
         shape = RoundedCornerShape(16.dp),
         shadowElevation = 2.dp,
-        color = topic.containerColor, // Background dynamically fed from the parent list
+        color = topic.containerColor,
         modifier = Modifier
             .fillMaxWidth()
             .clip(RoundedCornerShape(16.dp))
@@ -456,8 +514,6 @@ fun TopicCard(
                 .height(IntrinsicSize.Min),
             verticalAlignment = Alignment.CenterVertically
         ) {
-
-            // LEFT ZONE: Expand/Collapse Area
             Column(
                 modifier = Modifier
                     .weight(1f)
@@ -476,29 +532,25 @@ fun TopicCard(
                         text = topic.title,
                         style = MaterialTheme.typography.titleMedium,
                         fontWeight = FontWeight.Bold,
-                        color = primaryTextColor // High contrast theme-aware text
+                        color = primaryTextColor
                     )
-
                     Spacer(modifier = Modifier.weight(1f))
-
                     Icon(
                         imageVector = if (isExpanded) Icons.Filled.KeyboardArrowUp else Icons.Filled.KeyboardArrowDown,
                         contentDescription = "Expand/Collapse",
-                        tint = secondaryTextColor // Theme-aware arrow color
+                        tint = secondaryTextColor
                     )
                 }
-
                 if (isExpanded) {
                     Spacer(modifier = Modifier.height(8.dp))
                     Text(
                         text = topic.description,
                         style = MaterialTheme.typography.bodyMedium,
-                        color = secondaryTextColor // Theme-aware description text
+                        color = secondaryTextColor
                     )
                 }
             }
 
-            // RIGHT ZONE: Navigation Button
             Box(
                 modifier = Modifier
                     .padding(8.dp)
@@ -517,76 +569,54 @@ fun TopicCard(
                 Icon(
                     imageVector = Icons.AutoMirrored.Filled.ArrowForward,
                     contentDescription = "Open ${topic.title}",
-                    tint = Color.White // The button icon always stays white
+                    tint = Color.White
                 )
             }
         }
     }
 }
 
-/**
- * A highly reusable, stateful modifier to draw a smooth, auto-fading scrollbar.
- */
 fun Modifier.pastelScrollbar(
     state: LazyListState,
     scrollbarColor: Color,
     thickness: Float = 28f
-): Modifier = composed { // THE FIX: 'composed' allows us to remember states inside a modifier
-
-    // 1. The Fading State Engine
+): Modifier = composed {
     var isFadingOut by remember { mutableStateOf(false) }
 
-    // 2. The Inactivity Timer
-    // This restarts automatically every time the user touches or stops touching the list
     LaunchedEffect(state.isScrollInProgress) {
         if (state.isScrollInProgress) {
-            // User is actively scrolling, ensure it is fully visible immediately
             isFadingOut = false
         } else {
-            // User stopped scrolling. Wait 1.5 seconds, then trigger the fade out
             delay(1500)
             isFadingOut = true
         }
     }
 
-    // 3. The Smooth Fade Animation
     val scrollbarAlpha by animateFloatAsState(
         targetValue = if (isFadingOut) 0f else 0.85f,
-        animationSpec = tween(durationMillis = 500), // Takes half a second to fade out
+        animationSpec = tween(durationMillis = 500),
         label = "scrollbar_alpha"
     )
 
-    // 4. The Drawing Logic (Now uses the animated alpha)
     drawWithContent {
         drawContent()
-
-        // If it's completely invisible, skip the heavy math to save performance
         if (scrollbarAlpha == 0f) return@drawWithContent
-
         val layoutInfo = state.layoutInfo
         val visibleItemsInfo = layoutInfo.visibleItemsInfo
-
         if (visibleItemsInfo.isEmpty()) return@drawWithContent
-
         val totalItems = layoutInfo.totalItemsCount
         val visibleItemsCount = visibleItemsInfo.size
-
         if (visibleItemsCount >= totalItems && state.firstVisibleItemScrollOffset == 0) {
             return@drawWithContent
         }
-
         val viewportHeight = size.height
         val totalVisibleSize = visibleItemsInfo.sumOf { it.size }
         val averageItemSize = totalVisibleSize.toFloat() / visibleItemsCount
-
         val estimatedTotalListSize = averageItemSize * totalItems
-
         val rawThumbHeight = (viewportHeight / estimatedTotalListSize) * viewportHeight
         val thumbHeight = rawThumbHeight.coerceIn(40f, viewportHeight)
-
         val estimatedScrollY = (state.firstVisibleItemIndex * averageItemSize) + state.firstVisibleItemScrollOffset
         val maxScrollY = (estimatedTotalListSize - viewportHeight).coerceAtLeast(1f)
-
         val scrollProgress = (estimatedScrollY / maxScrollY).coerceIn(0f, 1f)
         val thumbOffsetY = scrollProgress * (viewportHeight - thumbHeight)
 
@@ -595,7 +625,49 @@ fun Modifier.pastelScrollbar(
             topLeft = Offset(x = size.width - thickness - 12f, y = thumbOffsetY),
             size = Size(width = thickness, height = thumbHeight),
             cornerRadius = CornerRadius(x = thickness / 2, y = thickness / 2),
-            alpha = scrollbarAlpha // THE FIX: Apply the animated alpha here!
+            alpha = scrollbarAlpha
+        )
+    }
+}
+
+@Preview(showBackground = true)
+@Composable
+fun DashboardScreenPreview() {
+    KotlinMasterclassTheme {
+        DashboardContent(
+            currentTheme = ThemePreference.SYSTEM,
+            onNavigateToCoroutines = {},
+            onNavigateToScopeFunctions = {},
+            onNavigateToExtensionFunctions = {},
+            onNavigateToHigherOrderFunctions = {},
+            onNavigateToSealedClasses = {},
+            onNavigateToGenerics = {},
+            onNavigateToFlow = {},
+            onNavigateToConcurrency = {},
+            onNavigateToDelegation = {},
+            onNavigateToPerformance = {},
+            onNavigateToContracts = {},
+            onNavigateToContextReceivers = {},
+            onNavigateToCanvas = {},
+            onNavigateToMotion = {},
+            onNavigateToMusicPlayer = {},
+            onNavigateToTesting = {},
+            onNavigateToGlassWallet = {},
+            onNavigateToMorph = {},
+            onNavigateToMissionControl = {},
+            onNavigateToAiObservatory = {},
+            onNavigateToSmartCity = {},
+            onNavigateToWeather = {},
+            onNavigateToAudioStudio = {},
+            onNavigateToFinance = {},
+            onNavigateToSmartHome = {},
+            onNavigateToGraphingCalculator = {},
+            onLaunchJobDiscovery = {},
+            onLaunchMySpendings = {},
+            onLaunchMyHealth = {},
+            onLaunchAICompanion = {},
+            onLaunchWalletActivity = {},
+            onNavigateToSettings = {}
         )
     }
 }

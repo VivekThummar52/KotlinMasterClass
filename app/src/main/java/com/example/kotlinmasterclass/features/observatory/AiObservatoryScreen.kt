@@ -5,7 +5,6 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.filled.BugReport
 import androidx.compose.material.icons.filled.PlayArrow
 import androidx.compose.material3.*
@@ -25,7 +24,9 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import com.example.kotlinmasterclass.ui.components.MasterclassTopAppBar
-import kotlin.math.pow
+import androidx.compose.ui.tooling.preview.Preview
+import com.example.kotlinmasterclass.ui.theme.KotlinMasterclassTheme
+import androidx.hilt.navigation.compose.hiltViewModel
 
 // --- CYBER THEME COLORS ---
 val CyberBg = Color(0xFF0D0E15)
@@ -62,7 +63,7 @@ val graphEdges = listOf(
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun AiObservatoryScreen(
-    viewModel: AiObservatoryViewModel,
+    viewModel: AiObservatoryViewModel = hiltViewModel(),
     onBackClick: () -> Unit,
     onSettingsClick: () -> Unit
 ) {
@@ -257,5 +258,16 @@ fun MetricItem(label: String, value: String, color: Color) {
         Text(label, color = color.copy(alpha = 0.7f), style = MaterialTheme.typography.labelSmall, fontWeight = FontWeight.Bold)
         Spacer(modifier = Modifier.height(4.dp))
         Text(value, color = color, style = MaterialTheme.typography.titleMedium, fontWeight = FontWeight.Black)
+    }
+}
+
+@Preview(showBackground = true)
+@Composable
+fun AiObservatoryScreenPreview() {
+    KotlinMasterclassTheme {
+        AiObservatoryScreen(
+            onBackClick = {},
+            onSettingsClick = {}
+        )
     }
 }

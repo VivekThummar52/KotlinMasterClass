@@ -11,12 +11,15 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.example.kotlinmasterclass.ui.components.MasterclassTopAppBar
+import androidx.compose.ui.tooling.preview.Preview
+import com.example.kotlinmasterclass.ui.theme.KotlinMasterclassTheme
+import androidx.hilt.navigation.compose.hiltViewModel
 import kotlinx.coroutines.flow.collectLatest
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun FlowScreen(
-    viewModel: FlowViewModel,
+    viewModel: FlowViewModel = hiltViewModel(),
     onBackClick: () -> Unit,
     onSettingsClick: () -> Unit
 ) {
@@ -99,6 +102,7 @@ fun FlowScreen(
     }
 }
 
+
 @Composable
 fun FlowCard(
     title: String,
@@ -119,5 +123,16 @@ fun FlowCard(
                 Text(actionText)
             }
         }
+    }
+}
+
+@Preview(showBackground = true)
+@Composable
+fun FlowScreenPreview() {
+    KotlinMasterclassTheme {
+        FlowScreen(
+            onBackClick = {},
+            onSettingsClick = {}
+        )
     }
 }

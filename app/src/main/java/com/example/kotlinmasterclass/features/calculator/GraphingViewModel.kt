@@ -1,5 +1,6 @@
 package com.example.kotlinmasterclass.features.calculator
 
+import androidx.compose.ui.graphics.Color
 import androidx.lifecycle.ViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -8,6 +9,21 @@ import kotlinx.coroutines.flow.update
 import javax.inject.Inject
 import kotlin.math.cos
 import kotlin.math.sin
+
+// --- THEME STATE ---
+data class CalcColors(
+    val bg: Color,
+    val panel: Color,
+    val accent: Color,
+    val textMain: Color,
+    val padGray: Color
+)
+
+// --- DOMAIN MODELS ---
+data class CalculatorState(
+    val expression: String = "",
+    val isGraphing: Boolean = false
+)
 
 @HiltViewModel
 class GraphingViewModel @Inject constructor() : ViewModel() {

@@ -27,6 +27,9 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.kotlinmasterclass.utils.surfaceAnalysisProvider
 import com.example.kotlinmasterclass.ui.components.MasterclassTopAppBar
+import androidx.compose.ui.tooling.preview.Preview
+import com.example.kotlinmasterclass.ui.theme.KotlinMasterclassTheme
+import androidx.hilt.navigation.compose.hiltViewModel
 import java.text.NumberFormat
 import java.util.Locale
 
@@ -63,7 +66,7 @@ val LightFinanceColors = FinanceColors(
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun FinanceCommandCenterScreen(
-    viewModel: FinanceViewModel,
+    viewModel: FinanceViewModel = hiltViewModel(),
     onBackClick: () -> Unit,
     onSettingsClick: () -> Unit
 ) {
@@ -302,4 +305,15 @@ fun TransactionRow(tx: Transaction, colors: FinanceColors) {
 fun formatCurrency(amount: Float): String {
     val formatter = NumberFormat.getCurrencyInstance(Locale.US)
     return formatter.format(amount)
+}
+
+@Preview(showBackground = true)
+@Composable
+fun FinanceCommandCenterScreenPreview() {
+    KotlinMasterclassTheme {
+        FinanceCommandCenterScreen(
+            onBackClick = {},
+            onSettingsClick = {}
+        )
+    }
 }

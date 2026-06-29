@@ -11,6 +11,26 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 import kotlin.random.Random
 
+data class Asset(
+    val symbol: String,
+    val name: String,
+    val holdings: Float,
+    val currentPrice: Float,
+    val priceHistory: List<Float>
+) {
+    val totalValue: Float get() = holdings * currentPrice
+    val isPositive: Boolean get() = priceHistory.lastOrNull() ?: 0f >= (priceHistory.dropLast(1).lastOrNull() ?: 0f)
+}
+
+data class FinanceState(
+    val totalBalance: Float = 0f,
+    val dailyChange: Float = 0f,
+    val assets: List<Asset> = emptyList(),
+    val transactions: List<Transaction> = emptyList()
+)
+
+data class Transaction(val id: String, val title: String, val amount: Float, val timestamp: String)
+
 @HiltViewModel
 class FinanceViewModel @Inject constructor() : ViewModel() {
 

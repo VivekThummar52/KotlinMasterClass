@@ -1,5 +1,6 @@
 package com.example.kotlinmasterclass.features.audio
 
+import androidx.compose.ui.graphics.Color
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -10,6 +11,26 @@ import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 import kotlin.math.sin
+
+data class AudioState(
+    val isPlaying: Boolean = false,
+    val frequencies: List<Float> = List(64) { 0f },
+    val beatPulse: Float = 0f,
+    val trackProgress: Float = 0.3f,
+    val vinylRotation: Float = 0f,
+    // NEW STATES
+    val isLiked: Boolean = false,
+    val isShuffleOn: Boolean = false,
+    val repeatMode: RepeatMode = RepeatMode.OFF
+)
+
+data class AudioColors(
+    val bg: Color, val vinyl: Color, val groove: Color, val brand: Color,
+    val neon: Color, val active: Color, val inactive: Color,
+    val textMain: Color, val textMuted: Color
+)
+
+enum class RepeatMode { OFF, ALL, ONE }
 
 @HiltViewModel
 class AudioStudioViewModel @Inject constructor() : ViewModel() {

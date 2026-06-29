@@ -24,6 +24,9 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.kotlinmasterclass.utils.surfaceAnalysisProvider
 import com.example.kotlinmasterclass.ui.components.MasterclassTopAppBar
+import androidx.compose.ui.tooling.preview.Preview
+import com.example.kotlinmasterclass.ui.theme.KotlinMasterclassTheme
+import androidx.hilt.navigation.compose.hiltViewModel
 
 // --- CALCULATOR PALETTES ---
 val DarkCalcColors = CalcColors(bg = Color(0xFF000000), panel = Color(0xFF1C1C1E), accent = Color(0xFFFF9F0A), textMain = Color.White, padGray = Color(0xFF333333))
@@ -40,7 +43,7 @@ val padButtons = listOf(
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun GraphingCalculatorScreen(
-    viewModel: GraphingViewModel,
+    viewModel: GraphingViewModel = hiltViewModel(),
     onBackClick: () -> Unit,
     onSettingsClick: () -> Unit
 ) {
@@ -184,5 +187,16 @@ fun GraphingCalculatorScreen(
                 }
             }
         }
+    }
+}
+
+@Preview(showBackground = true)
+@Composable
+fun GraphingCalculatorScreenPreview() {
+    KotlinMasterclassTheme {
+        GraphingCalculatorScreen(
+            onBackClick = {},
+            onSettingsClick = {}
+        )
     }
 }

@@ -41,11 +41,15 @@ import androidx.compose.ui.graphics.Path
  import androidx.compose.ui.graphics.drawscope.rotate
 import androidx.compose.material.icons.filled.Android
 import com.example.kotlinmasterclass.ui.components.MasterclassTopAppBar
+import androidx.compose.ui.tooling.preview.Preview
+import com.example.kotlinmasterclass.ui.theme.KotlinMasterclassTheme
+
+import androidx.hilt.navigation.compose.hiltViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun MusicPlayerScreen(
-    viewModel: MusicPlayerViewModel,
+    viewModel: MusicPlayerViewModel = hiltViewModel(),
     onBackClick: () -> Unit,
     onSettingsClick: () -> Unit
 ) {
@@ -334,5 +338,16 @@ fun MusicPlayerScreen(
                 }
             }
         }
+    }
+}
+
+@Preview(showBackground = true)
+@Composable
+fun MusicPlayerScreenPreview() {
+    KotlinMasterclassTheme {
+        MusicPlayerScreen(
+            onBackClick = {},
+            onSettingsClick = {}
+        )
     }
 }

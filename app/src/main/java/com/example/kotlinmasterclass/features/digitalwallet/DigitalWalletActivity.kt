@@ -59,7 +59,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.core.view.WindowCompat
-import com.example.kotlinmasterclass.features.digitalwallet.ui.theme.KotlinMasterclassTheme
+import com.example.kotlinmasterclass.ui.theme.KotlinMasterclassTheme
 
 class DigitalWalletActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

@@ -19,11 +19,14 @@ import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.example.kotlinmasterclass.ui.components.MasterclassTopAppBar
+import androidx.compose.ui.tooling.preview.Preview
+import com.example.kotlinmasterclass.ui.theme.KotlinMasterclassTheme
+import androidx.hilt.navigation.compose.hiltViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun CanvasScreen(
-    viewModel: CanvasViewModel,
+    viewModel: CanvasViewModel = hiltViewModel(),
     onBackClick: () -> Unit,
     onSettingsClick: () -> Unit
 ) {
@@ -185,3 +188,15 @@ fun AnimatedBatteryGauge(
         }
     }
 }
+
+@Preview(showBackground = true)
+@Composable
+fun CanvasScreenPreview() {
+    KotlinMasterclassTheme {
+        CanvasScreen(
+            onBackClick = {},
+            onSettingsClick = {}
+        )
+    }
+}
+

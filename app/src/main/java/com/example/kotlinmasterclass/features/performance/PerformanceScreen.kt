@@ -13,11 +13,14 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.example.kotlinmasterclass.ui.components.MasterclassTopAppBar
+import androidx.compose.ui.tooling.preview.Preview
+import com.example.kotlinmasterclass.ui.theme.KotlinMasterclassTheme
+import androidx.hilt.navigation.compose.hiltViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun PerformanceScreen(
-    viewModel: PerformanceViewModel,
+    viewModel: PerformanceViewModel = hiltViewModel(),
     onBackClick: () -> Unit,
     onSettingsClick: () -> Unit
 ) {
@@ -39,7 +42,7 @@ fun PerformanceScreen(
                 .padding(paddingValues)
                 .padding(16.dp)
         ) {
-            // STICKY HEADER: Benchmark Monitor
+            // STICKY HEADER: State Monitor
             Card(
                 colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.secondaryContainer),
                 modifier = Modifier
@@ -47,7 +50,7 @@ fun PerformanceScreen(
                     .padding(bottom = 16.dp)
             ) {
                 Column(modifier = Modifier.padding(16.dp)) {
-                    Text("Benchmark Output", style = MaterialTheme.typography.titleSmall, fontWeight = FontWeight.Bold)
+                    Text("Optimization Monitor", style = MaterialTheme.typography.titleSmall, fontWeight = FontWeight.Bold)
                     Spacer(modifier = Modifier.height(4.dp))
                     Text(text = uiState, style = MaterialTheme.typography.bodyMedium)
                 }
@@ -62,23 +65,23 @@ fun PerformanceScreen(
                 verticalArrangement = Arrangement.spacedBy(16.dp)
             ) {
                 PerformanceCard(
-                    title = "1. Iterables (Eager)",
-                    explanation = "Standard collections process the entire list at every step. If you map 500k items, it creates a new 500k item list in memory before moving to the next operator. This is fast for small lists, but dangerous for massive data sets.",
-                    actionText = "Run Iterable Benchmark",
-                    onAction = { viewModel.runIterableBenchmark() }
-                )
-
-                PerformanceCard(
-                    title = "2. Sequences (Lazy)",
-                    explanation = "Sequences evaluate element-by-element. If you chain operators and only request 10 items via .take(10), it processes items one at a time and stops completely once it hits 10. Massive memory savings and massive speed boosts for large operations.",
+                    title = "1. Sequences (Lazy Evaluation)",
+                    explanation = "Sequences process items one by one through the whole pipeline. They stop completely as soon as terminal conditions are met, avoiding unnecessary processing of 500,000+ items.",
                     actionText = "Run Sequence Benchmark",
                     onAction = { viewModel.runSequenceBenchmark() }
                 )
 
                 PerformanceCard(
-                    title = "3. Value Classes",
-                    explanation = "By using '@JvmInline value class', you create a strict data type (like 'Password' instead of 'String') to prevent accidental bugs. At compile time, it acts like a class. At runtime, the JVM strips the class away and uses the raw primitive, saving you from heavy heap allocations.",
-                    actionText = "Evaluate Value Class",
+                    title = "2. Iterables (Eager Evaluation)",
+                    explanation = "Standard lists create brand-new intermediate collections in memory at every single step (map, filter). For large datasets, this puts massive pressure on the Garbage Collector (GC).",
+                    actionText = "Run Iterable Benchmark",
+                    onAction = { viewModel.runIterableBenchmark() }
+                )
+
+                PerformanceCard(
+                    title = "3. Inline Value Classes",
+                    explanation = "Value classes provide type safety (e.g. separate Token from String) but the compiler completely eliminates the object allocation, compiling it down to a primitive at runtime.",
+                    actionText = "Run Value Class Demo",
                     onAction = { viewModel.runValueClassDemo() }
                 )
             }
@@ -106,5 +109,16 @@ fun PerformanceCard(
                 Text(actionText)
             }
         }
+    }
+}
+
+@Preview(showBackground = true)
+@Composable
+fun PerformanceScreenPreview() {
+    KotlinMasterclassTheme {
+        PerformanceScreen(
+            onBackClick = {},
+            onSettingsClick = {}
+        )
     }
 }

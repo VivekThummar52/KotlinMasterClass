@@ -33,6 +33,9 @@ import com.example.kotlinmasterclass.utils.surfaceAnalysisProvider
 import com.example.kotlinmasterclass.ui.components.MasterclassTopAppBar
 import kotlin.math.cos
 import kotlin.math.sin
+import androidx.compose.ui.tooling.preview.Preview
+import com.example.kotlinmasterclass.ui.theme.KotlinMasterclassTheme
+import androidx.hilt.navigation.compose.hiltViewModel
 
 val DarkAudioColors = AudioColors(
     bg = Color(0xFF0F0F13), vinyl = Color(0xFF1A1A24), groove = Color(0xFF2A2A35),
@@ -49,7 +52,7 @@ val LightAudioColors = AudioColors(
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun AudioStudioScreen(
-    viewModel: AudioStudioViewModel,
+    viewModel: AudioStudioViewModel = hiltViewModel(),
     onBackClick: () -> Unit,
     onSettingsClick: () -> Unit
 ) {
@@ -180,5 +183,16 @@ fun AudioStudioScreen(
                 }
             }
         }
+    }
+}
+
+@Preview(showBackground = true)
+@Composable
+fun AudioStudioScreenPreview() {
+    KotlinMasterclassTheme {
+        AudioStudioScreen(
+            onBackClick = {},
+            onSettingsClick = {}
+        )
     }
 }

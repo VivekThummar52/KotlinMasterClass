@@ -50,6 +50,9 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.kotlinmasterclass.ui.components.MasterclassTopAppBar
+import androidx.compose.ui.tooling.preview.Preview
+import com.example.kotlinmasterclass.ui.theme.KotlinMasterclassTheme
+import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.kotlinmasterclass.utils.surfaceAnalysisProvider
 import kotlin.math.atan2
 import kotlin.math.cos
@@ -69,7 +72,7 @@ val LightNeoColors = SmartHomeColors(
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun SmartHomeScreen(
-    viewModel: SmartHomeViewModel,
+    viewModel: SmartHomeViewModel = hiltViewModel(),
     onBackClick: () -> Unit,
     onSettingsClick: () -> Unit
 ) {
@@ -191,6 +194,17 @@ fun SmartHomeScreen(
                 }
             }
         }
+    }
+}
+
+@Preview(showBackground = true)
+@Composable
+fun SmartHomeScreenPreview() {
+    KotlinMasterclassTheme {
+        SmartHomeScreen(
+            onBackClick = {},
+            onSettingsClick = {}
+        )
     }
 }
 

@@ -3,8 +3,6 @@ package com.example.kotlinmasterclass.features.testing
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
@@ -13,11 +11,14 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.example.kotlinmasterclass.ui.components.MasterclassTopAppBar
+import androidx.compose.ui.tooling.preview.Preview
+import com.example.kotlinmasterclass.ui.theme.KotlinMasterclassTheme
+import androidx.hilt.navigation.compose.hiltViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun TestingScreen(
-    viewModel: TestingViewModel,
+    viewModel: TestingViewModel = hiltViewModel(),
     onBackClick: () -> Unit,
     onSettingsClick: () -> Unit
 ) {
@@ -86,3 +87,15 @@ fun LogConsole(log: List<String>, color: androidx.compose.ui.graphics.Color) {
         }
     }
 }
+
+@Preview(showBackground = true)
+@Composable
+fun TestingScreenPreview() {
+    KotlinMasterclassTheme {
+        TestingScreen(
+            onBackClick = {},
+            onSettingsClick = {}
+        )
+    }
+}
+

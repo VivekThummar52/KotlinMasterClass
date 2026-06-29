@@ -13,11 +13,14 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.example.kotlinmasterclass.ui.components.MasterclassTopAppBar
+import androidx.compose.ui.tooling.preview.Preview
+import com.example.kotlinmasterclass.ui.theme.KotlinMasterclassTheme
+import androidx.hilt.navigation.compose.hiltViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun GenericsScreen(
-    viewModel: GenericsViewModel,
+    viewModel: GenericsViewModel = hiltViewModel(),
     onBackClick: () -> Unit,
     onSettingsClick: () -> Unit
 ) {
@@ -89,6 +92,7 @@ fun GenericsScreen(
     }
 }
 
+
 @Composable
 fun GenericsCard(
     title: String,
@@ -111,5 +115,16 @@ fun GenericsCard(
                 Text(actionText)
             }
         }
+    }
+}
+
+@Preview(showBackground = true)
+@Composable
+fun GenericsScreenPreview() {
+    KotlinMasterclassTheme {
+        GenericsScreen(
+            onBackClick = {},
+            onSettingsClick = {}
+        )
     }
 }
