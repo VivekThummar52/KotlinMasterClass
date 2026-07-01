@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">Kotlin Masterclass</string>
+    <string name="title_activity_job_discovery">JobDiscoveryActivity</string>
+    <string name="title_activity_my_spendings">MySpendingsActivity</string>
+    <string name="title_activity_my_healthctivity">MyHealthctivity</string>
+    <string name="title_activity_aicompanion">AICompanionActivity</string>
+    <string name="title_activity_digital_wallet">DigitalWalletActivity</string>
 </resources>
